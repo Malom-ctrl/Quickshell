@@ -8,7 +8,7 @@ Rectangle {
     height: 40
     implicitWidth: Math.max(40, layout.implicitWidth + 16)
     radius: 20
-    color: (mouseArea.containsMouse || popupVisible) ? Globals.activeColors.secondaryContainer : Qt.rgba(Globals.activeColors.secondaryContainer.r, Globals.activeColors.secondaryContainer.g, Globals.activeColors.secondaryContainer.b, 0.4)
+    color: (mouseArea.containsMouse || popupVisible) ? Globals.activeColors.Secondary50 : Globals.activeColors.Secondary25
     Behavior on color { ColorAnimation { duration: 150 } }
 
     property bool popupVisible: false
@@ -55,7 +55,7 @@ Rectangle {
             Icon {
                 anchors.centerIn: parent
                 path: root.activeNotification ? "M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" : "M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"
-                color: root.activeNotification ? Globals.activeColors.primary : Globals.activeColors.onSecondaryContainer
+                color: root.activeNotification ? Globals.activeColors.Secondary : Globals.activeColors.White
             }
             Rectangle {
                 anchors.top: parent.top
@@ -63,12 +63,12 @@ Rectangle {
                 anchors.margins: -4
                 width: 14; height: 14
                 radius: 7
-                color: Globals.activeColors.primary
+                color: Globals.activeColors.Secondary
                 visible: server.trackedNotifications.values.length > 0
                 Text {
                     anchors.centerIn: parent
                     text: server.trackedNotifications.values.length
-                    color: Globals.activeColors.onPrimary
+                    color: Globals.activeColors.Black
                     font.pixelSize: 10
                     font.bold: true
                 }
@@ -98,12 +98,12 @@ Rectangle {
                 // App initial
                 Rectangle {
                     width: 28; height: 28; radius: 14
-                    color: Globals.activeColors.onPrimary
+                    color: Globals.activeColors.Black
                     Layout.alignment: Qt.AlignVCenter
                     Text {
                         anchors.centerIn: parent
                         text: root.activeNotification && root.activeNotification.appName ? root.activeNotification.appName.charAt(0).toUpperCase() : "!"
-                        color: Globals.activeColors.primary
+                        color: Globals.activeColors.Secondary
                         font.pixelSize: 14
                         font.bold: true
                     }
@@ -117,7 +117,7 @@ Rectangle {
 
                     Text {
                         text: root.activeNotification ? root.activeNotification.summary : ""
-                        color: Globals.activeColors.onSecondaryContainer
+                        color: Globals.activeColors.White
                         font.pixelSize: 13
                         font.bold: true
                         Layout.fillWidth: true
@@ -126,7 +126,7 @@ Rectangle {
 
                     Text {
                         text: root.activeNotification ? root.activeNotification.body : ""
-                        color: Globals.activeColors.onSurfaceVariant
+                        color: Globals.activeColors.SecondaryLight
                         font.pixelSize: 12
                         Layout.fillWidth: true
                         elide: Text.ElideRight
@@ -141,7 +141,7 @@ Rectangle {
                         model: root.activeNotification ? root.activeNotification.actions : []
                         Rectangle {
                             property var action: modelData
-                            color: actArea.containsMouse ? Globals.activeColors.primary : Globals.activeColors.surfaceVariant
+                            color: actArea.containsMouse ? Globals.activeColors.Secondary : Globals.activeColors.Secondary10
                             radius: 12
                             implicitWidth: actText.implicitWidth + 24
                             implicitHeight: 24
@@ -149,7 +149,7 @@ Rectangle {
                                 id: actText
                                 anchors.centerIn: parent
                                 text: action.text ? (action.text.includes(':') ? action.text.split(':').pop() : (action.text.includes('=') ? action.text.split('=').pop() : action.text)) : ""
-                                color: actArea.containsMouse ? Globals.activeColors.onPrimary : Globals.activeColors.onSecondaryContainer
+                                color: actArea.containsMouse ? Globals.activeColors.Black : Globals.activeColors.White
                                 font.pixelSize: 12
                                 font.bold: true
                             }

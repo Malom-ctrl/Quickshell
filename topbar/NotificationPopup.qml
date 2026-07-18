@@ -42,9 +42,9 @@ PopupWindow {
 
         Rectangle {
             anchors.fill: parent
-            color: Globals.activeColors.background
+            color: Globals.activeColors.Black
             radius: 20
-            border.color: Globals.activeColors.surfaceVariant
+            border.color: Globals.activeColors.Secondary10
             border.width: 1
 
             ColumnLayout {
@@ -58,7 +58,7 @@ PopupWindow {
                     Layout.fillWidth: true
                     Text {
                         text: "Notifications"
-                        color: Globals.activeColors.onSecondaryContainer
+                        color: Globals.activeColors.White
                         font.pixelSize: 18
                         font.bold: true
                         Layout.fillWidth: true
@@ -66,9 +66,9 @@ PopupWindow {
 
                     Rectangle {
                         width: 32; height: 32; radius: 16
-                        color: clearMouse.containsMouse ? Globals.activeColors.secondaryContainer : "transparent"
+                        color: clearMouse.containsMouse ? Globals.activeColors.Secondary25 : "transparent"
                         visible: popup.server && popup.server.trackedNotifications.values.length > 0
-                        Icon { anchors.centerIn: parent; width: 16; height: 16; path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.activeColors.onSecondaryContainer }
+                        Icon { anchors.centerIn: parent; width: 16; height: 16; path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.activeColors.White }
                         MouseArea {
                             id: clearMouse; anchors.fill: parent; hoverEnabled: true
                             onClicked: {
@@ -95,7 +95,7 @@ PopupWindow {
                         width: ListView.view.width
                         height: notifCol.implicitHeight + 24
                         radius: 16
-                        color: Globals.activeColors.surfaceVariant
+                        color: Globals.activeColors.Secondary10
                         border.color: "transparent"
 
                         ColumnLayout {
@@ -111,12 +111,12 @@ PopupWindow {
                                 // App initial
                                 Rectangle {
                                     width: 28; height: 28; radius: 14
-                                    color: Globals.activeColors.onPrimary
+                                    color: Globals.activeColors.Black
                                     Layout.alignment: Qt.AlignVCenter
                                     Text {
                                         anchors.centerIn: parent
                                         text: modelData.appName ? modelData.appName.charAt(0).toUpperCase() : "!"
-                                        color: Globals.activeColors.primary
+                                        color: Globals.activeColors.Secondary
                                         font.pixelSize: 14
                                         font.bold: true
                                     }
@@ -131,21 +131,21 @@ PopupWindow {
                                         Layout.fillWidth: true
                                         Text {
                                             text: modelData.appName || "Notification"
-                                            color: Globals.activeColors.onSurfaceVariant
+                                            color: Globals.activeColors.SecondaryLight
                                             font.pixelSize: 11
                                             Layout.fillWidth: true
                                             elide: Text.ElideRight
                                         }
                                         Text {
                                             text: "now" // Placeholder for time
-                                            color: Globals.activeColors.onSurfaceVariant
+                                            color: Globals.activeColors.SecondaryLight
                                             font.pixelSize: 11
                                         }
                                     }
 
                                     Text {
                                         text: modelData.summary || ""
-                                        color: Globals.activeColors.onSecondaryContainer
+                                        color: Globals.activeColors.White
                                         font.pixelSize: 13
                                         font.bold: true
                                         Layout.fillWidth: true
@@ -154,7 +154,7 @@ PopupWindow {
 
                                     Text {
                                         text: modelData.body || ""
-                                        color: Globals.activeColors.onSurfaceVariant
+                                        color: Globals.activeColors.SecondaryLight
                                         font.pixelSize: 12
                                         Layout.fillWidth: true
                                         wrapMode: Text.Wrap
@@ -164,9 +164,9 @@ PopupWindow {
 
                                 Rectangle {
                                     width: 28; height: 28; radius: 14
-                                    color: closeMouse.containsMouse ? Globals.activeColors.secondaryContainer : "transparent"
+                                    color: closeMouse.containsMouse ? Globals.activeColors.Secondary25 : "transparent"
                                     Layout.alignment: Qt.AlignTop
-                                    Icon { anchors.centerIn: parent; width: 14; height: 14; path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.activeColors.onSurfaceVariant }
+                                    Icon { anchors.centerIn: parent; width: 14; height: 14; path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.activeColors.SecondaryLight }
                                     MouseArea {
                                         id: closeMouse; anchors.fill: parent; hoverEnabled: true
                                         onClicked: modelData.dismiss()
@@ -182,7 +182,7 @@ PopupWindow {
                                     model: modelData.actions
                                     Rectangle {
                                         property var action: modelData
-                                        color: actArea2.containsMouse ? Globals.activeColors.primary : Globals.activeColors.surfaceVariant
+                                        color: actArea2.containsMouse ? Globals.activeColors.Secondary : Globals.activeColors.Secondary10
                                         radius: 12
                                         implicitWidth: actText2.implicitWidth + 24
                                         implicitHeight: 24
@@ -190,7 +190,7 @@ PopupWindow {
                                             id: actText2
                                             anchors.centerIn: parent
                                             text: action.text ? (action.text.includes(':') ? action.text.split(':').pop() : (action.text.includes('=') ? action.text.split('=').pop() : action.text)) : ""
-                                            color: actArea2.containsMouse ? Globals.activeColors.onPrimary : Globals.activeColors.onSecondaryContainer
+                                            color: actArea2.containsMouse ? Globals.activeColors.Black : Globals.activeColors.White
                                             font.pixelSize: 12
                                             font.bold: true
                                         }
@@ -213,7 +213,7 @@ PopupWindow {
                 Text {
                     visible: !popup.server || popup.server.trackedNotifications.values.length === 0
                     text: "No new notifications"
-                    color: Globals.activeColors.onSurfaceVariant
+                    color: Globals.activeColors.SecondaryLight
                     font.pixelSize: 14
                     Layout.alignment: Qt.AlignCenter
                     Layout.fillHeight: true

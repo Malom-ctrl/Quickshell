@@ -13,26 +13,11 @@ QtObject {
     property string homeDir: Quickshell.env("HOME")
 
     property var activePalette: ({
-        primary: "#D0BCFF",
-        onPrimary: "#381E72",
-        primaryContainer: "#4F378B",
-        onPrimaryContainer: "#EADDFF",
-        secondary: "#CCC2DC",
-        onSecondary: "#332D41",
-        secondaryContainer: "#4A4458",
-        onSecondaryContainer: "#E8DEF8",
-        background: "#141218",
-        onBackground: "#E6E1E5",
-        surface: "#1D1B20",
-        onSurface: "#E6E1E5",
-        surfaceVariant: "#49454F",
-        onSurfaceVariant: "#CAC4D0",
-        outline: "#938F99",
-        error: "#F2B8B5",
-        caution: "#8C1D18",
-        onError: "#601410",
-        success: "#81C784",
-        onSuccess: "#003314"
+        Main: "#4f378b",
+        Secondary: "#d0bcff",
+        Success: "#81c784",
+        Warning: "#f2b8b5",
+        Error: "#8c1d18"
     })
 
     property bool themesReady: false
@@ -92,11 +77,43 @@ QtObject {
 
     function updateColors() {
         let t = themeAdapter;
-        let res = {};
-        for (let k in activePalette) {
-            let v = (t && t.palette && t.palette[k]) ? t.palette[k] : activePalette[k];
-            res[k] = Qt.color(v);
+
+        function mix(c1, c2, ratio) {
+            return Qt.rgba(
+                c1.r * (1 - ratio) + c2.r * ratio,
+                c1.g * (1 - ratio) + c2.g * ratio,
+                c1.b * (1 - ratio) + c2.b * ratio,
+                1.0
+            );
         }
+
+        let mainHex = (t && t.palette && t.palette.Main) ? t.palette.Main : activePalette.Main;
+        let secHex = (t && t.palette && t.palette.Secondary) ? t.palette.Secondary : activePalette.Secondary;
+        let successHex = (t && t.palette && t.palette.Success) ? t.palette.Success : activePalette.Success;
+        let warningHex = (t && t.palette && t.palette.Warning) ? t.palette.Warning : activePalette.Warning;
+        let errorHex = (t && t.palette && t.palette.Error) ? t.palette.Error : activePalette.Error;
+
+        let mainColor = Qt.color(mainHex);
+        let secColor = Qt.color(secHex);
+
+        let blackHsl = Qt.hsla(mainColor.hslHue, mainColor.hslSaturation * 0.2, mainColor.hslLightness * 0.3, 1.0);
+        let whiteHsl = Qt.hsla(mainColor.hslHue, mainColor.hslSaturation, mainColor.hslLightness + (1.0 - mainColor.hslLightness) * 0.90, 1.0);
+
+        let res = {
+            Main: mainColor,
+            Secondary: secColor,
+            Success: Qt.color(successHex),
+            Warning: Qt.color(warningHex),
+            Error: Qt.color(errorHex),
+            Black: (t && t.palette && t.palette.Black) ? Qt.color(t.palette.Black) : blackHsl,
+            White: (t && t.palette && t.palette.White) ? Qt.color(t.palette.White) : whiteHsl,
+            Secondary50: (t && t.palette && t.palette.Secondary50) ? Qt.color(t.palette.Secondary50) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.50),
+            Secondary25: (t && t.palette && t.palette.Secondary25) ? Qt.color(t.palette.Secondary25) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.25),
+            Secondary10: (t && t.palette && t.palette.Secondary10) ? Qt.color(t.palette.Secondary10) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.10)
+        };
+
+        res.SecondaryLight = (t && t.palette && t.palette.SecondaryLight) ? Qt.color(t.palette.SecondaryLight) : mix(res.White, secColor, 0.25);
+
         activeColors = res;
     }
 

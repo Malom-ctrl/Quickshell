@@ -10,7 +10,7 @@ Rectangle {
     width: layout.implicitWidth + 24
     height: 40
     radius: 20
-    color: mouseArea.containsMouse || popup.isActive ? Globals.activeColors.secondaryContainer : Qt.rgba(Globals.activeColors.secondaryContainer.r, Globals.activeColors.secondaryContainer.g, Globals.activeColors.secondaryContainer.b, 0.4)
+    color: (mouseArea.containsMouse || popup.isActive) ? Globals.activeColors.Secondary50 : Globals.activeColors.Secondary25
 
     Behavior on color { ColorAnimation { duration: 150 } }
 
@@ -115,7 +115,7 @@ Rectangle {
         ShapePath {
             id: shapePath
             fillColor: "transparent"
-            strokeColor: Globals.activeColors.primary
+            strokeColor: (mouseArea.containsMouse || popup.isActive) ? Globals.activeColors.White : Globals.activeColors.Secondary
             strokeWidth: 2
             capStyle: ShapePath.RoundCap
             strokeStyle: ShapePath.DashLine
@@ -158,7 +158,7 @@ Rectangle {
             width: 18
             height: 18
             path: "M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"
-            color: Globals.activeColors.onSurfaceVariant
+            color: Globals.activeColors.White
         }
 
         // OS Update Icon
@@ -167,7 +167,7 @@ Rectangle {
             width: 18
             height: 18
             path: ostreeManager.isRebootRequired ? "M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" : "M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-1-6h-3V8h-2v5H8l4 4 4-4z"
-            color: ostreeManager.isRebootRequired ? Globals.activeColors.success : (root.hasCritical ? Globals.activeColors.error : Globals.activeColors.primary)
+            color: ostreeManager.isRebootRequired ? Globals.activeColors.Success : (root.hasCritical ? Globals.activeColors.Warning : Globals.activeColors.Secondary)
         }
 
         // Flatpak Update Icon & Count
@@ -177,11 +177,11 @@ Rectangle {
             Icon {
                 width: 16; height: 16
                 path: "M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18-.21 0-.41-.06-.57-.18l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18.21 0 .41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9zM12 4.15L6.04 7.5 12 10.85l5.96-3.35L12 4.15zM5 15.91l6 3.38v-6.71L5 9.21v6.7zm14 0v-6.7l-6 3.38v6.71l6-3.38z"
-                color: Globals.activeColors.primary
+                color: Globals.activeColors.White
             }
             Text {
                 text: root.flatpakUpdates.toString()
-                color: Globals.activeColors.primary
+                color: Globals.activeColors.White
                 font.pixelSize: 14; font.bold: true
             }
         }

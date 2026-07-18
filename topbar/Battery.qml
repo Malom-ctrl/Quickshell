@@ -9,6 +9,7 @@ Item {
     id: root
     width: 40
     height: 40
+    visible: hasBattery
 
     readonly property bool hasBattery: UPower.displayDevice.isLaptopBattery
     readonly property real batteryPctRaw: hasBattery ? UPower.displayDevice.percentage : 1.0
@@ -25,12 +26,12 @@ Item {
     readonly property bool isLow: capacity <= 20 && !isCharging
 
     property color accentColor: {
-        if (isLow) return Globals.activeColors.error
-        if (isPlugged) return Globals.activeColors.success
-        return Globals.activeColors.onSecondaryContainer
+        if (isLow) return Globals.activeColors.Warning
+        if (isPlugged) return Globals.activeColors.Success
+        return Globals.activeColors.White
     }
 
-    property color bgColor: Globals.activeColors.secondaryContainer
+    property color bgColor: Globals.activeColors.Secondary25
     property color fgColor: accentColor
 
     property bool hovered: hoverArea.containsMouse
@@ -200,9 +201,9 @@ Item {
 
                 Rectangle {
                     anchors.fill: parent
-                    color: Globals.activeColors.background
+                    color: Globals.activeColors.Black
                     radius: 12
-                    border.color: Globals.activeColors.surfaceVariant
+                    border.color: Globals.activeColors.Secondary10
                     border.width: 1
 
                     ColumnLayout {
@@ -213,7 +214,7 @@ Item {
                         Text {
                             Layout.alignment: Qt.AlignHCenter
                             text: !root.hasBattery ? "No battery" : (root.capacity + "% · " + (root.isCharging ? "Charging" : root.isFull ? "Full" : "Discharging"))
-                            color: Globals.activeColors.onSecondaryContainer
+                            color: Globals.activeColors.White
                             font.pixelSize: 13
                             font.bold: true
                         }
@@ -222,7 +223,7 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                             visible: root.hasBattery && root.isPlugged && Math.abs(root.changeRate) > 0.01
                             text: Math.abs(root.changeRate).toFixed(1) + " W"
-                            color: Globals.activeColors.onSurfaceVariant
+                            color: Globals.activeColors.SecondaryLight
                             font.pixelSize: 12
                         }
                     }

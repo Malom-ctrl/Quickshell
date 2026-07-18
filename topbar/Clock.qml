@@ -7,7 +7,8 @@ Rectangle {
     implicitWidth: clockLayout.implicitWidth + 32
     implicitHeight: 40
     radius: 20
-    color: clockMouseArea.containsMouse ? Globals.activeColors.outline : Globals.activeColors.secondaryContainer // Secondary Container
+    color: (clockMouseArea.containsMouse || popupVisible) ? Globals.activeColors.Secondary50 : Globals.activeColors.Secondary25
+    Behavior on color { ColorAnimation { duration: 150 } }
 
     Behavior on color { ColorAnimation { duration: 150 } }
 
@@ -33,7 +34,7 @@ Rectangle {
             id: dateText
             Layout.alignment: Qt.AlignVCenter
             text: Qt.formatDate(new Date(), "ddd, MMM d")
-            color: Globals.activeColors.onSecondaryContainer // On Secondary Container
+            color: Globals.activeColors.White // On Secondary Container
             font.pixelSize: 15
             font.weight: Font.DemiBold
             // opacity: 0.8
@@ -44,7 +45,7 @@ Rectangle {
             id: timeText
             Layout.alignment: Qt.AlignVCenter
             text: Qt.formatTime(new Date(), "H:mm")
-            color: Globals.activeColors.onSecondaryContainer // On Secondary Container
+            color: Globals.activeColors.White // On Secondary Container
             font.pixelSize: 25
             font.bold: true
         }

@@ -98,9 +98,9 @@ PopupWindow {
 
         Rectangle {
             anchors.fill: parent
-            color: Globals.activeColors.background
+            color: Globals.activeColors.Black
             radius: 20
-            border.color: Globals.activeColors.surfaceVariant
+            border.color: Globals.activeColors.Secondary10
             border.width: 1
 
             ColumnLayout {
@@ -113,7 +113,7 @@ PopupWindow {
                     Layout.fillWidth: true
                     Text {
                         text: Qt.formatDate(new Date(currentYear, currentMonth, 1), "MMMM yyyy")
-                        color: Globals.activeColors.onSecondaryContainer
+                        color: Globals.activeColors.White
                         font.pixelSize: 18
                         font.bold: true
                         Layout.fillWidth: true
@@ -122,14 +122,14 @@ PopupWindow {
                         spacing: 8
                         Rectangle {
                             width: 32; height: 32; radius: 16
-                            color: prevMouse.containsMouse ? Globals.activeColors.secondaryContainer : "transparent"
-                            Icon { anchors.centerIn: parent; width: 16; height: 16; path: "M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"; color: Globals.activeColors.onSecondaryContainer }
+                            color: prevMouse.containsMouse ? Globals.activeColors.Secondary25 : "transparent"
+                            Icon { anchors.centerIn: parent; width: 16; height: 16; path: "M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"; color: Globals.activeColors.White }
                             MouseArea { id: prevMouse; anchors.fill: parent; hoverEnabled: true; onClicked: prevMonth() }
                         }
                         Rectangle {
                             width: 32; height: 32; radius: 16
-                            color: nextMouse.containsMouse ? Globals.activeColors.secondaryContainer : "transparent"
-                            Icon { anchors.centerIn: parent; width: 16; height: 16; path: "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"; color: Globals.activeColors.onSecondaryContainer }
+                            color: nextMouse.containsMouse ? Globals.activeColors.Secondary25 : "transparent"
+                            Icon { anchors.centerIn: parent; width: 16; height: 16; path: "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"; color: Globals.activeColors.White }
                             MouseArea { id: nextMouse; anchors.fill: parent; hoverEnabled: true; onClicked: nextMonth() }
                         }
                     }
@@ -153,7 +153,7 @@ PopupWindow {
                             Text {
                                 anchors.centerIn: parent
                                 text: modelData
-                                color: Globals.activeColors.onSurfaceVariant
+                                color: Globals.activeColors.SecondaryLight
                                 font.pixelSize: 13
                                 font.bold: true
                             }
@@ -166,7 +166,7 @@ PopupWindow {
                             width: 32; height: 32
                             radius: 16
                             Layout.alignment: Qt.AlignCenter
-                            color: isToday ? Globals.activeColors.primary : (dayMouse.containsMouse && isCurrentMonth ? Globals.activeColors.secondaryContainer : "transparent")
+                            color: isToday ? Globals.activeColors.Secondary : (dayMouse.containsMouse && isCurrentMonth ? Globals.activeColors.Secondary25 : "transparent")
 
                             property bool isToday: {
                                 let d = new Date()
@@ -177,7 +177,7 @@ PopupWindow {
                             Text {
                                 anchors.centerIn: parent
                                 text: modelData.day
-                                color: isToday ? Globals.activeColors.onPrimary : (isCurrentMonth ? Globals.activeColors.onSecondaryContainer : Globals.activeColors.secondaryContainer)
+                                color: isToday ? Globals.activeColors.Black : (isCurrentMonth ? Globals.activeColors.White : Globals.activeColors.Secondary25)
                                 font.pixelSize: 14
                                 font.bold: isToday
                             }

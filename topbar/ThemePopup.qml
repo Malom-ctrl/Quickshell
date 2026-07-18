@@ -69,9 +69,9 @@ PopupWindow {
 
         Rectangle {
             anchors.fill: parent
-            color: Globals.activeColors.surface
+            color: Globals.activeColors.Black
             radius: 20
-            border.color: Globals.activeColors.surfaceVariant
+            border.color: Globals.activeColors.Secondary10
             border.width: 1
 
             ColumnLayout {
@@ -82,7 +82,7 @@ PopupWindow {
 
                 Text {
                     text: "Themes"
-                    color: Globals.activeColors.onSurface
+                    color: Globals.activeColors.White
                     font.pixelSize: 18
                     font.bold: true
                     Layout.fillWidth: true
@@ -129,8 +129,8 @@ PopupWindow {
                                 Rectangle {
                                     anchors.fill: parent
                                     radius: 12
-                                    color: isActiveTheme ? Globals.activeColors.secondaryContainer : (themeMouse.containsMouse ? Globals.activeColors.surfaceVariant : Globals.activeColors.surface)
-                                    border.color: isActiveTheme ? Globals.activeColors.primary : "transparent"
+                                    color: isActiveTheme ? Globals.activeColors.Secondary25 : (themeMouse.containsMouse ? Globals.activeColors.Secondary10 : Globals.activeColors.Black)
+                                    border.color: isActiveTheme ? Globals.activeColors.Secondary : "transparent"
                                     border.width: isActiveTheme ? 2 : 0
 
                                     MouseArea {
@@ -152,9 +152,9 @@ PopupWindow {
                                             Layout.fillWidth: true
                                             Layout.fillHeight: true
                                             radius: 8
-                                            color: Globals.activeColors.background
+                                            color: Globals.activeColors.Black
                                             clip: true
-                                            border.color: Globals.activeColors.surfaceVariant
+                                            border.color: Globals.activeColors.Secondary10
                                             border.width: 1
 
                                             Image {
@@ -168,7 +168,7 @@ PopupWindow {
                                         Text {
                                             Layout.fillWidth: true
                                             text: themeData ? themeData.name : fileName
-                                            color: Globals.activeColors.onSurface
+                                            color: Globals.activeColors.White
                                             font.pixelSize: 12
                                             font.bold: true
                                             horizontalAlignment: Text.AlignHCenter
@@ -179,7 +179,7 @@ PopupWindow {
                                             Layout.alignment: Qt.AlignHCenter
                                             spacing: 4
                                             Repeater {
-                                                model: ["primary", "secondary", "background", "surface", "error", "success"]
+                                                model: ["Main", "Secondary", "Success", "Warning", "Error"]
                                                 delegate: Rectangle {
                                                     width: 14; height: 4; radius: 2
                                                     color: (themeData && themeData.palette && themeData.palette[modelData]) ? themeData.palette[modelData] : "#000"

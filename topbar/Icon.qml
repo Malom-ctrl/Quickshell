@@ -6,7 +6,7 @@ Item {
     width: 24
     height: 24
     property string path: ""
-    property color color: Globals.activeColors.onSurface
+    property color color: Globals.activeColors.White
     
     Shape {
         width: 24

@@ -110,9 +110,9 @@ PopupWindow {
 
         Rectangle {
             anchors.fill: parent
-            color: Globals.activeColors.surface
+            color: Globals.activeColors.Black
             radius: 24
-            border.color: Globals.activeColors.secondaryContainer
+            border.color: Globals.activeColors.Secondary25
             border.width: 1
             clip: true
 
@@ -128,7 +128,7 @@ PopupWindow {
 
                     Text {
                         text: "System Updates"
-                        color: Globals.activeColors.onSurface
+                        color: Globals.activeColors.White
                         font.pixelSize: 18
                         font.bold: true
                         Layout.fillWidth: true
@@ -138,11 +138,11 @@ PopupWindow {
                         id: refreshBtnBg
                         width: 32; height: 32; radius: 16
                         property bool isChecking: (widgetRoot && widgetRoot.ostreeMgr && widgetRoot.ostreeMgr.isChecking) || (widgetRoot && widgetRoot.flatpakMgr && widgetRoot.flatpakMgr.isChecking)
-                        color: refreshMouse.containsMouse && !isChecking ? Globals.activeColors.secondaryContainer : "transparent"
+                        color: refreshMouse.containsMouse && !isChecking ? Globals.activeColors.Secondary25 : "transparent"
                         Icon {
                             anchors.centerIn: parent; width: 16; height: 16;
                             path: "M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
-                            color: refreshBtnBg.isChecking ? Globals.activeColors.primary : Globals.activeColors.onSecondaryContainer
+                            color: refreshBtnBg.isChecking ? Globals.activeColors.Secondary : Globals.activeColors.White
                             RotationAnimation on rotation {
                                 loops: Animation.Infinite
                                 from: 0; to: 360; duration: 1000
@@ -188,11 +188,11 @@ PopupWindow {
                                 Icon {
                                     width: 16; height: 16
                                     path: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H8l4-4 4 4h-3v4h-2z"
-                                    color: (widgetRoot && widgetRoot.hasCritical) ? Globals.activeColors.error : Globals.activeColors.primary
+                                    color: (widgetRoot && widgetRoot.hasCritical) ? Globals.activeColors.Warning : Globals.activeColors.Secondary
                                 }
                                 Text {
                                     text: "OS System Packages"
-                                    color: (widgetRoot && widgetRoot.hasCritical) ? Globals.activeColors.error : Globals.activeColors.primary
+                                    color: (widgetRoot && widgetRoot.hasCritical) ? Globals.activeColors.Warning : Globals.activeColors.Secondary
                                     font.pixelSize: 14
                                     font.bold: true
                                 }
@@ -203,9 +203,9 @@ PopupWindow {
                                 delegate: Rectangle {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: ostreeItemCol.implicitHeight + 20
-                                    color: Globals.activeColors.surfaceVariant
+                                    color: Globals.activeColors.Secondary10
                                     radius: 12
-                                    border.color: Globals.activeColors.surfaceVariant
+                                    border.color: Globals.activeColors.Secondary10
                                     border.width: 1
 
                                     ColumnLayout {
@@ -220,7 +220,7 @@ PopupWindow {
 
                                             Text {
                                                 text: modelData.name
-                                                color: Globals.activeColors.onSurface
+                                                color: Globals.activeColors.White
                                                 font.pixelSize: 14
                                                 font.bold: true
                                                 Layout.fillWidth: true
@@ -237,17 +237,17 @@ PopupWindow {
                                                 property int advisorySeverity: modelData.advisorySeverity !== undefined ? modelData.advisorySeverity : 0
                                                 property bool isSecurity: modelData.advisoryType !== undefined && modelData.advisoryType.toLowerCase().includes("sec")
 
-                                                color: !isSecurity ? Globals.activeColors.secondaryContainer
-                                                    : advisorySeverity >= 4 ? Globals.activeColors.caution
-                                                    : advisorySeverity >= 3 ? Globals.activeColors.caution
-                                                    : advisorySeverity >= 2 ? Globals.activeColors.primaryContainer
-                                                    : Globals.activeColors.primaryContainer
+                                                color: !isSecurity ? Globals.activeColors.Secondary25
+                                                    : advisorySeverity >= 4 ? Globals.activeColors.Error
+                                                    : advisorySeverity >= 3 ? Globals.activeColors.Error
+                                                    : advisorySeverity >= 2 ? Globals.activeColors.Main
+                                                    : Globals.activeColors.Main
 
                                                 Text {
                                                     id: advisoryText
                                                     anchors.centerIn: parent
                                                     text: modelData.advisory || ""
-                                                    color: parent.isSecurity ? Globals.activeColors.error : Globals.activeColors.onSurface
+                                                    color: parent.isSecurity ? Globals.activeColors.Warning : Globals.activeColors.White
                                                     font.pixelSize: 10
                                                     font.bold: true
                                                 }
@@ -261,20 +261,20 @@ PopupWindow {
 
                                             Text {
                                                 text: modelData.oldVersion || ""
-                                                color: Globals.activeColors.onSurfaceVariant
+                                                color: Globals.activeColors.SecondaryLight
                                                 font.pixelSize: 12
                                                 Layout.fillWidth: true
                                                 elide: Text.ElideRight
                                             }
                                             Text {
                                                 text: "→"
-                                                color: Globals.activeColors.primary
+                                                color: Globals.activeColors.Secondary
                                                 font.pixelSize: 14
                                                 font.bold: true
                                             }
                                             Text {
                                                 text: modelData.newVersion || ""
-                                                color: Globals.activeColors.primary
+                                                color: Globals.activeColors.Secondary
                                                 font.pixelSize: 12
                                                 Layout.fillWidth: true
                                                 elide: Text.ElideRight
@@ -284,7 +284,7 @@ PopupWindow {
                                         Text {
                                             visible: (modelData.oldVersion === undefined || modelData.oldVersion === "") && (modelData.newVersion !== undefined && modelData.newVersion !== "")
                                             text: "New Version: " + (modelData.newVersion || "")
-                                            color: Globals.activeColors.primary
+                                            color: Globals.activeColors.Secondary
                                             font.pixelSize: 12
                                             Layout.fillWidth: true
                                             elide: Text.ElideRight
@@ -293,7 +293,7 @@ PopupWindow {
                                         Text {
                                             visible: modelData.synopsis !== undefined && modelData.synopsis !== ""
                                             text: modelData.synopsis || ""
-                                            color: Globals.activeColors.onSurfaceVariant
+                                            color: Globals.activeColors.SecondaryLight
                                             font.pixelSize: 12
                                             wrapMode: Text.Wrap
                                             Layout.fillWidth: true
@@ -308,7 +308,7 @@ PopupWindow {
 
                                             Text {
                                                 text: "Affected packages"
-                                                color: Globals.activeColors.onSecondaryContainer
+                                                color: Globals.activeColors.White
                                                 font.pixelSize: 12
                                                 font.bold: true
                                             }
@@ -319,7 +319,7 @@ PopupWindow {
                                                     required property var modelData
                                                     Layout.fillWidth: true
                                                     text: "• " + modelData
-                                                    color: Globals.activeColors.onSurfaceVariant
+                                                    color: Globals.activeColors.SecondaryLight
                                                     font.pixelSize: 12
                                                     wrapMode: Text.Wrap
                                                 }
@@ -335,7 +335,7 @@ PopupWindow {
 
                                             Text {
                                                 text: "Security advisories / CVEs"
-                                                color: Globals.activeColors.onSecondaryContainer
+                                                color: Globals.activeColors.White
                                                 font.pixelSize: 12
                                                 font.bold: true
                                             }
@@ -346,9 +346,9 @@ PopupWindow {
                                                     required property var modelData
 
                                                     Layout.fillWidth: true
-                                                    color: Globals.activeColors.surface
+                                                    color: Globals.activeColors.Black
                                                     radius: 8
-                                                    border.color: Globals.activeColors.surfaceVariant
+                                                    border.color: Globals.activeColors.Secondary10
                                                     border.width: 1
                                                     implicitHeight: cveCol.implicitHeight + 16
 
@@ -433,18 +433,18 @@ PopupWindow {
                                                                 property int sev: _cveSeverity
                                                                 property bool isLoading: !_fetched && _fetching
 
-                                                                color: isLoading ? Globals.activeColors.surfaceVariant
-                                                                    : sev >= 4 ? Globals.activeColors.caution
-                                                                    : sev >= 3 ? Globals.activeColors.caution
-                                                                    : sev >= 2 ? Globals.activeColors.primaryContainer
-                                                                    : sev >= 1 ? Globals.activeColors.primaryContainer
-                                                                    : Globals.activeColors.secondaryContainer
+                                                                color: isLoading ? Globals.activeColors.Secondary10
+                                                                    : sev >= 4 ? Globals.activeColors.Error
+                                                                    : sev >= 3 ? Globals.activeColors.Error
+                                                                    : sev >= 2 ? Globals.activeColors.Main
+                                                                    : sev >= 1 ? Globals.activeColors.Main
+                                                                    : Globals.activeColors.Secondary25
 
                                                                 Rectangle {
                                                                     anchors.fill: parent
                                                                     radius: parent.radius
                                                                     visible: severityPill.isLoading
-                                                                    color: Globals.activeColors.secondaryContainer
+                                                                    color: Globals.activeColors.Secondary25
                                                                     SequentialAnimation on opacity {
                                                                         running: severityPill.isLoading
                                                                         loops: Animation.Infinite
@@ -462,7 +462,7 @@ PopupWindow {
                                                                         : severityPill.sev >= 2 ? "MEDIUM"
                                                                         : severityPill.sev >= 1 ? "LOW"
                                                                         : "UNKNOWN"
-                                                                    color: severityPill.isLoading ? "transparent" : Globals.activeColors.error
+                                                                    color: severityPill.isLoading ? "transparent" : Globals.activeColors.Warning
                                                                     font.pixelSize: 10
                                                                     font.bold: true
                                                                 }
@@ -479,14 +479,14 @@ PopupWindow {
                                                                 width: 24
                                                                 height: 24
                                                                 radius: 12
-                                                                color: openLinkMouse.containsMouse ? Globals.activeColors.primary : Globals.activeColors.surfaceVariant
-                                                                border.color: Globals.activeColors.secondaryContainer
+                                                                color: openLinkMouse.containsMouse ? Globals.activeColors.Secondary : Globals.activeColors.Secondary10
+                                                                border.color: Globals.activeColors.Secondary25
                                                                 border.width: 1
 
                                                                 Text {
                                                                     anchors.centerIn: parent
                                                                     text: "↗"
-                                                                    color: openLinkMouse.containsMouse ? Globals.activeColors.onPrimary : Globals.activeColors.onSecondaryContainer
+                                                                    color: openLinkMouse.containsMouse ? Globals.activeColors.Black : Globals.activeColors.White
                                                                     font.pixelSize: 12
                                                                     font.bold: true
                                                                 }
@@ -508,7 +508,7 @@ PopupWindow {
                                                             id: cveText
                                                             Layout.fillWidth: true
                                                             text: modelData.title || ""
-                                                            color: Globals.activeColors.onSurfaceVariant
+                                                            color: Globals.activeColors.SecondaryLight
                                                             font.pixelSize: 11
                                                             wrapMode: Text.Wrap
                                                             maximumLineCount: 100
@@ -526,9 +526,9 @@ PopupWindow {
                                 visible: widgetRoot && widgetRoot.ostreeUpdates > 0 && widgetRoot.ostreeMgr && widgetRoot.ostreeMgr.updateCount === 0
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: fallbackOstreeCol.implicitHeight + 20
-                                color: Globals.activeColors.surfaceVariant
+                                color: Globals.activeColors.Secondary10
                                 radius: 12
-                                border.color: Globals.activeColors.surfaceVariant
+                                border.color: Globals.activeColors.Secondary10
                                 border.width: 1
 
                                 ColumnLayout {
@@ -538,13 +538,13 @@ PopupWindow {
                                     spacing: 4
                                     Text {
                                         text: "System Update Available"
-                                        color: Globals.activeColors.onSurface
+                                        color: Globals.activeColors.White
                                         font.pixelSize: 14
                                         font.bold: true
                                     }
                                     Text {
                                         text: "An OS update is staged and ready to be installed."
-                                        color: Globals.activeColors.onSurfaceVariant
+                                        color: Globals.activeColors.SecondaryLight
                                         font.pixelSize: 13
                                         wrapMode: Text.Wrap
                                         Layout.fillWidth: true
@@ -564,12 +564,12 @@ PopupWindow {
                                 property bool isTransactionInProgress: widgetRoot && widgetRoot.ostreeMgr && widgetRoot.ostreeMgr.hasActiveTransaction && !isOstreeUpdating
                                 property bool isRebootRequired: widgetRoot && widgetRoot.ostreeMgr && widgetRoot.ostreeMgr.isRebootRequired
 
-                                color: isOstreeChecking ? Globals.activeColors.surfaceVariant
-                                      : (isOstreeUpdating ? Globals.activeColors.surfaceVariant
-                                      : (isTransactionInProgress ? Globals.activeColors.caution
-                                      : (isRebootRequired ? (ostreeUpdateMouse.containsMouse ? Globals.activeColors.primaryContainer : Globals.activeColors.primary)
-                                      : (ostreeUpdateMouse.containsMouse ? Globals.activeColors.primary : Globals.activeColors.secondaryContainer))))
-                                border.color: isTransactionInProgress ? Globals.activeColors.primary : "transparent"
+                                color: isOstreeChecking ? Globals.activeColors.Secondary10
+                                      : (isOstreeUpdating ? Globals.activeColors.Secondary10
+                                      : (isTransactionInProgress ? Globals.activeColors.Error
+                                      : (isRebootRequired ? (ostreeUpdateMouse.containsMouse ? Globals.activeColors.Main : Globals.activeColors.Secondary)
+                                      : (ostreeUpdateMouse.containsMouse ? Globals.activeColors.Secondary : Globals.activeColors.Secondary25))))
+                                border.color: isTransactionInProgress ? Globals.activeColors.Secondary : "transparent"
                                 border.width: isTransactionInProgress ? 1 : 0
 
                                 property real perimeter: 2 * (ostreeBtn.width - 44) + 2 * Math.PI * 22
@@ -582,7 +582,7 @@ PopupWindow {
                                     ShapePath {
                                         id: ostreeShapePath
                                         fillColor: "transparent"
-                                        strokeColor: Globals.activeColors.primary
+                                        strokeColor: Globals.activeColors.Secondary
                                         strokeWidth: 2
                                         capStyle: ShapePath.RoundCap
                                         strokeStyle: ShapePath.DashLine
@@ -617,7 +617,7 @@ PopupWindow {
                                         visible: ostreeBtn.isRebootRequired
                                         width: 18; height: 18
                                         path: "M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
-                                        color: Globals.activeColors.surface
+                                        color: Globals.activeColors.Black
                                     }
 
                                     Text {
@@ -628,7 +628,7 @@ PopupWindow {
                                             if (ostreeBtn.isTransactionInProgress) return "Other operation running. Cancel ?";
                                             return "Install System OS Update";
                                         }
-                                        color: (ostreeBtn.isOstreeUpdating || ostreeBtn.isOstreeChecking) ? Globals.activeColors.onSecondaryContainer : (ostreeBtn.isRebootRequired ? Globals.activeColors.surface : (ostreeBtn.isTransactionInProgress ? Globals.activeColors.onPrimary : (ostreeUpdateMouse.containsMouse ? Globals.activeColors.onPrimary : Globals.activeColors.onSurface)))
+                                        color: (ostreeBtn.isOstreeUpdating || ostreeBtn.isOstreeChecking) ? Globals.activeColors.White : (ostreeBtn.isRebootRequired ? Globals.activeColors.Black : (ostreeBtn.isTransactionInProgress ? Globals.activeColors.Black : (ostreeUpdateMouse.containsMouse ? Globals.activeColors.Black : Globals.activeColors.White)))
                                         font.pixelSize: 13
                                         font.bold: true
                                         elide: Text.ElideRight
@@ -668,11 +668,11 @@ PopupWindow {
                                 Icon {
                                     width: 16; height: 16
                                     path: "M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18-.21 0-.41-.06-.57-.18l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18.21 0 .41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9zM12 4.15L6.04 7.5 12 10.85l5.96-3.35L12 4.15zM5 15.91l6 3.38v-6.71L5 9.21v6.7zm14 0v-6.7l-6 3.38v6.71l6-3.38z"
-                                    color: Globals.activeColors.primary
+                                    color: Globals.activeColors.Secondary
                                 }
                                 Text {
                                     text: "Flatpak Applications"
-                                    color: Globals.activeColors.primary
+                                    color: Globals.activeColors.Secondary
                                     font.pixelSize: 14
                                     font.bold: true
                                     Layout.fillWidth: true
@@ -694,8 +694,8 @@ PopupWindow {
                                     height: Layout.preferredHeight
                                     radius: 13
                                     enabled: !isCurrentlyUpdating && !isAllCompleted
-                                    color: isAllCompleted ? Globals.activeColors.surfaceVariant : (isCurrentlyUpdating ? Globals.activeColors.surfaceVariant : (flatpakAllMouse.containsMouse ? Globals.activeColors.primary : "transparent"))
-                                    border.color: isAllCompleted ? Globals.activeColors.primary : "transparent"
+                                    color: isAllCompleted ? Globals.activeColors.Secondary10 : (isCurrentlyUpdating ? Globals.activeColors.Secondary10 : (flatpakAllMouse.containsMouse ? Globals.activeColors.Secondary : "transparent"))
+                                    border.color: isAllCompleted ? Globals.activeColors.Secondary : "transparent"
                                     border.width: isAllCompleted ? 1 : 0
 
                                     Behavior on Layout.preferredWidth { NumberAnimation { duration: 250 } }
@@ -713,7 +713,7 @@ PopupWindow {
                                         ShapePath {
                                             id: flatpakAllShapePath
                                             fillColor: "transparent"
-                                            strokeColor: Globals.activeColors.primary
+                                            strokeColor: Globals.activeColors.Secondary
                                             strokeWidth: 2
                                             capStyle: ShapePath.RoundCap
                                             strokeStyle: ShapePath.DashLine
@@ -735,7 +735,7 @@ PopupWindow {
                                         anchors.centerIn: parent
                                         visible: !flatpakAllBtn.isAllCompleted && !flatpakAllBtn.isCurrentlyUpdating
                                         text: "Update All"
-                                        color: flatpakAllMouse.containsMouse ? Globals.activeColors.onPrimary : Globals.activeColors.primary
+                                        color: flatpakAllMouse.containsMouse ? Globals.activeColors.Black : Globals.activeColors.Secondary
                                         font.pixelSize: 11
                                         font.bold: true
                                     }
@@ -744,7 +744,7 @@ PopupWindow {
                                         anchors.centerIn: parent
                                         visible: flatpakAllBtn.isCurrentlyUpdating
                                         text: flatpakAllBtn.completedCount + " / " + flatpakAllBtn.totalCount
-                                        color: Globals.activeColors.onSecondaryContainer
+                                        color: Globals.activeColors.White
                                         font.pixelSize: 11
                                         font.bold: true
                                     }
@@ -754,7 +754,7 @@ PopupWindow {
                                         visible: flatpakAllBtn.isAllCompleted
                                         width: 14; height: 14
                                         path: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-                                        color: Globals.activeColors.primary
+                                        color: Globals.activeColors.Secondary
                                     }
 
                                     MouseArea {
@@ -776,9 +776,9 @@ PopupWindow {
                                 delegate: Rectangle {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Math.max(64, flatpakItemRow.implicitHeight + 20)
-                                    color: Globals.activeColors.surfaceVariant
+                                    color: Globals.activeColors.Secondary10
                                     radius: 12
-                                    border.color: Globals.activeColors.surfaceVariant
+                                    border.color: Globals.activeColors.Secondary10
                                     border.width: 1
 
                                     RowLayout {
@@ -796,11 +796,11 @@ PopupWindow {
                                                 Icon {
                                                     width: 14; height: 14
                                                     path: modelData.isSystem ? "M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" : "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                                                    color: Globals.activeColors.onSurfaceVariant
+                                                    color: Globals.activeColors.SecondaryLight
                                                 }
                                                 Text {
                                                     text: modelData.name || ""
-                                                    color: Globals.activeColors.onSurface
+                                                    color: Globals.activeColors.White
                                                     font.pixelSize: 14
                                                     font.bold: true
                                                     Layout.fillWidth: true
@@ -808,13 +808,13 @@ PopupWindow {
                                                 }
                                                 Text {
                                                     text: modelData.size || ""
-                                                    color: Globals.activeColors.onSurfaceVariant
+                                                    color: Globals.activeColors.SecondaryLight
                                                     font.pixelSize: 12
                                                 }
                                             }
                                             Text {
                                                 text: modelData.version ? ("Version " + modelData.version) : "Minor update"
-                                                color: Globals.activeColors.onSurfaceVariant
+                                                color: Globals.activeColors.SecondaryLight
                                                 font.pixelSize: 13
                                                 Layout.fillWidth: true
                                                 elide: Text.ElideRight
@@ -822,7 +822,7 @@ PopupWindow {
                                             Text {
                                                 visible: individualBtn.errorMsg !== ""
                                                 text: individualBtn.errorMsg
-                                                color: individualBtn.isFatal ? Globals.activeColors.error : Globals.activeColors.primaryContainer
+                                                color: individualBtn.isFatal ? Globals.activeColors.Warning : Globals.activeColors.Main
                                                 font.pixelSize: 12
                                                 Layout.fillWidth: true
                                                 wrapMode: Text.Wrap
@@ -842,8 +842,8 @@ PopupWindow {
                                             width: 70
                                             height: 32
                                             radius: 16
-                                            color: (isCompleted || isWarning) ? Globals.activeColors.secondaryContainer : (isUpdating ? Globals.activeColors.surfaceVariant : (individualUpdateMouse.containsMouse ? Globals.activeColors.primary : Globals.activeColors.surfaceVariant))
-                                            border.color: isUpdating ? "transparent" : (isFatal ? (individualUpdateMouse.containsMouse ? Globals.activeColors.primary : Globals.activeColors.error) : (isWarning ? Globals.activeColors.primaryContainer : (isCompleted ? Globals.activeColors.primary : Globals.activeColors.secondaryContainer)))
+                                            color: (isCompleted || isWarning) ? Globals.activeColors.Secondary25 : (isUpdating ? Globals.activeColors.Secondary10 : (individualUpdateMouse.containsMouse ? Globals.activeColors.Secondary : Globals.activeColors.Secondary10))
+                                            border.color: isUpdating ? "transparent" : (isFatal ? (individualUpdateMouse.containsMouse ? Globals.activeColors.Secondary : Globals.activeColors.Warning) : (isWarning ? Globals.activeColors.Main : (isCompleted ? Globals.activeColors.Secondary : Globals.activeColors.Secondary25)))
                                             border.width: isUpdating ? 0 : 1
 
                                             Behavior on color { ColorAnimation { duration: 250 } }
@@ -860,7 +860,7 @@ PopupWindow {
                                                 ShapePath {
                                                     id: flatpakIndivShapePath
                                                     fillColor: "transparent"
-                                                    strokeColor: Globals.activeColors.primary
+                                                    strokeColor: Globals.activeColors.Secondary
                                                     strokeWidth: 2
                                                     capStyle: ShapePath.RoundCap
                                                     strokeStyle: ShapePath.DashLine
@@ -883,7 +883,7 @@ PopupWindow {
                                                 opacity: (individualBtn.isUpdating) ? 0.0 : ((!individualBtn.isCompleted && !individualBtn.isWarning && !individualBtn.isFatal) || (individualUpdateMouse.containsMouse && individualBtn.isFatal)) ? 1.0 : 0.0
                                                 Behavior on opacity { NumberAnimation { duration: 250 } }
                                                 text: individualBtn.isFatal ? "Retry" : "Update"
-                                                color: individualUpdateMouse.containsMouse ? Globals.activeColors.onPrimary : Globals.activeColors.onSecondaryContainer
+                                                color: individualUpdateMouse.containsMouse ? Globals.activeColors.Black : Globals.activeColors.White
                                                 font.pixelSize: 12
                                                 font.bold: true
                                             }
@@ -893,7 +893,7 @@ PopupWindow {
                                                 opacity: individualBtn.isUpdating ? 1.0 : 0.0
                                                 Behavior on opacity { NumberAnimation { duration: 250 } }
                                                 text: (widgetRoot && widgetRoot.flatpakMgr ? widgetRoot.flatpakMgr.updateProgress : 0) + "%"
-                                                color: Globals.activeColors.onSecondaryContainer
+                                                color: Globals.activeColors.White
                                                 font.pixelSize: 12
                                                 font.bold: true
                                             }
@@ -904,7 +904,7 @@ PopupWindow {
                                                 Behavior on opacity { NumberAnimation { duration: 250 } }
                                                 width: 16; height: 16
                                                 path: individualBtn.isFatal ? "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" : (individualBtn.isWarning ? "M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" : "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z")
-                                                color: individualBtn.isFatal ? Globals.activeColors.error : (individualBtn.isWarning ? Globals.activeColors.primaryContainer : Globals.activeColors.primary)
+                                                color: individualBtn.isFatal ? Globals.activeColors.Warning : (individualBtn.isWarning ? Globals.activeColors.Main : Globals.activeColors.Secondary)
                                             }
 
                                             MouseArea {
@@ -927,7 +927,7 @@ PopupWindow {
                         Text {
                             visible: widgetRoot && widgetRoot.totalUpdates === 0
                             text: (widgetRoot.flatpakMgr && widgetRoot.flatpakMgr.isChecking) || (widgetRoot.ostreeMgr && widgetRoot.ostreeMgr.isChecking) ? "Checking for updates..." : "System is up to date."
-                            color: Globals.activeColors.onSurfaceVariant
+                            color: Globals.activeColors.SecondaryLight
                             font.pixelSize: 14
                             Layout.alignment: Qt.AlignCenter
                         }
@@ -947,7 +947,7 @@ PopupWindow {
 
                     Text {
                         text: parent.hasFlatpakError ? "Flatpak Error: " + widgetRoot.flatpakMgr.lastError : ""
-                        color: Globals.activeColors.error
+                        color: Globals.activeColors.Warning
                         font.pixelSize: 12
                         wrapMode: Text.Wrap
                         Layout.fillWidth: true
@@ -956,7 +956,7 @@ PopupWindow {
 
                     Text {
                         text: parent.hasOstreeError ? "System Update Error: " + widgetRoot.ostreeMgr.lastError : ""
-                        color: Globals.activeColors.error
+                        color: Globals.activeColors.Warning
                         font.pixelSize: 12
                         wrapMode: Text.Wrap
                         Layout.fillWidth: true

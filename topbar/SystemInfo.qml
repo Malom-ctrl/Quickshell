@@ -7,7 +7,7 @@ import Quickshell.Io
 Rectangle {
     id: root
     height: 40
-    color: Globals.activeColors.surface // Primary surface
+    color: Globals.activeColors.Black // Primary surface
     implicitWidth: layout.implicitWidth + 8
     radius: 20
 
@@ -248,9 +248,9 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
         implicitHeight: 40
 
         property string iconPath: ""
-        property color iconColor: Globals.activeColors.onSecondaryContainer
+        property color iconColor: Globals.activeColors.White
         property string text: ""
-        property color textColor: Globals.activeColors.onSecondaryContainer
+        property color textColor: Globals.activeColors.White
         property string tooltipTitle: ""
         property Component tooltipContent: null
 
@@ -259,7 +259,7 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
         Rectangle {
             anchors.fill: parent
-            color: ma.containsMouse ? Globals.activeColors.secondaryContainer : "transparent"
+            color: ma.containsMouse ? Globals.activeColors.Secondary25 : "transparent"
             radius: 20
             Behavior on color { ColorAnimation { duration: 150 } }
         }
@@ -341,9 +341,9 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
                 Rectangle {
                     anchors.fill: parent
-                    color: Globals.activeColors.background
+                    color: Globals.activeColors.Black
                     radius: 16
-                    border.color: Globals.activeColors.surfaceVariant
+                    border.color: Globals.activeColors.Secondary10
                     border.width: 1
 
                     ColumnLayout {
@@ -353,7 +353,7 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
                         Text {
                             text: infoItem.tooltipTitle
-                            color: Globals.activeColors.onSecondaryContainer
+                            color: Globals.activeColors.White
                             font.pixelSize: 14
                             font.bold: true
                         }
@@ -384,13 +384,13 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                     spacing: 8
                     RowLayout {
                         spacing: 16
-                        Text { text: "Total RX"; color: Globals.activeColors.onSurfaceVariant; font.pixelSize: 12; Layout.fillWidth: true }
-                        Text { text: root.formatBytes(root.netTotalRx); color: Globals.activeColors.onSecondaryContainer; font.pixelSize: 12; font.family: "monospace" }
+                        Text { text: "Total RX"; color: Globals.activeColors.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true }
+                        Text { text: root.formatBytes(root.netTotalRx); color: Globals.activeColors.White; font.pixelSize: 12; font.family: "monospace" }
                     }
                     RowLayout {
                         spacing: 16
-                        Text { text: "Total TX"; color: Globals.activeColors.onSurfaceVariant; font.pixelSize: 12; Layout.fillWidth: true }
-                        Text { text: root.formatBytes(root.netTotalTx); color: Globals.activeColors.onSecondaryContainer; font.pixelSize: 12; font.family: "monospace" }
+                        Text { text: "Total TX"; color: Globals.activeColors.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true }
+                        Text { text: root.formatBytes(root.netTotalTx); color: Globals.activeColors.White; font.pixelSize: 12; font.family: "monospace" }
                     }
                 }
             }
@@ -416,21 +416,21 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                             model: root.perCoreUsage
                             RowLayout {
                                 spacing: 8
-                                Text { text: modelData.name; color: Globals.activeColors.onSurfaceVariant; font.pixelSize: 12; Layout.preferredWidth: 40; font.family: "monospace" }
+                                Text { text: modelData.name; color: Globals.activeColors.SecondaryLight; font.pixelSize: 12; Layout.preferredWidth: 40; font.family: "monospace" }
                                 Rectangle {
                                     Layout.preferredWidth: 60
                                     Layout.preferredHeight: 6
                                     radius: 3
-                                    color: Globals.activeColors.secondaryContainer
+                                    color: Globals.activeColors.Secondary25
                                     Rectangle {
                                         width: parent.width * Math.max(0, Math.min(1, modelData.usage / 100))
                                         height: parent.height
                                         radius: 3
-                                        color: Globals.activeColors.primary
+                                        color: Globals.activeColors.Secondary
                                         Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                                     }
                                 }
-                                Text { text: Math.round(modelData.usage) + "%"; color: Globals.activeColors.onSecondaryContainer; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 32; horizontalAlignment: Text.AlignRight }
+                                Text { text: Math.round(modelData.usage) + "%"; color: Globals.activeColors.White; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 32; horizontalAlignment: Text.AlignRight }
                             }
                         }
                     }
@@ -439,26 +439,26 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                     ColumnLayout {
                         spacing: 8
                         visible: !root.cpuDetailsLoading
-                        Text { text: "Top Processes"; color: Globals.activeColors.onSecondaryContainer; font.pixelSize: 13; font.bold: true; Layout.topMargin: 4 }
+                        Text { text: "Top Processes"; color: Globals.activeColors.White; font.pixelSize: 13; font.bold: true; Layout.topMargin: 4 }
                         Repeater {
                             model: root.cpuTopProcs
                             RowLayout {
                                 spacing: 8
-                                Text { text: modelData.name; color: Globals.activeColors.onSurfaceVariant; font.pixelSize: 12; Layout.fillWidth: true; elide: Text.ElideRight; Layout.preferredWidth: 100 }
+                                Text { text: modelData.name; color: Globals.activeColors.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true; elide: Text.ElideRight; Layout.preferredWidth: 100 }
                                 Rectangle {
                                     Layout.preferredWidth: 60
                                     Layout.preferredHeight: 6
                                     radius: 3
-                                    color: Globals.activeColors.secondaryContainer
+                                    color: Globals.activeColors.Secondary25
                                     Rectangle {
                                         width: parent.width * Math.min(1, modelData.usage / 100)
                                         height: parent.height
                                         radius: 3
-                                        color: Globals.activeColors.error
+                                        color: Globals.activeColors.Warning
                                         Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                                     }
                                 }
-                                Text { text: modelData.usage.toFixed(1) + "%"; color: Globals.activeColors.onSecondaryContainer; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 40; horizontalAlignment: Text.AlignRight }
+                                Text { text: modelData.usage.toFixed(1) + "%"; color: Globals.activeColors.White; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 40; horizontalAlignment: Text.AlignRight }
                             }
                         }
                     }
@@ -470,12 +470,12 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                         visible: root.cpuDetailsLoading
                         Rectangle {
                             width: 100; height: 4
-                            radius: 2; color: Globals.activeColors.secondaryContainer
+                            radius: 2; color: Globals.activeColors.Secondary25
                             clip: true
                             anchors.centerIn: parent
                             Rectangle {
                                 id: indBar1
-                                width: 30; height: 4; radius: 2; color: Globals.activeColors.primary
+                                width: 30; height: 4; radius: 2; color: Globals.activeColors.Secondary
                                 SequentialAnimation {
                                     running: root.cpuDetailsLoading; loops: Animation.Infinite
                                     NumberAnimation { target: indBar1; property: "x"; from: -30; to: 100; duration: 800; easing.type: Easing.InOutQuad }
@@ -504,11 +504,11 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                         spacing: 8
                         RowLayout {
                             Layout.fillWidth: true
-                            Text { text: "Usage"; color: Globals.activeColors.onSurfaceVariant; font.pixelSize: 12 }
+                            Text { text: "Usage"; color: Globals.activeColors.SecondaryLight; font.pixelSize: 12 }
                             Item { Layout.fillWidth: true; Layout.minimumWidth: 16 }
                             Text {
                                 text: root.memUsedGB.toFixed(1) + " GB / " + root.memTotalGB.toFixed(1) + " GB"
-                                color: Globals.activeColors.onSecondaryContainer
+                                color: Globals.activeColors.White
                                 font.pixelSize: 12
                                 font.bold: true
                                 font.family: "monospace"
@@ -518,12 +518,12 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                             Layout.fillWidth: true
                             Layout.preferredHeight: 6
                             radius: 3
-                            color: Globals.activeColors.secondaryContainer
+                            color: Globals.activeColors.Secondary25
                             Rectangle {
                                 width: parent.width * (root.memTotalGB > 0 ? (root.memUsedGB / root.memTotalGB) : 0)
                                 height: parent.height
                                 radius: 3
-                                color: Globals.activeColors.primary
+                                color: Globals.activeColors.Secondary
                                 Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                             }
                         }
@@ -533,28 +533,28 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                     ColumnLayout {
                         spacing: 8
                         visible: !root.ramDetailsLoading
-                        Text { text: "Top Processes"; color: Globals.activeColors.onSecondaryContainer; font.pixelSize: 13; font.bold: true; Layout.topMargin: 4 }
+                        Text { text: "Top Processes"; color: Globals.activeColors.White; font.pixelSize: 13; font.bold: true; Layout.topMargin: 4 }
                         Repeater {
                             model: root.ramTopProcs
                             RowLayout {
                                 spacing: 8
-                                Text { text: modelData.name; color: Globals.activeColors.onSurfaceVariant; font.pixelSize: 12; Layout.fillWidth: true; elide: Text.ElideRight; Layout.preferredWidth: 100 }
+                                Text { text: modelData.name; color: Globals.activeColors.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true; elide: Text.ElideRight; Layout.preferredWidth: 100 }
                                 Rectangle {
                                     Layout.preferredWidth: 60
                                     Layout.preferredHeight: 6
                                     radius: 3
-                                    color: Globals.activeColors.secondaryContainer
+                                    color: Globals.activeColors.Secondary25
                                     Rectangle {
                                         width: parent.width * (root.memTotalGB > 0 ? (modelData.usageGB / root.memTotalGB) : 0)
                                         height: parent.height
                                         radius: 3
-                                        color: Globals.activeColors.primary
+                                        color: Globals.activeColors.Secondary
                                         Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                                     }
                                 }
                                 Text {
                                     text: modelData.usageGB >= 1.0 ? modelData.usageGB.toFixed(1) + " GB" : (modelData.usageGB * 1024).toFixed(0) + " MB"
-                                    color: Globals.activeColors.onSecondaryContainer; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 50; horizontalAlignment: Text.AlignRight
+                                    color: Globals.activeColors.White; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 50; horizontalAlignment: Text.AlignRight
                                 }
                             }
                         }
@@ -567,12 +567,12 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                         visible: root.ramDetailsLoading
                         Rectangle {
                             width: 100; height: 4
-                            radius: 2; color: Globals.activeColors.secondaryContainer
+                            radius: 2; color: Globals.activeColors.Secondary25
                             clip: true
                             anchors.centerIn: parent
                             Rectangle {
                                 id: indBar2
-                                width: 30; height: 4; radius: 2; color: Globals.activeColors.primary
+                                width: 30; height: 4; radius: 2; color: Globals.activeColors.Secondary
                                 SequentialAnimation {
                                     running: root.ramDetailsLoading; loops: Animation.Infinite
                                     NumberAnimation { target: indBar2; property: "x"; from: -30; to: 100; duration: 800; easing.type: Easing.InOutQuad }
@@ -587,8 +587,8 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
         SystemInfoItem {
             property bool isHot: root.tempC > 80
             iconPath: "M12,2A3,3 0 0,1 15,5V13.27A5,5 0 0,1 17,17A5,5 0 0,1 12,22A5,5 0 0,1 7,17A5,5 0 0,1 9,13.27V5A3,3 0 0,1 12,2ZM12,4A1,1 0 0,0 11,5V14.15L10.22,14.59A3,3 0 0,0 9,17A3,3 0 0,0 12,20A3,3 0 0,0 15,17A3,3 0 0,0 13.78,14.59L13,14.15V5A1,1 0 0,0 12,4ZM12,11A1,1 0 0,1 13,12V14.61C13.56,15.11 13.92,15.82 13.92,16.63C13.92,17.7 13.06,18.56 12,18.56C10.94,18.56 10.08,17.7 10.08,16.63C10.08,15.82 10.44,15.11 11,14.61V12A1,1 0 0,1 12,11Z"
-            iconColor: isHot ? Globals.activeColors.error : Globals.activeColors.onSecondaryContainer
-            textColor: isHot ? Globals.activeColors.error : Globals.activeColors.onSecondaryContainer
+            iconColor: isHot ? Globals.activeColors.Warning : Globals.activeColors.White
+            textColor: isHot ? Globals.activeColors.Warning : Globals.activeColors.White
             text: root.tempText
             tooltipTitle: "Temperature"
 
@@ -597,8 +597,8 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                     spacing: 12
                     RowLayout {
                         spacing: 8
-                        Text { text: "Current"; color: Globals.activeColors.onSurfaceVariant; font.pixelSize: 12; Layout.fillWidth: true }
-                        Text { text: root.tempC > 0 ? root.tempC.toFixed(1) + " °C" : "N/A"; color: Globals.activeColors.onSecondaryContainer; font.pixelSize: 12; font.family: "monospace"; font.bold: true }
+                        Text { text: "Current"; color: Globals.activeColors.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true }
+                        Text { text: root.tempC > 0 ? root.tempC.toFixed(1) + " °C" : "N/A"; color: Globals.activeColors.White; font.pixelSize: 12; font.family: "monospace"; font.bold: true }
                     }
                 }
             }

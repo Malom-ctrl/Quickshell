@@ -101,7 +101,7 @@ RowLayout {
             height: 12
             radius: 6
 
-            color: isFocused ? Globals.activeColors.primary : (isActive ? Globals.activeColors.onSecondaryContainer : Globals.activeColors.secondaryContainer)
+            color: isFocused ? Globals.activeColors.Secondary : (isActive ? Globals.activeColors.White : Globals.activeColors.Secondary25)
 
             Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
             Behavior on color { ColorAnimation { duration: 300 } }

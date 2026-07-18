@@ -49,9 +49,9 @@ PanelWindow {
         height: Math.min(600, 100 + resultsList.contentHeight)
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height * 0.3
-        color: Globals.activeColors.background
+        color: Globals.activeColors.Black
         radius: 20
-        border.color: Globals.activeColors.surfaceVariant
+        border.color: Globals.activeColors.Secondary10
         border.width: 1
 
         Behavior on height { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
@@ -68,9 +68,9 @@ PanelWindow {
             Rectangle {
                 Layout.fillWidth: true
                 height: 56
-                color: Globals.activeColors.surface
+                color: Globals.activeColors.Black
                 radius: 28
-                border.color: searchInput.focus ? Globals.activeColors.primary : Globals.activeColors.secondaryContainer
+                border.color: searchInput.focus ? Globals.activeColors.Secondary : Globals.activeColors.Secondary25
                 border.width: 2
 
                 RowLayout {
@@ -80,7 +80,7 @@ PanelWindow {
 
                     Icon {
                         path: "M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                        color: Globals.activeColors.primary
+                        color: Globals.activeColors.Secondary
                     }
 
                     TextInput {
@@ -88,7 +88,7 @@ PanelWindow {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         verticalAlignment: TextInput.AlignVCenter
-                        color: Globals.activeColors.onSurface
+                        color: Globals.activeColors.White
                         font.pixelSize: 18
                         clip: true
                         focus: true
@@ -128,7 +128,7 @@ PanelWindow {
                     width: ListView.view.width
                     height: 56
                     radius: 12
-                    color: ListView.isCurrentItem ? Globals.activeColors.secondaryContainer : (mouseArea.containsMouse ? Globals.activeColors.surface : "transparent")
+                    color: ListView.isCurrentItem ? Globals.activeColors.Secondary25 : (mouseArea.containsMouse ? Globals.activeColors.Black : "transparent")
 
                     RowLayout {
                         anchors.fill: parent
@@ -151,7 +151,7 @@ PanelWindow {
                                 anchors.fill: parent
                                 visible: !appIcon.visible
                                 path: modelData.iconPath || "M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
-                                color: ListView.isCurrentItem ? Globals.activeColors.primary : Globals.activeColors.onSecondaryContainer
+                                color: ListView.isCurrentItem ? Globals.activeColors.Secondary : Globals.activeColors.White
                             }
                         }
 
@@ -163,20 +163,20 @@ PanelWindow {
                                 Layout.fillWidth: true
                                 horizontalAlignment: Text.AlignLeft
                                 text: modelData.title || ""
-                                color: ListView.isCurrentItem ? Globals.activeColors.onSecondaryContainer : Globals.activeColors.onSurface
+                                color: ListView.isCurrentItem ? Globals.activeColors.White : Globals.activeColors.White
                                 font.pixelSize: 16
                                 font.bold: true
                                 elide: Text.ElideRight
                             }
-                            Text {
-                                Layout.fillWidth: true
-                                horizontalAlignment: Text.AlignLeft
-                                visible: modelData.subtitle !== undefined && modelData.subtitle !== ""
-                                text: modelData.subtitle || ""
-                                color: Globals.activeColors.onSurfaceVariant
-                                font.pixelSize: 12
-                                elide: Text.ElideRight
-                            }
+                            //Text {
+                            //    Layout.fillWidth: true
+                            //    horizontalAlignment: Text.AlignLeft
+                            //    visible: modelData.subtitle !== undefined && modelData.subtitle !== ""
+                            //    text: modelData.subtitle || ""
+                            //    color: Globals.activeColors.SecondaryLight
+                            //    font.pixelSize: 12
+                            //    elide: Text.ElideRight
+                            //}
                         }
                     }
 
