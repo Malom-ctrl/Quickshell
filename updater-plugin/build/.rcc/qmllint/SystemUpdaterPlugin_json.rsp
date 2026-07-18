@@ -1,0 +1,13 @@
+--bare
+-I
+/var/home/user/.config/quickshell/updater-plugin/build
+-I
+/var/home/user/.config/quickshell/updater-plugin/build/Custom/SystemUpdater
+-I
+/var/home/user/.config/quickshell/updater-plugin/build
+-I
+/usr/lib64/qt6/qml
+--resource
+/var/home/user/.config/quickshell/updater-plugin/build/.qt/rcc/qmake_Custom_SystemUpdater.qrc
+--json
+/var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_qmllint.json

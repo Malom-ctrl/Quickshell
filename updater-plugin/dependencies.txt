@@ -1,0 +1,1 @@
+cmake gcc-c++ qt6-qtbase-devel qt6-qtdeclarative-devel flatpak-devel glib2-devel

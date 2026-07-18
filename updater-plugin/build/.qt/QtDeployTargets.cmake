@@ -1,0 +1,4 @@
+set(__QT_DEPLOY_TARGET_SystemUpdaterPlugin_FILE /var/home/user/.config/quickshell/updater-plugin/build/libSystemUpdaterPlugin.so)
+set(__QT_DEPLOY_TARGET_SystemUpdaterPlugin_TYPE SHARED_LIBRARY)
+set(__QT_DEPLOY_TARGET_SystemUpdaterPluginplugin_FILE /var/home/user/.config/quickshell/updater-plugin/build/Custom/SystemUpdater/libSystemUpdaterPluginplugin.so)
+set(__QT_DEPLOY_TARGET_SystemUpdaterPluginplugin_TYPE MODULE_LIBRARY)

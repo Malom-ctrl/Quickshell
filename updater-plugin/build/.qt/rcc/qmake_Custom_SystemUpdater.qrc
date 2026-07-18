@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/Custom/SystemUpdater">
+    <file alias="qmldir">/var/home/user/.config/quickshell/updater-plugin/build/Custom/SystemUpdater/qmldir</file>
+  </qresource>
+</RCC>
+

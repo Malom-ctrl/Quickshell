@@ -1,0 +1,2 @@
+/var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/include/../EWIEGA46WW/moc_FlatpakManager.cpp.json
+/var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/include/../EWIEGA46WW/moc_OstreeUpdater.cpp.json

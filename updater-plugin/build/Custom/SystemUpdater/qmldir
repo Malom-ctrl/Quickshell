@@ -1,0 +1,7 @@
+module Custom.SystemUpdater
+linktarget SystemUpdaterPluginplugin
+optional plugin SystemUpdaterPluginplugin
+classname Custom_SystemUpdaterPlugin
+typeinfo SystemUpdaterPlugin.qmltypes
+prefer :/Custom/SystemUpdater/
+

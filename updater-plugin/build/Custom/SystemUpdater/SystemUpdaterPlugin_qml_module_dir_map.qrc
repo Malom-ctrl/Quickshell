@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/Custom/SystemUpdater">/var/home/user/.config/quickshell/updater-plugin/build/Custom/SystemUpdater</file>
+
+  </qresource>
+</RCC>

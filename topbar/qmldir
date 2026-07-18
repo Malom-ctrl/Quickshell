@@ -1,0 +1,20 @@
+
+AudioControl 1.0 AudioControl.qml
+AudioPopup 1.0 AudioPopup.qml
+Bar 1.0 Bar.qml
+Battery 1.0 Battery.qml
+CalendarPopup 1.0 CalendarPopup.qml
+Clock 1.0 Clock.qml
+singleton Globals 1.0 Globals.qml
+Icon 1.0 Icon.qml
+Media 1.0 Media.qml
+NotificationPopup 1.0 NotificationPopup.qml
+NotificationWidget 1.0 NotificationWidget.qml
+PowerControls 1.0 PowerControls.qml
+PowerProfile 1.0 PowerProfile.qml
+SystemInfo 1.0 SystemInfo.qml
+ThemePopup 1.0 ThemePopup.qml
+ThemeWidget 1.0 ThemeWidget.qml
+UpdaterPopup 1.0 UpdaterPopup.qml
+UpdaterWidget 1.0 UpdaterWidget.qml
+Workspaces 1.0 Workspaces.qml

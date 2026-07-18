@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/var/home/user/.config/quickshell/updater-plugin/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

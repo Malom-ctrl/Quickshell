@@ -1,0 +1,3 @@
+[<SLASH>var<SLASH>home<SLASH>user<SLASH>.config<SLASH>quickshell<SLASH>updater-plugin]
+importPaths="/var/home/user/.config/quickshell/updater-plugin/build:/var/home/user/.config/quickshell/updater-plugin/build/Custom/SystemUpdater:/usr/lib64/qt6/qml"
+resourceFiles="/var/home/user/.config/quickshell/updater-plugin/build/.qt/rcc/qmake_Custom_SystemUpdater.qrc"

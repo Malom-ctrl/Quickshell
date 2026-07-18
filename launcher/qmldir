@@ -1,0 +1,4 @@
+module QuickshellLauncher
+LauncherWindow 1.0 LauncherWindow.qml
+Icon 1.0 Icon.qml
+singleton Globals 1.0 Globals.qml
