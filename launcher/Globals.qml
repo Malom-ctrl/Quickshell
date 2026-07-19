@@ -7,6 +7,9 @@ import Qt.labs.folderlistmodel
 QtObject {
     id: root
 
+    property string shellName: Quickshell.shellDir.split("/").pop()
+    property string themePrefix: shellName + "."
+
     property int popupMargin: 52
     property int popupScreenPadding: 12
 
@@ -60,6 +63,9 @@ QtObject {
     property var currentTheme: themeAdapter
     property var activeColors: activePalette
 
+    property QtObject customColors: QtObject {
+    }
+
     function updateColors() {
         let t = themeAdapter;
 
@@ -92,7 +98,7 @@ QtObject {
             Error: Qt.color(errorHex),
             Black: (t && t.palette && t.palette.Black) ? Qt.color(t.palette.Black) : blackHsl,
             White: (t && t.palette && t.palette.White) ? Qt.color(t.palette.White) : whiteHsl,
-            Secondary50: (t && t.palette && t.palette.Secondary50) ? Qt.color(t.palette.Secondary50) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.5),
+            Secondary50: (t && t.palette && t.palette.Secondary50) ? Qt.color(t.palette.Secondary50) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.50),
             Secondary25: (t && t.palette && t.palette.Secondary25) ? Qt.color(t.palette.Secondary25) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.25),
             Secondary10: (t && t.palette && t.palette.Secondary10) ? Qt.color(t.palette.Secondary10) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.10)
         };
@@ -100,6 +106,18 @@ QtObject {
         res.SecondaryLight = (t && t.palette && t.palette.SecondaryLight) ? Qt.color(t.palette.SecondaryLight) : mix(res.White, secColor, 0.25);
 
         activeColors = res;
+
+        let prefix = root.themePrefix;
+        if (t && t.palette) {
+            for (let k in t.palette) {
+                if (k.startsWith(prefix)) {
+                    let keyName = k.substring(prefix.length);
+                    if (keyName in customColors) {
+                        customColors[keyName] = Qt.color(t.palette[k]);
+                    }
+                }
+            }
+        }
     }
 
     function forceThemeReload() {
@@ -114,7 +132,19 @@ QtObject {
         updateColors();
         let defaultTheme = {
             name: "Default Dark",
-            palette: activePalette,
+            palette: {
+                Main: activePalette.Main,
+                Secondary: activePalette.Secondary,
+                Success: activePalette.Success,
+                Warning: activePalette.Warning,
+                Error: activePalette.Error,
+                "//Black": "Calculated from Main with -80 saturation and -70 lightness (e.g. #0a0712)",
+                "//White": "Calculated from Main with +90 lightness (e.g. #eaddff)",
+                "//Secondary50": "Calculated from Secondary at 50% opacity",
+                "//Secondary25": "Calculated from Secondary at 25% opacity",
+                "//Secondary10": "Calculated from Secondary at 10% opacity",
+                "//SecondaryLight": "Calculated from White mixed with 25% of Secondary"
+            },
             wallpaper: ""
         };
         let themeJson = JSON.stringify(defaultTheme, null, 2);
@@ -125,7 +155,4 @@ QtObject {
         initProc.running = true;
     }
 
-    function pColor(name) {
-        return activeColors[name];
-    }
 }

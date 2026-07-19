@@ -7,6 +7,9 @@ import Qt.labs.folderlistmodel
 QtObject {
     id: root
 
+    property string shellName: Quickshell.shellDir.split("/").pop()
+    property string themePrefix: shellName + "."
+
     property int popupMargin: 52
     property int popupScreenPadding: 12
 
@@ -75,6 +78,10 @@ QtObject {
     property var currentTheme: themeAdapter
     property var activeColors: activePalette
 
+    property QtObject customColors: QtObject {
+        property color barBackground
+    }
+
     function updateColors() {
         let t = themeAdapter;
 
@@ -115,6 +122,20 @@ QtObject {
         res.SecondaryLight = (t && t.palette && t.palette.SecondaryLight) ? Qt.color(t.palette.SecondaryLight) : mix(res.White, secColor, 0.25);
 
         activeColors = res;
+
+        customColors.barBackground = activeColors.Black
+
+        let prefix = root.themePrefix;
+        if (t && t.palette) {
+            for (let k in t.palette) {
+                if (k.startsWith(prefix)) {
+                    let keyName = k.substring(prefix.length);
+                    if (keyName in customColors) {
+                        customColors[keyName] = Qt.color(t.palette[k]);
+                    }
+                }
+            }
+        }
     }
 
     function forceThemeReload() {
@@ -129,7 +150,19 @@ QtObject {
         updateColors();
         let defaultTheme = {
             name: "Default Dark",
-            palette: activePalette,
+            palette: {
+                Main: activePalette.Main,
+                Secondary: activePalette.Secondary,
+                Success: activePalette.Success,
+                Warning: activePalette.Warning,
+                Error: activePalette.Error,
+                "//Black": "Calculated from Main with -80 saturation and -70 lightness (e.g. #0a0712)",
+                "//White": "Calculated from Main with +90 lightness (e.g. #eaddff)",
+                "//Secondary50": "Calculated from Secondary at 50% opacity",
+                "//Secondary25": "Calculated from Secondary at 25% opacity",
+                "//Secondary10": "Calculated from Secondary at 10% opacity",
+                "//SecondaryLight": "Calculated from White mixed with 25% of Secondary"
+            },
             wallpaper: ""
         };
         let themeJson = JSON.stringify(defaultTheme, null, 2);
@@ -140,7 +173,4 @@ QtObject {
         initProc.running = true;
     }
 
-    function pColor(name) {
-        return activeColors[name];
-    }
 }

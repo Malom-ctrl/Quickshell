@@ -25,7 +25,7 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: Globals.activeColors.Black
+        color: Globals.customColors.barBackground
         radius: height / 2
         border.color: Globals.activeColors.Secondary10
         border.width: 1
