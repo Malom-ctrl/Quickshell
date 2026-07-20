@@ -28,7 +28,7 @@ QtObject {
             "layout {\n" +
             "    focus-ring {\n" +
             "        on\n" +
-            "        active-gradient from=\"" + main + "\" to=\"" + sec + "\" angle=45\n" +
+            "        active-gradient from=\"" + sec + "\" to=\"" + main + "\" angle=45\n" +
             "    }\n" +
             "}\n"
 
