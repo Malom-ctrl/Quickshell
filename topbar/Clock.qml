@@ -4,12 +4,12 @@ import Quickshell
 
 Rectangle {
     id: root
+    property string themeScope: "topbar.Clock"
+
     implicitWidth: clockLayout.implicitWidth + 32
     implicitHeight: 40
-    radius: 20
-    color: (clockMouseArea.containsMouse || popupVisible) ? Globals.activeColors.Secondary50 : Globals.activeColors.Secondary25
-    Behavior on color { ColorAnimation { duration: 150 } }
-
+    radius: Globals.customValue(themeScope, "radius", Globals.themeVars.borderRadiusHuge)
+    color: (clockMouseArea.containsMouse || popupVisible) ? Globals.customValue(themeScope, "hoverColor", Globals.themeVars.Secondary50) : Globals.customValue(themeScope, "color", Globals.themeVars.Secondary25)
     Behavior on color { ColorAnimation { duration: 150 } }
 
     property bool popupVisible: false
@@ -28,25 +28,23 @@ Rectangle {
     RowLayout {
         id: clockLayout
         anchors.centerIn: parent
-        spacing: 12
+        spacing: Globals.customValue(themeScope + ".clockLayout", "spacing", Globals.themeVars.spacingLarge)
 
         Text {
             id: dateText
             Layout.alignment: Qt.AlignVCenter
             text: Qt.formatDate(new Date(), "ddd, MMM d")
-            color: Globals.activeColors.White // On Secondary Container
-            font.pixelSize: 15
+            color: Globals.customValue(themeScope + ".dateText", "color", Globals.themeVars.White)
+            font.pixelSize: Globals.customValue(themeScope + ".dateText", "fontSize", Globals.themeVars.fontSizeMedium)
             font.weight: Font.DemiBold
-            // opacity: 0.8
-            // font.bold: true
         }
 
         Text {
             id: timeText
             Layout.alignment: Qt.AlignVCenter
             text: Qt.formatTime(new Date(), "H:mm")
-            color: Globals.activeColors.White // On Secondary Container
-            font.pixelSize: 25
+            color: Globals.customValue(themeScope + ".timeText", "color", Globals.themeVars.White)
+            font.pixelSize: Globals.customValue(themeScope + ".timeText", "fontSize", Globals.themeVars.fontSizeHuge)
             font.bold: true
         }
     }

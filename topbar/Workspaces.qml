@@ -4,7 +4,9 @@ import Quickshell.Io
 
 RowLayout {
     id: root
-    spacing: 8
+    property string themeScope: "topbar.Workspaces"
+
+    spacing: Globals.customValue(themeScope, "spacing", Globals.themeVars.spacingMedium)
 
     property var workspacesList: []
     property string outputName: ""
@@ -97,11 +99,11 @@ RowLayout {
             property bool isFocused: ws.is_focused || false
             property bool isActive: ws.is_active || false
 
-            width: isFocused ? 48 : (isActive ? 24 : 12)
-            height: 12
-            radius: 6
+            width: isFocused ? Globals.customValue(themeScope + ".pill", "widthFocused", 48) : (isActive ? Globals.customValue(themeScope + ".pill", "widthActive", 24) : Globals.customValue(themeScope + ".pill", "widthInactive", 12))
+            height: Globals.customValue(themeScope + ".pill", "height", 12)
+            radius: Globals.customValue(themeScope + ".pill", "radius", 6)
 
-            color: isFocused ? Globals.activeColors.Secondary : (isActive ? Globals.activeColors.White : Globals.activeColors.Secondary25)
+            color: isFocused ? Globals.customValue(themeScope + ".pill", "colorFocused", Globals.themeVars.Secondary) : (isActive ? Globals.customValue(themeScope + ".pill", "colorActive", Globals.themeVars.White) : Globals.customValue(themeScope + ".pill", "colorInactive", Globals.themeVars.Secondary25))
 
             Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
             Behavior on color { ColorAnimation { duration: 300 } }

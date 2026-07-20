@@ -5,19 +5,20 @@ import Quickshell.Io
 
 Rectangle {
     id: root
-    width: 40
-    height: 40
-    radius: 20
-    color: mouseArea.containsMouse ? Globals.activeColors.Secondary25 : Globals.activeColors.Secondary10
+    property string themeScope: "topbar.PowerControls"
+    width: Globals.customValue(themeScope, "width", 40)
+    height: Globals.customValue(themeScope, "height", 40)
+    radius: Globals.customValue(themeScope, "radius", Globals.themeVars.borderRadiusHuge)
+    color: mouseArea.containsMouse ? Globals.customValue(themeScope, "hoverColor", Globals.themeVars.Secondary25) : Globals.customValue(themeScope, "color", Globals.themeVars.Secondary10)
     Behavior on color { ColorAnimation { duration: 150 } }
 
     property bool popupVisible: false
 
     Icon {
         anchors.centerIn: parent
-        width: 20; height: 20
+        width: Globals.customValue(themeScope + ".icon", "width", 20); height: Globals.customValue(themeScope + ".icon", "height", 20)
         path: "M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"
-        color: Globals.activeColors.White
+        color: Globals.customValue(themeScope + ".icon", "color", Globals.themeVars.White)
     }
 
     MouseArea {
@@ -65,28 +66,28 @@ Rectangle {
 
             Rectangle {
                 anchors.fill: parent
-                color: Globals.activeColors.Black
-                radius: 16
-                border.color: Globals.activeColors.Secondary10
-                border.width: 1
+                color: Globals.customValue(themeScope + ".popup", "color", Globals.themeVars.Black)
+                radius: Globals.customValue(themeScope + ".popup", "radius", Globals.themeVars.borderRadiusLarge)
+                border.color: Globals.customValue(themeScope + ".popup", "borderColor", Globals.themeVars.Secondary10)
+                border.width: Globals.customValue(themeScope + ".popup", "borderWidth", Globals.themeVars.borderWidthSmall)
 
                 ColumnLayout {
                     id: popupLayout
                     anchors.centerIn: parent
-                    spacing: 4
+                    spacing: Globals.customValue(themeScope + ".popup.layout", "spacing", 4)
 
                     component PowerButton: Rectangle {
                         id: btn
                         property string iconPath: ""
                         property string actionCmd: ""
                         property string text: ""
-                        property color hoverBg: Globals.activeColors.Secondary25
-                        property color iconColor: Globals.activeColors.White
+                        property color hoverBg: Globals.customValue(themeScope + ".popup.button", "hoverColor", Globals.themeVars.Secondary25)
+                        property color iconColor: Globals.customValue(themeScope + ".popup.button.icon", "color", Globals.themeVars.White)
 
                         Layout.fillWidth: true
-                        implicitWidth: 160
-                        implicitHeight: 48
-                        radius: 12
+                        implicitWidth: Globals.customValue(themeScope + ".popup.button", "width", 160)
+                        implicitHeight: Globals.customValue(themeScope + ".popup.button", "height", 48)
+                        radius: Globals.customValue(themeScope + ".popup.button", "radius", Globals.themeVars.borderRadiusMedium)
                         color: btnMouse.containsMouse ? hoverBg : "transparent"
 
                         Behavior on color { ColorAnimation { duration: 150 } }
@@ -98,11 +99,11 @@ Rectangle {
 
                         RowLayout {
                             anchors.fill: parent
-                            anchors.margins: 12
-                            spacing: 12
+                            anchors.margins: Globals.customValue(themeScope + ".popup.button.layout", "margins", Globals.themeVars.spacingLarge)
+                            spacing: Globals.customValue(themeScope + ".popup.button.layout", "spacing", Globals.themeVars.spacingLarge)
                             Icon {
                                 Layout.alignment: Qt.AlignVCenter
-                                width: 20; height: 20
+                                width: Globals.customValue(themeScope + ".popup.button.icon", "width", 20); height: Globals.customValue(themeScope + ".popup.button.icon", "height", 20)
                                 path: iconPath
                                 color: btn.iconColor
                             }
@@ -110,8 +111,8 @@ Rectangle {
                                 Layout.alignment: Qt.AlignVCenter
                                 Layout.fillWidth: true
                                 text: btn.text
-                                color: Globals.activeColors.White
-                                font.pixelSize: 14
+                                color: Globals.customValue(themeScope + ".popup.button.text", "color", Globals.themeVars.White)
+                                font.pixelSize: Globals.customValue(themeScope + ".popup.button.text", "fontSize", Globals.themeVars.fontSizeMedium)
                             }
                         }
 
@@ -152,7 +153,7 @@ Rectangle {
                         text: "Power Off"
                         iconPath: "M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"
                         actionCmd: "systemctl poweroff"
-                        hoverBg: Globals.activeColors.Error
+                        hoverBg: Globals.customValue(themeScope + ".popup.powerOff", "hoverColor", Globals.themeVars.Error)
                     }
                 }
             }

@@ -7,8 +7,9 @@ import Quickshell.Services.UPower
 
 Item {
     id: root
-    width: 40
-    height: 40
+    property string themeScope: "topbar.Battery"
+    width: Globals.customValue(themeScope, "width", 40)
+    height: Globals.customValue(themeScope, "height", 40)
     visible: hasBattery
 
     readonly property bool hasBattery: UPower.displayDevice.isLaptopBattery
@@ -26,12 +27,12 @@ Item {
     readonly property bool isLow: capacity <= 20 && !isCharging
 
     property color accentColor: {
-        if (isLow) return Globals.activeColors.Warning
-        if (isPlugged) return Globals.activeColors.Success
-        return Globals.activeColors.White
+        if (isLow) return Globals.customValue(themeScope, "lowColor", Globals.themeVars.Warning)
+        if (isPlugged) return Globals.customValue(themeScope, "pluggedColor", Globals.themeVars.Success)
+        return Globals.customValue(themeScope, "defaultColor", Globals.themeVars.White)
     }
 
-    property color bgColor: Globals.activeColors.Secondary25
+    property color bgColor: Globals.customValue(themeScope, "color", Globals.themeVars.Secondary25)
     property color fgColor: accentColor
 
     property bool hovered: hoverArea.containsMouse
@@ -201,21 +202,21 @@ Item {
 
                 Rectangle {
                     anchors.fill: parent
-                    color: Globals.activeColors.Black
-                    radius: 12
-                    border.color: Globals.activeColors.Secondary10
-                    border.width: 1
+                    color: Globals.customValue(themeScope + ".popup", "color", Globals.themeVars.Black)
+                    radius: Globals.customValue(themeScope + ".popup", "radius", Globals.themeVars.borderRadiusMedium)
+                    border.color: Globals.customValue(themeScope + ".popup", "borderColor", Globals.themeVars.Secondary10)
+                    border.width: Globals.customValue(themeScope + ".popup", "borderWidth", Globals.themeVars.borderWidthSmall)
 
                     ColumnLayout {
                         id: contentLayout
                         anchors.centerIn: parent
-                        spacing: 4
+                        spacing: Globals.customValue(themeScope + ".popup.layout", "spacing", 4)
 
                         Text {
                             Layout.alignment: Qt.AlignHCenter
                             text: !root.hasBattery ? "No battery" : (root.capacity + "% · " + (root.isCharging ? "Charging" : root.isFull ? "Full" : "Discharging"))
-                            color: Globals.activeColors.White
-                            font.pixelSize: 13
+                            color: Globals.customValue(themeScope + ".popup.text", "color", Globals.themeVars.White)
+                            font.pixelSize: Globals.customValue(themeScope + ".popup.text", "fontSize", 13)
                             font.bold: true
                         }
 
@@ -223,8 +224,8 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                             visible: root.hasBattery && root.isPlugged && Math.abs(root.changeRate) > 0.01
                             text: Math.abs(root.changeRate).toFixed(1) + " W"
-                            color: Globals.activeColors.SecondaryLight
-                            font.pixelSize: 12
+                            color: Globals.customValue(themeScope + ".popup.subText", "color", Globals.themeVars.SecondaryLight)
+                            font.pixelSize: Globals.customValue(themeScope + ".popup.subText", "fontSize", Globals.themeVars.fontSizeSmall)
                         }
                     }
                 }

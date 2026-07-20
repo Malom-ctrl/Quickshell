@@ -42,33 +42,33 @@ PopupWindow {
 
         Rectangle {
             anchors.fill: parent
-            color: Globals.activeColors.Black
-            radius: 20
-            border.color: Globals.activeColors.Secondary10
-            border.width: 1
+            color: Globals.customValue(root.themeScope + ".popup", "color", Globals.themeVars.Black)
+            radius: Globals.customValue(root.themeScope + ".popup", "radius", Globals.themeVars.borderRadiusHuge)
+            border.color: Globals.customValue(root.themeScope + ".popup", "borderColor", Globals.themeVars.Secondary10)
+            border.width: Globals.customValue(root.themeScope + ".popup", "borderWidth", Globals.themeVars.borderWidthSmall)
 
             ColumnLayout {
                 id: contentLayout
                 anchors.fill: parent
-                anchors.margins: 16
-                spacing: 12
+                anchors.margins: Globals.customValue(root.themeScope + ".popup.layout", "margins", Globals.themeVars.spacingHuge)
+                spacing: Globals.customValue(root.themeScope + ".popup.layout", "spacing", Globals.themeVars.spacingLarge)
 
                 RowLayout {
                     id: headerRow
                     Layout.fillWidth: true
                     Text {
                         text: "Notifications"
-                        color: Globals.activeColors.White
-                        font.pixelSize: 18
+                        color: Globals.customValue(root.themeScope + ".popup.header", "color", Globals.themeVars.White)
+                        font.pixelSize: Globals.customValue(root.themeScope + ".popup.header", "fontSize", Globals.themeVars.fontSizeLarge)
                         font.bold: true
                         Layout.fillWidth: true
                     }
 
                     Rectangle {
-                        width: 32; height: 32; radius: 16
-                        color: clearMouse.containsMouse ? Globals.activeColors.Secondary25 : "transparent"
+                        width: Globals.customValue(root.themeScope + ".popup.clearBtn", "width", 32); height: Globals.customValue(root.themeScope + ".popup.clearBtn", "height", 32); radius: Globals.customValue(root.themeScope + ".popup.clearBtn", "radius", 16)
+                        color: clearMouse.containsMouse ? Globals.customValue(root.themeScope + ".popup.clearBtn", "hoverColor", Globals.themeVars.Secondary25) : "transparent"
                         visible: popup.server && popup.server.trackedNotifications.values.length > 0
-                        Icon { anchors.centerIn: parent; width: 16; height: 16; path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.activeColors.White }
+                        Icon { anchors.centerIn: parent; width: Globals.customValue(root.themeScope + ".popup.clearBtn.icon", "width", 16); height: Globals.customValue(root.themeScope + ".popup.clearBtn.icon", "height", 16); path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.customValue(root.themeScope + ".popup.clearBtn.icon", "color", Globals.themeVars.White) }
                         MouseArea {
                             id: clearMouse; anchors.fill: parent; hoverEnabled: true
                             onClicked: {
@@ -88,65 +88,65 @@ PopupWindow {
                     Layout.fillHeight: true
                     Layout.preferredHeight: Math.max(1, contentHeight)
                     clip: true
-                    spacing: 8
+                    spacing: Globals.customValue(root.themeScope + ".popup.list", "spacing", Globals.themeVars.spacingMedium)
                     model: popup.server ? popup.server.trackedNotifications.values : []
 
                     delegate: Rectangle {
                         width: ListView.view.width
-                        height: notifCol.implicitHeight + 24
-                        radius: 16
-                        color: Globals.activeColors.Secondary10
-                        border.color: "transparent"
+                        height: notifCol.implicitHeight + Globals.customValue(root.themeScope + ".popup.listItem", "padding", 24)
+                        radius: Globals.customValue(root.themeScope + ".popup.listItem", "radius", Globals.themeVars.borderRadiusLarge)
+                        color: Globals.customValue(root.themeScope + ".popup.listItem", "color", Globals.themeVars.Secondary10)
+                        border.color: Globals.customValue(root.themeScope + ".popup.listItem", "borderColor", "transparent")
 
                         ColumnLayout {
                             id: notifCol
                             anchors.fill: parent
-                            anchors.margins: 12
-                            spacing: 8
+                            anchors.margins: Globals.customValue(root.themeScope + ".popup.listItem.layout", "margins", Globals.themeVars.spacingLarge)
+                            spacing: Globals.customValue(root.themeScope + ".popup.listItem.layout", "spacing", Globals.themeVars.spacingMedium)
 
                             RowLayout {
                                 Layout.fillWidth: true
-                                spacing: 12
+                                spacing: Globals.customValue(root.themeScope + ".popup.listItem.header", "spacing", Globals.themeVars.spacingLarge)
 
                                 // App initial
                                 Rectangle {
-                                    width: 28; height: 28; radius: 14
-                                    color: Globals.activeColors.Black
+                                    width: Globals.customValue(root.themeScope + ".popup.listItem.icon", "width", 28); height: Globals.customValue(root.themeScope + ".popup.listItem.icon", "height", 28); radius: Globals.customValue(root.themeScope + ".popup.listItem.icon", "radius", 14)
+                                    color: Globals.customValue(root.themeScope + ".popup.listItem.icon", "color", Globals.themeVars.Black)
                                     Layout.alignment: Qt.AlignVCenter
                                     Text {
                                         anchors.centerIn: parent
                                         text: modelData.appName ? modelData.appName.charAt(0).toUpperCase() : "!"
-                                        color: Globals.activeColors.Secondary
-                                        font.pixelSize: 14
+                                        color: Globals.customValue(root.themeScope + ".popup.listItem.icon.text", "color", Globals.themeVars.Secondary)
+                                        font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.icon.text", "fontSize", Globals.themeVars.fontSizeMedium)
                                         font.bold: true
                                     }
                                 }
 
                                 ColumnLayout {
                                     Layout.fillWidth: true
-                                    spacing: 2
+                                    spacing: Globals.customValue(root.themeScope + ".popup.listItem.text", "spacing", 2)
                                     Layout.alignment: Qt.AlignVCenter
 
                                     RowLayout {
                                         Layout.fillWidth: true
                                         Text {
                                             text: modelData.appName || "Notification"
-                                            color: Globals.activeColors.SecondaryLight
-                                            font.pixelSize: 11
+                                            color: Globals.customValue(root.themeScope + ".popup.listItem.appName", "color", Globals.themeVars.SecondaryLight)
+                                            font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.appName", "fontSize", 11)
                                             Layout.fillWidth: true
                                             elide: Text.ElideRight
                                         }
                                         Text {
                                             text: "now" // Placeholder for time
-                                            color: Globals.activeColors.SecondaryLight
-                                            font.pixelSize: 11
+                                            color: Globals.customValue(root.themeScope + ".popup.listItem.time", "color", Globals.themeVars.SecondaryLight)
+                                            font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.time", "fontSize", 11)
                                         }
                                     }
 
                                     Text {
                                         text: modelData.summary || ""
-                                        color: Globals.activeColors.White
-                                        font.pixelSize: 13
+                                        color: Globals.customValue(root.themeScope + ".popup.listItem.summary", "color", Globals.themeVars.White)
+                                        font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.summary", "fontSize", 13)
                                         font.bold: true
                                         Layout.fillWidth: true
                                         wrapMode: Text.Wrap
@@ -154,8 +154,8 @@ PopupWindow {
 
                                     Text {
                                         text: modelData.body || ""
-                                        color: Globals.activeColors.SecondaryLight
-                                        font.pixelSize: 12
+                                        color: Globals.customValue(root.themeScope + ".popup.listItem.body", "color", Globals.themeVars.SecondaryLight)
+                                        font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.body", "fontSize", Globals.themeVars.fontSizeSmall)
                                         Layout.fillWidth: true
                                         wrapMode: Text.Wrap
                                         visible: text !== ""
@@ -163,10 +163,10 @@ PopupWindow {
                                 }
 
                                 Rectangle {
-                                    width: 28; height: 28; radius: 14
-                                    color: closeMouse.containsMouse ? Globals.activeColors.Secondary25 : "transparent"
+                                    width: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "width", 28); height: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "height", 28); radius: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "radius", 14)
+                                    color: closeMouse.containsMouse ? Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "hoverColor", Globals.themeVars.Secondary25) : "transparent"
                                     Layout.alignment: Qt.AlignTop
-                                    Icon { anchors.centerIn: parent; width: 14; height: 14; path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.activeColors.SecondaryLight }
+                                    Icon { anchors.centerIn: parent; width: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn.icon", "width", 14); height: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn.icon", "height", 14); path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn.icon", "color", Globals.themeVars.SecondaryLight) }
                                     MouseArea {
                                         id: closeMouse; anchors.fill: parent; hoverEnabled: true
                                         onClicked: modelData.dismiss()
@@ -176,22 +176,22 @@ PopupWindow {
 
                             RowLayout {
                                 Layout.fillWidth: true
-                                spacing: 6
+                                spacing: Globals.customValue(root.themeScope + ".popup.listItem.actions", "spacing", 6)
                                 visible: modelData.actions && modelData.actions.length > 0
                                 Repeater {
                                     model: modelData.actions
                                     Rectangle {
                                         property var action: modelData
-                                        color: actArea2.containsMouse ? Globals.activeColors.Secondary : Globals.activeColors.Secondary10
-                                        radius: 12
+                                        color: actArea2.containsMouse ? Globals.customValue(root.themeScope + ".popup.listItem.action", "hoverColor", Globals.themeVars.Secondary) : Globals.customValue(root.themeScope + ".popup.listItem.action", "color", Globals.themeVars.Secondary10)
+                                        radius: Globals.customValue(root.themeScope + ".popup.listItem.action", "radius", Globals.themeVars.borderRadiusMedium)
                                         implicitWidth: actText2.implicitWidth + 24
-                                        implicitHeight: 24
+                                        implicitHeight: Globals.customValue(root.themeScope + ".popup.listItem.action", "height", 24)
                                         Text {
                                             id: actText2
                                             anchors.centerIn: parent
                                             text: action.text ? (action.text.includes(':') ? action.text.split(':').pop() : (action.text.includes('=') ? action.text.split('=').pop() : action.text)) : ""
-                                            color: actArea2.containsMouse ? Globals.activeColors.Black : Globals.activeColors.White
-                                            font.pixelSize: 12
+                                            color: actArea2.containsMouse ? Globals.customValue(root.themeScope + ".popup.listItem.actionText", "hoverColor", Globals.themeVars.Black) : Globals.customValue(root.themeScope + ".popup.listItem.actionText", "color", Globals.themeVars.White)
+                                            font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.actionText", "fontSize", Globals.themeVars.fontSizeSmall)
                                             font.bold: true
                                         }
                                         MouseArea {
@@ -213,8 +213,8 @@ PopupWindow {
                 Text {
                     visible: !popup.server || popup.server.trackedNotifications.values.length === 0
                     text: "No new notifications"
-                    color: Globals.activeColors.SecondaryLight
-                    font.pixelSize: 14
+                    color: Globals.customValue(root.themeScope + ".popup.emptyText", "color", Globals.themeVars.SecondaryLight)
+                    font.pixelSize: Globals.customValue(root.themeScope + ".popup.emptyText", "fontSize", Globals.themeVars.fontSizeMedium)
                     Layout.alignment: Qt.AlignCenter
                     Layout.fillHeight: true
                     verticalAlignment: Text.AlignVCenter

@@ -30,9 +30,11 @@ PopupWindow {
         margins.top: Globals.popupMargin
     }
 
+    property string themeScope: "topbar.ThemePopup"
+
     // 4 columns * ~120 width + 3 * spacing + margins
-    implicitWidth: (120 * 4) + (8 * 3) + 32
-    implicitHeight: Math.min(600, contentLayout.implicitHeight + 32)
+    implicitWidth: Globals.customValue(themeScope, "width", (120 * 4) + (8 * 3) + 32)
+    implicitHeight: Globals.customValue(themeScope, "height", Math.min(600, contentLayout.implicitHeight + 32))
     color: "transparent"
 
     property string themesDir: Quickshell.env("HOME") + "/.config/qs-themes"
@@ -46,7 +48,7 @@ PopupWindow {
 
     function applyTheme(themeFileName) {
         console.error("applyTheme called with: " + themeFileName)
-        let cmd = "cd '" + popup.themesDir + "' && if [ -L __ACTIVE__.json ]; then rm -f __ACTIVE__.json; fi && cp -f '" + themeFileName + "' __ACTIVE__.json";
+        let cmd = "echo -n '" + themeFileName + "' > '" + Quickshell.cachePath("activeTheme.txt") + "'";
         applyProc.command = ["bash", "-c", cmd];
         applyProc.running = true;
     }
@@ -69,35 +71,35 @@ PopupWindow {
 
         Rectangle {
             anchors.fill: parent
-            color: Globals.activeColors.Black
-            radius: 20
-            border.color: Globals.activeColors.Secondary10
-            border.width: 1
+            color: Globals.customValue(themeScope + ".popup", "color", Globals.themeVars.Black)
+            radius: Globals.customValue(themeScope + ".popup", "radius", Globals.themeVars.borderRadiusHuge)
+            border.color: Globals.customValue(themeScope + ".popup", "borderColor", Globals.themeVars.Secondary10)
+            border.width: Globals.customValue(themeScope + ".popup", "borderWidth", Globals.themeVars.borderWidthSmall)
 
             ColumnLayout {
                 id: contentLayout
                 anchors.fill: parent
-                anchors.margins: 16
-                spacing: 16
+                anchors.margins: Globals.customValue(themeScope + ".popup.layout", "margins", Globals.themeVars.spacingHuge)
+                spacing: Globals.customValue(themeScope + ".popup.layout", "spacing", Globals.themeVars.spacingHuge)
 
                 Text {
                     text: "Themes"
-                    color: Globals.activeColors.White
-                    font.pixelSize: 18
+                    color: Globals.customValue(themeScope + ".popup.header", "color", Globals.themeVars.White)
+                    font.pixelSize: Globals.customValue(themeScope + ".popup.header", "fontSize", Globals.themeVars.fontSizeLarge)
                     font.bold: true
                     Layout.fillWidth: true
                 }
 
                 Flickable {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: (120 * 2) + 8 // 2 rows of 120px height + 1 spacing
+                    Layout.preferredHeight: Globals.customValue(themeScope + ".popup.list", "height", (120 * 2) + 8) // 2 rows of 120px height + 1 spacing
                     contentHeight: flowLayout.implicitHeight
                     clip: true
 
                     Flow {
                         id: flowLayout
                         width: parent.width
-                        spacing: 8
+                        spacing: Globals.customValue(themeScope + ".popup.list.layout", "spacing", Globals.themeVars.spacingMedium)
 
                         property real itemWidth: (width - 3 * 8) / 4
                         property real itemHeight: 120
@@ -105,10 +107,8 @@ PopupWindow {
                         Repeater {
                             model: themesModel
                             delegate: Item {
-                                property bool isVisible: fileName !== "__ACTIVE__.json"
-                                width: isVisible ? flowLayout.itemWidth : 0
-                                height: isVisible ? flowLayout.itemHeight : 0
-                                visible: isVisible
+                                width: flowLayout.itemWidth
+                                height: flowLayout.itemHeight
 
                                 FileView {
                                     id: delegateFile
@@ -124,14 +124,14 @@ PopupWindow {
                                 }
 
                                 property var themeData: delegateAdapter
-                                property bool isActiveTheme: Globals.currentTheme && themeData && Globals.currentTheme.name === themeData.name
+                                property bool isActiveTheme: Globals.activeThemeFile === fileName
 
                                 Rectangle {
                                     anchors.fill: parent
-                                    radius: 12
-                                    color: isActiveTheme ? Globals.activeColors.Secondary25 : (themeMouse.containsMouse ? Globals.activeColors.Secondary10 : Globals.activeColors.Black)
-                                    border.color: isActiveTheme ? Globals.activeColors.Secondary : "transparent"
-                                    border.width: isActiveTheme ? 2 : 0
+                                    radius: Globals.customValue(themeScope + ".popup.listItem", "radius", Globals.themeVars.borderRadiusMedium)
+                                    color: isActiveTheme ? Globals.customValue(themeScope + ".popup.listItem", "activeColor", Globals.themeVars.Secondary25) : (themeMouse.containsMouse ? Globals.customValue(themeScope + ".popup.listItem", "hoverColor", Globals.themeVars.Secondary10) : Globals.customValue(themeScope + ".popup.listItem", "color", Globals.themeVars.Black))
+                                    border.color: isActiveTheme ? Globals.customValue(themeScope + ".popup.listItem", "activeBorderColor", Globals.themeVars.Secondary) : Globals.customValue(themeScope + ".popup.listItem", "borderColor", "transparent")
+                                    border.width: isActiveTheme ? Globals.customValue(themeScope + ".popup.listItem", "activeBorderWidth", 2) : Globals.customValue(themeScope + ".popup.listItem", "borderWidth", 0)
 
                                     MouseArea {
                                         id: themeMouse
@@ -144,18 +144,18 @@ PopupWindow {
 
                                     ColumnLayout {
                                         anchors.fill: parent
-                                        anchors.margins: 6
-                                        spacing: 6
+                                        anchors.margins: Globals.customValue(themeScope + ".popup.listItem.layout", "margins", 6)
+                                        spacing: Globals.customValue(themeScope + ".popup.listItem.layout", "spacing", 6)
 
                                         // Wallpaper preview
                                         Rectangle {
                                             Layout.fillWidth: true
                                             Layout.fillHeight: true
-                                            radius: 8
-                                            color: Globals.activeColors.Black
+                                            radius: Globals.customValue(themeScope + ".popup.listItem.preview", "radius", Globals.customValue("", "borderRadiusMedium", 8))
+                                            color: Globals.customValue(themeScope + ".popup.listItem.preview", "color", Globals.themeVars.Black)
                                             clip: true
-                                            border.color: Globals.activeColors.Secondary10
-                                            border.width: 1
+                                            border.color: Globals.customValue(themeScope + ".popup.listItem.preview", "borderColor", Globals.themeVars.Secondary10)
+                                            border.width: Globals.customValue(themeScope + ".popup.listItem.preview", "borderWidth", Globals.themeVars.borderWidthSmall)
 
                                             Image {
                                                 anchors.fill: parent
@@ -168,8 +168,8 @@ PopupWindow {
                                         Text {
                                             Layout.fillWidth: true
                                             text: themeData ? themeData.name : fileName
-                                            color: Globals.activeColors.White
-                                            font.pixelSize: 12
+                                            color: Globals.customValue(themeScope + ".popup.listItem.name", "color", Globals.themeVars.White)
+                                            font.pixelSize: Globals.customValue(themeScope + ".popup.listItem.name", "fontSize", Globals.themeVars.fontSizeSmall)
                                             font.bold: true
                                             horizontalAlignment: Text.AlignHCenter
                                             elide: Text.ElideRight
@@ -177,11 +177,11 @@ PopupWindow {
 
                                         Row {
                                             Layout.alignment: Qt.AlignHCenter
-                                            spacing: 4
+                                            spacing: Globals.customValue(themeScope + ".popup.listItem.colors", "spacing", 4)
                                             Repeater {
                                                 model: ["Main", "Secondary", "Success", "Warning", "Error"]
                                                 delegate: Rectangle {
-                                                    width: 14; height: 4; radius: 2
+                                                    width: Globals.customValue(themeScope + ".popup.listItem.colorDot", "width", 14); height: Globals.customValue(themeScope + ".popup.listItem.colorDot", "height", 4); radius: Globals.customValue(themeScope + ".popup.listItem.colorDot", "radius", 2)
                                                     color: (themeData && themeData.palette && themeData.palette[modelData]) ? themeData.palette[modelData] : "#000"
                                                 }
                                             }

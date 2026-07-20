@@ -1,176 +1,31 @@
 pragma Singleton
 import QtQuick
-import Quickshell
-import Quickshell.Io
-import Qt.labs.folderlistmodel
+import qs.theming
 
 QtObject {
-    id: root
+    property string shellName: Theme.shellName
+    property string themePrefix: Theme.themePrefix
 
-    property string shellName: Quickshell.shellDir.split("/").pop()
-    property string themePrefix: shellName + "."
+    property int popupMargin: Theme.popupMargin
+    property int popupScreenPadding: Theme.popupScreenPadding
 
-    property int popupMargin: 52
-    property int popupScreenPadding: 12
+    property string homeDir: Theme.homeDir
 
-    property string homeDir: Quickshell.env("HOME")
+    property var activePalette: Theme.activePalette
+    property bool themesReady: Theme.themesReady
 
-    property var activePalette: ({
-        Main: "#4f378b",
-        Secondary: "#d0bcff",
-        Success: "#81c784",
-        Warning: "#f2b8b5",
-        Error: "#8c1d18"
-    })
+    property string activeThemePath: Theme.activeThemePath
+    property string activeThemeFile: Theme.activeThemeFile
 
-    property bool themesReady: false
+    property var currentTheme: Theme.themeData
+    property var themeVars: Theme.themeVars
+    property var customColors: Theme.customColors
 
-    property Process initProc: Process {
-        command: []
-        onExited: {
-            root.themesReady = true
-        }
-    }
-
-    property Process swwwProc: Process {
-        command: []
-        onExited: {
-            // Process finished running
-        }
-    }
-
-    property FolderListModel activeWatcher: FolderListModel {
-        folder: root.themesReady ? "file://" + Quickshell.env("HOME") + "/.config/qs-themes" : ""
-        nameFilters: ["__ACTIVE__.json"]
-        showDirs: false
-    }
-
-    property string activeThemePath: Quickshell.env("HOME") + "/.config/qs-themes/__ACTIVE__.json"
-
-    property FileView themeFile: FileView {
-        path: activeWatcher.count > 0 ? root.activeThemePath : ""
-        watchChanges: true
-        onFileChanged: {
-            console.error("themeFile changed on disk. Reloading.")
-            reload()
-        }
-
-        JsonAdapter {
-            id: themeAdapter
-            property string name: ""
-            property var palette: null
-            property string wallpaper: ""
-            onPaletteChanged: {
-                console.error("themeAdapter palette changed!")
-                root.updateColors()
-            }
-            onWallpaperChanged: {
-                console.error("themeAdapter wallpaper changed: " + wallpaper)
-                if (wallpaper !== "") {
-                    let cmd = "WP=\"" + wallpaper.replace(/"/g, "\\\"") + "\"; WP_EXPANDED=\"${WP/#\\~/$HOME}\"; if ! swww query >/dev/null 2>&1; then swww-daemon --format xrgb & sleep 0.2; fi; swww img \"$WP_EXPANDED\" --transition-type fade";
-                    root.swwwProc.command = ["bash", "-c", cmd];
-                    root.swwwProc.running = true;
-                }
-            }
-        }
-    }
-
-    property var currentTheme: themeAdapter
-    property var activeColors: activePalette
-
-    property QtObject customColors: QtObject {
-        property color barBackground
-    }
-
-    function updateColors() {
-        let t = themeAdapter;
-
-        function mix(c1, c2, ratio) {
-            return Qt.rgba(
-                c1.r * (1 - ratio) + c2.r * ratio,
-                c1.g * (1 - ratio) + c2.g * ratio,
-                c1.b * (1 - ratio) + c2.b * ratio,
-                1.0
-            );
-        }
-
-        let mainHex = (t && t.palette && t.palette.Main) ? t.palette.Main : activePalette.Main;
-        let secHex = (t && t.palette && t.palette.Secondary) ? t.palette.Secondary : activePalette.Secondary;
-        let successHex = (t && t.palette && t.palette.Success) ? t.palette.Success : activePalette.Success;
-        let warningHex = (t && t.palette && t.palette.Warning) ? t.palette.Warning : activePalette.Warning;
-        let errorHex = (t && t.palette && t.palette.Error) ? t.palette.Error : activePalette.Error;
-
-        let mainColor = Qt.color(mainHex);
-        let secColor = Qt.color(secHex);
-
-        let blackHsl = Qt.hsla(mainColor.hslHue, mainColor.hslSaturation * 0.2, mainColor.hslLightness * 0.3, 1.0);
-        let whiteHsl = Qt.hsla(mainColor.hslHue, mainColor.hslSaturation, mainColor.hslLightness + (1.0 - mainColor.hslLightness) * 0.90, 1.0);
-
-        let res = {
-            Main: mainColor,
-            Secondary: secColor,
-            Success: Qt.color(successHex),
-            Warning: Qt.color(warningHex),
-            Error: Qt.color(errorHex),
-            Black: (t && t.palette && t.palette.Black) ? Qt.color(t.palette.Black) : blackHsl,
-            White: (t && t.palette && t.palette.White) ? Qt.color(t.palette.White) : whiteHsl,
-            Secondary50: (t && t.palette && t.palette.Secondary50) ? Qt.color(t.palette.Secondary50) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.50),
-            Secondary25: (t && t.palette && t.palette.Secondary25) ? Qt.color(t.palette.Secondary25) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.25),
-            Secondary10: (t && t.palette && t.palette.Secondary10) ? Qt.color(t.palette.Secondary10) : Qt.rgba(secColor.r, secColor.g, secColor.b, 0.10)
-        };
-
-        res.SecondaryLight = (t && t.palette && t.palette.SecondaryLight) ? Qt.color(t.palette.SecondaryLight) : mix(res.White, secColor, 0.25);
-
-        activeColors = res;
-
-        customColors.barBackground = activeColors.Black
-
-        let prefix = root.themePrefix;
-        if (t && t.palette) {
-            for (let k in t.palette) {
-                if (k.startsWith(prefix)) {
-                    let keyName = k.substring(prefix.length);
-                    if (keyName in customColors) {
-                        customColors[keyName] = Qt.color(t.palette[k]);
-                    }
-                }
-            }
-        }
+    function customValue(scope, key, fallback) {
+        return Theme.customValue(scope, key, fallback)
     }
 
     function forceThemeReload() {
-        console.error("forceThemeReload called")
-        let p = root.activeThemePath
-        root.activeThemePath = ""
-        root.activeThemePath = p
-        themeFile.reload()
+        Theme.forceThemeReload()
     }
-
-    Component.onCompleted: {
-        updateColors();
-        let defaultTheme = {
-            name: "Default Dark",
-            palette: {
-                Main: activePalette.Main,
-                Secondary: activePalette.Secondary,
-                Success: activePalette.Success,
-                Warning: activePalette.Warning,
-                Error: activePalette.Error,
-                "//Black": "Calculated from Main with -80 saturation and -70 lightness (e.g. #0a0712)",
-                "//White": "Calculated from Main with +90 lightness (e.g. #eaddff)",
-                "//Secondary50": "Calculated from Secondary at 50% opacity",
-                "//Secondary25": "Calculated from Secondary at 25% opacity",
-                "//Secondary10": "Calculated from Secondary at 10% opacity",
-                "//SecondaryLight": "Calculated from White mixed with 25% of Secondary"
-            },
-            wallpaper: ""
-        };
-        let themeJson = JSON.stringify(defaultTheme, null, 2);
-        let escapedContent = themeJson.replace(/'/g, "'\\''");
-        let cmd = "DIR=\"$HOME/.config/qs-themes\"; if [ ! -d \"$DIR\" ]; then mkdir -p \"$DIR\"; echo '" + escapedContent + "' > \"$DIR/default.json\"; cp -f \"$DIR/default.json\" \"$DIR/__ACTIVE__.json\"; else if [ -L \"$DIR/__ACTIVE__.json\" ]; then TARGET=$(readlink \"$DIR/__ACTIVE__.json\"); rm -f \"$DIR/__ACTIVE__.json\"; cp -f \"$DIR/$TARGET\" \"$DIR/__ACTIVE__.json\"; fi; fi";
-
-        initProc.command = ["bash", "-c", cmd];
-        initProc.running = true;
-    }
-
 }

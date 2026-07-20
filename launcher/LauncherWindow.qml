@@ -7,6 +7,8 @@ import Quickshell.Wayland
 PanelWindow {
     id: root
 
+    property string themeScope: "launcher.LauncherWindow"
+
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
@@ -45,14 +47,14 @@ PanelWindow {
     }
 
     Rectangle {
-        width: 640
+        width: Globals.customValue(themeScope, "width", 640)
         height: Math.min(600, 100 + resultsList.contentHeight)
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height * 0.3
-        color: Globals.activeColors.Black
-        radius: 20
-        border.color: Globals.activeColors.Secondary10
-        border.width: 1
+        color: Globals.customValue(themeScope, "color", Globals.themeVars.Black)
+        radius: Globals.customValue(themeScope, "radius", Globals.themeVars.borderRadiusHuge)
+        border.color: Globals.customValue(themeScope, "borderColor", Globals.themeVars.Secondary10)
+        border.width: Globals.customValue(themeScope, "borderWidth", Globals.themeVars.borderWidthSmall)
 
         Behavior on height { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
 
@@ -62,25 +64,25 @@ PanelWindow {
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: 16
-            spacing: 16
+            anchors.margins: Globals.customValue(themeScope + ".layout", "margins", Globals.themeVars.spacingHuge)
+            spacing: Globals.customValue(themeScope + ".layout", "spacing", Globals.themeVars.spacingHuge)
 
             Rectangle {
                 Layout.fillWidth: true
-                height: 56
-                color: Globals.activeColors.Black
-                radius: 28
-                border.color: searchInput.focus ? Globals.activeColors.Secondary : Globals.activeColors.Secondary25
-                border.width: 2
+                height: Globals.customValue(themeScope + ".searchBox", "height", 56)
+                color: Globals.customValue(themeScope + ".searchBox", "color", Globals.themeVars.Black)
+                radius: Globals.customValue(themeScope + ".searchBox", "radius", 28)
+                border.color: searchInput.focus ? Globals.customValue(themeScope + ".searchBox", "borderColorFocused", Globals.themeVars.Secondary) : Globals.customValue(themeScope + ".searchBox", "borderColor", Globals.themeVars.Secondary25)
+                border.width: Globals.customValue(themeScope + ".searchBox", "borderWidth", Globals.themeVars.borderWidthMedium)
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.margins: 16
-                    spacing: 12
+                    anchors.margins: Globals.customValue(themeScope + ".searchBox.layout", "margins", Globals.themeVars.spacingHuge)
+                    spacing: Globals.customValue(themeScope + ".searchBox.layout", "spacing", Globals.themeVars.spacingLarge)
 
                     Icon {
                         path: "M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                        color: Globals.activeColors.Secondary
+                        color: Globals.customValue(themeScope + ".searchBox.icon", "color", Globals.themeVars.Secondary)
                     }
 
                     TextInput {
@@ -88,8 +90,8 @@ PanelWindow {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         verticalAlignment: TextInput.AlignVCenter
-                        color: Globals.activeColors.White
-                        font.pixelSize: 18
+                        color: Globals.customValue(themeScope + ".searchInput", "color", Globals.themeVars.White)
+                        font.pixelSize: Globals.customValue(themeScope + ".searchInput", "fontSize", Globals.themeVars.fontSizeLarge)
                         clip: true
                         focus: true
 
@@ -121,22 +123,23 @@ PanelWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
-                spacing: 8
+                spacing: Globals.customValue(themeScope + ".list", "spacing", Globals.themeVars.spacingMedium)
                 model: launcherLogic.resultsModel
 
                 delegate: Rectangle {
                     width: ListView.view.width
-                    height: 56
-                    radius: 12
-                    color: ListView.isCurrentItem ? Globals.activeColors.Secondary25 : (mouseArea.containsMouse ? Globals.activeColors.Black : "transparent")
+                    height: Globals.customValue(themeScope + ".listItem", "height", 56)
+                    radius: Globals.customValue(themeScope + ".listItem", "radius", Globals.themeVars.borderRadiusMedium)
+                    color: ListView.isCurrentItem ? Globals.customValue(themeScope + ".listItem", "selectedColor", Globals.themeVars.Secondary25) : (mouseArea.containsMouse ? Globals.customValue(themeScope + ".listItem", "hoverColor", Globals.themeVars.Black) : "transparent")
 
                     RowLayout {
                         anchors.fill: parent
-                        anchors.margins: 12
-                        spacing: 16
+                        anchors.margins: Globals.customValue(themeScope + ".listItem.layout", "margins", Globals.themeVars.spacingLarge)
+                        spacing: Globals.customValue(themeScope + ".listItem.layout", "spacing", Globals.themeVars.spacingHuge)
 
                         Item {
-                            width: 24; height: 24
+                            width: Globals.customValue(themeScope + ".listItem.icon", "width", 24)
+                            height: Globals.customValue(themeScope + ".listItem.icon", "height", 24)
 
                             Image {
                                 id: appIcon
@@ -151,20 +154,20 @@ PanelWindow {
                                 anchors.fill: parent
                                 visible: !appIcon.visible
                                 path: modelData.iconPath || "M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
-                                color: ListView.isCurrentItem ? Globals.activeColors.Secondary : Globals.activeColors.White
+                                color: ListView.isCurrentItem ? Globals.customValue(themeScope + ".listItem.iconFallback", "selectedColor", Globals.themeVars.Secondary) : Globals.customValue(themeScope + ".listItem.iconFallback", "color", Globals.themeVars.White)
                             }
                         }
 
                         ColumnLayout {
                             Layout.fillWidth: true
-                            spacing: 2
+                            spacing: Globals.customValue(themeScope + ".listItem.textLayout", "spacing", 2)
 
                             Text {
                                 Layout.fillWidth: true
                                 horizontalAlignment: Text.AlignLeft
                                 text: modelData.title || ""
-                                color: ListView.isCurrentItem ? Globals.activeColors.White : Globals.activeColors.White
-                                font.pixelSize: 16
+                                color: ListView.isCurrentItem ? Globals.customValue(themeScope + ".listItem.title", "selectedColor", Globals.themeVars.White) : Globals.customValue(themeScope + ".listItem.title", "color", Globals.themeVars.White)
+                                font.pixelSize: Globals.customValue(themeScope + ".listItem.title", "fontSize", Globals.themeVars.fontSizeMedium)
                                 font.bold: true
                                 elide: Text.ElideRight
                             }
@@ -173,7 +176,7 @@ PanelWindow {
                             //    horizontalAlignment: Text.AlignLeft
                             //    visible: modelData.subtitle !== undefined && modelData.subtitle !== ""
                             //    text: modelData.subtitle || ""
-                            //    color: Globals.activeColors.SecondaryLight
+                            //    color: Globals.themeVars.SecondaryLight
                             //    font.pixelSize: 12
                             //    elide: Text.ElideRight
                             //}
