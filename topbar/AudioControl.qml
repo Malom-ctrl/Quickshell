@@ -35,7 +35,7 @@ Item {
             ShapePath {
                 fillColor: "transparent"
                 strokeColor: (mouseArea.containsMouse || root.popupVisible) ? Globals.customValue(themeScope + ".indicator", "hoverColor", Globals.themeVars.White) : Globals.customValue(themeScope + ".indicator", "color", Globals.themeVars.Secondary)
-                strokeWidth: Globals.customValue(themeScope + ".indicator", "width", 2)
+                strokeWidth: Globals.customValue(themeScope + ".indicator", "width", Globals.themeVars.borderWidthMedium)
                 capStyle: ShapePath.RoundCap
                 Behavior on strokeColor { ColorAnimation { duration: 150 } }
 

@@ -4,6 +4,7 @@ libSystemUpdaterPlugin.so: \
   CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.cpp.o \
   CMakeFiles/SystemUpdaterPlugin.dir/systemupdaterplugin_qmltyperegistrations.cpp.o \
   CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp.o \
+  CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o \
   CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o \
   CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o \
   /usr/lib64/libQt6Qml.so.6.11.1 \
@@ -56,6 +57,8 @@ CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.
 CMakeFiles/SystemUpdaterPlugin.dir/systemupdaterplugin_qmltyperegistrations.cpp.o:
 
 CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp.o:
+
+CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o:
 
 CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o:
 

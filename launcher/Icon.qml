@@ -6,7 +6,7 @@ Item {
     width: 24
     height: 24
     property string path: ""
-    property color color: Globals.themeVars.White
+    property color color: Globals.customValue(themeScope, "color", Globals.themeVars.White)
 
     Shape {
         width: 24

@@ -275,6 +275,7 @@ SystemUpdaterPlugin_autogen/timestamp: /usr/bin/cmake \
   /usr/include/qt6/QtCore/QList \
   /usr/include/qt6/QtCore/QObject \
   /usr/include/qt6/QtCore/QString \
+  /usr/include/qt6/QtCore/QTimer \
   /usr/include/qt6/QtCore/QVariant \
   /usr/include/qt6/QtCore/QVariantList \
   /usr/include/qt6/QtCore/q17memory.h \
@@ -286,6 +287,7 @@ SystemUpdaterPlugin_autogen/timestamp: /usr/bin/cmake \
   /usr/include/qt6/QtCore/q20utility.h \
   /usr/include/qt6/QtCore/q23type_traits.h \
   /usr/include/qt6/QtCore/q23utility.h \
+  /usr/include/qt6/QtCore/qabstracteventdispatcher.h \
   /usr/include/qt6/QtCore/qalgorithms.h \
   /usr/include/qt6/QtCore/qalloc.h \
   /usr/include/qt6/QtCore/qanystringview.h \
@@ -296,6 +298,7 @@ SystemUpdaterPlugin_autogen/timestamp: /usr/bin/cmake \
   /usr/include/qt6/QtCore/qatomic.h \
   /usr/include/qt6/QtCore/qatomic_cxx11.h \
   /usr/include/qt6/QtCore/qbasicatomic.h \
+  /usr/include/qt6/QtCore/qbasictimer.h \
   /usr/include/qt6/QtCore/qbindingstorage.h \
   /usr/include/qt6/QtCore/qbytearray.h \
   /usr/include/qt6/QtCore/qbytearrayalgorithms.h \
@@ -317,7 +320,9 @@ SystemUpdaterPlugin_autogen/timestamp: /usr/bin/cmake \
   /usr/include/qt6/QtCore/qdarwinhelpers.h \
   /usr/include/qt6/QtCore/qdatastream.h \
   /usr/include/qt6/QtCore/qdatetime.h \
+  /usr/include/qt6/QtCore/qdeadlinetimer.h \
   /usr/include/qt6/QtCore/qdebug.h \
+  /usr/include/qt6/QtCore/qeventloop.h \
   /usr/include/qt6/QtCore/qexceptionhandling.h \
   /usr/include/qt6/QtCore/qflags.h \
   /usr/include/qt6/QtCore/qfloat16.h \
@@ -390,6 +395,7 @@ SystemUpdaterPlugin_autogen/timestamp: /usr/bin/cmake \
   /usr/include/qt6/QtCore/qtenvironmentvariables.h \
   /usr/include/qt6/QtCore/qtextstream.h \
   /usr/include/qt6/QtCore/qtformat_impl.h \
+  /usr/include/qt6/QtCore/qtimer.h \
   /usr/include/qt6/QtCore/qtmetamacros.h \
   /usr/include/qt6/QtCore/qtnoop.h \
   /usr/include/qt6/QtCore/qtpreprocessorsupport.h \
@@ -1005,6 +1011,8 @@ SystemUpdaterPlugin_autogen/timestamp: /usr/bin/cmake \
   /var/home/user/.config/quickshell/updater-plugin/CMakeLists.txt \
   /var/home/user/.config/quickshell/updater-plugin/FlatpakManager.cpp \
   /var/home/user/.config/quickshell/updater-plugin/FlatpakManager.hpp \
+  /var/home/user/.config/quickshell/updater-plugin/FwupdManager.cpp \
+  /var/home/user/.config/quickshell/updater-plugin/FwupdManager.hpp \
   /var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.cpp \
   /var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.hpp \
   CMakeFiles/4.3.0/CMakeCXXCompiler.cmake \
@@ -1020,6 +1028,8 @@ CMakeFiles/4.3.0/CMakeCXXCompiler.cmake:
 /var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.hpp:
 
 /var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.cpp:
+
+/var/home/user/.config/quickshell/updater-plugin/FwupdManager.cpp:
 
 /var/home/user/.config/quickshell/updater-plugin/FlatpakManager.cpp:
 
@@ -1163,8 +1173,6 @@ CMakeFiles/4.3.0/CMakeCXXCompiler.cmake:
 
 /usr/lib64/cmake/Qt6Qml/Qt6QQuickEventReplayServiceFactoryPluginTargetsPrecheck.cmake:
 
-/usr/lib64/cmake/Qt6Qml/Qt6QQuickEventReplayServiceFactoryPluginTargets-relwithdebinfo.cmake:
-
 /usr/lib64/cmake/Qt6Qml/Qt6QQuickEventReplayServiceFactoryPluginAdditionalTargetInfo.cmake:
 
 /usr/lib64/cmake/Qt6Qml/Qt6QQmlProfilerServiceFactoryPluginTargets.cmake:
@@ -1186,8 +1194,6 @@ CMakeFiles/4.3.0/CMakeCXXCompiler.cmake:
 /usr/lib64/cmake/Qt6Qml/Qt6QQmlNativeDebugConnectorFactoryPluginTargetsPrecheck.cmake:
 
 /usr/lib64/cmake/Qt6Qml/Qt6QQmlNativeDebugConnectorFactoryPluginTargets.cmake:
-
-/usr/lib64/cmake/Qt6Qml/Qt6QQmlNativeDebugConnectorFactoryPluginTargets-relwithdebinfo.cmake:
 
 /usr/lib64/cmake/Qt6Qml/Qt6QmlConfigVersion.cmake:
 
@@ -1382,6 +1388,8 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 /usr/lib64/cmake/Qt6Qml/QmlPlugins/Qt6qquickvectorimagepluginTargetsPrecheck.cmake:
 
 /usr/lib64/cmake/Qt6Qml/QmlPlugins/Qt6qquickvectorimagepluginTargets.cmake:
+
+/var/home/user/.config/quickshell/updater-plugin/FwupdManager.hpp:
 
 /usr/lib64/cmake/Qt6Qml/QmlPlugins/Qt6qquickvectorimagepluginTargets-relwithdebinfo.cmake:
 
@@ -1623,6 +1631,10 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 
 /usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsVersionlessTargets.cmake:
 
+/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsTargetsPrecheck.cmake:
+
+/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsConfigVersion.cmake:
+
 /usr/lib64/cmake/Qt6Qml/QmlPlugins/Qt6modelspluginConfig.cmake:
 
 /usr/include/c++/16/x86_64-redhat-linux/bits/os_defines.h:
@@ -1769,8 +1781,6 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 
 /usr/include/c++/16/cstddef:
 
-/usr/include/c++/16/utility:
-
 /usr/include/c++/16/bits/locale_classes.h:
 
 /usr/include/c++/16/tuple:
@@ -1792,8 +1802,6 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 /usr/lib64/cmake/Qt6Qml/QmlPlugins/Qt6qtqmlcorepluginTargets.cmake:
 
 /usr/include/c++/16/limits:
-
-/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsConfigVersion.cmake:
 
 /usr/include/c++/16/cmath:
 
@@ -1845,6 +1853,12 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 
 /usr/include/bits/locale.h:
 
+/usr/share/cmake/Modules/Compiler/HP-CXX-DetermineCompiler.cmake:
+
+/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsDependencies.cmake:
+
+/usr/include/c++/16/bits/stl_multimap.h:
+
 /usr/include/qt6/QtCore/qhashfunctions.h:
 
 /usr/include/c++/16/bits/stl_relops.h:
@@ -1874,6 +1888,10 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 /usr/include/c++/16/tr1/bessel_function.tcc:
 
 /usr/include/c++/16/bits/algorithmfwd.h:
+
+/usr/lib64/cmake/Qt6Qml/Qt6QQmlNativeDebugConnectorFactoryPluginTargets-relwithdebinfo.cmake:
+
+/usr/include/qt6/QtCore/QTimer:
 
 /usr/include/c++/16/bits/shared_ptr_base.h:
 
@@ -1938,6 +1956,12 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 /usr/include/qt6/QtCore/q23utility.h:
 
 /usr/include/qt6/QtCore/qtaggedpointer.h:
+
+/usr/share/cmake/Modules/CheckLibraryExists.cmake:
+
+/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsTargets-relwithdebinfo.cmake:
+
+/usr/include/c++/16/bits/stl_list.h:
 
 /usr/lib64/cmake/Qt6Qml/QmlPlugins/Qt6LabsStyleKitImplpluginTargets.cmake:
 
@@ -2097,6 +2121,8 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 
 /usr/include/c++/16/bits/requires_hosted.h:
 
+/usr/include/qt6/QtCore/qeventloop.h:
+
 /usr/include/bits/byteswap.h:
 
 /usr/include/bits/struct_mutex.h:
@@ -2196,6 +2222,10 @@ CMakeFiles/4.3.0/CMakeSystem.cmake:
 /usr/include/bits/struct_rwlock.h:
 
 /usr/include/bits/types/struct_itimerspec.h:
+
+/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsTargets.cmake:
+
+/usr/include/qt6/QtCore/q20type_traits.h:
 
 /usr/lib64/cmake/Qt6Qml/QmlPlugins/Qt6qtquickcontrols2universalstylepluginTargets.cmake:
 
@@ -2461,10 +2491,6 @@ SystemUpdaterPluginplugin_Custom_SystemUpdaterPlugin_in.cpp:
 
 /usr/include/linux/stddef.h:
 
-/usr/include/qt6/QtCore/q20type_traits.h:
-
-/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsTargets.cmake:
-
 /usr/include/linux/types.h:
 
 /usr/share/cmake/Modules/Platform/Linker/GNU.cmake:
@@ -2487,11 +2513,17 @@ SystemUpdaterPluginplugin_Custom_SystemUpdaterPlugin_in.cpp:
 
 /usr/include/qt6/QtCore/q20memory.h:
 
+/usr/lib64/cmake/Qt6Qml/Qt6QQuickEventReplayServiceFactoryPluginTargets-relwithdebinfo.cmake:
+
+/usr/include/qt6/QtCore/qbasictimer.h:
+
 /usr/include/qt6/QtCore/QVariantList:
 
 /usr/include/qt6/QtCore/q20utility.h:
 
 /usr/include/qt6/QtCore/q23type_traits.h:
+
+/usr/include/qt6/QtCore/qabstracteventdispatcher.h:
 
 /usr/include/qt6/QtCore/qalloc.h:
 
@@ -2547,8 +2579,6 @@ SystemUpdaterPluginplugin_Custom_SystemUpdaterPlugin_in.cpp:
 
 /usr/include/qt6/QtCore/qcomparehelpers.h:
 
-/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsTargetsPrecheck.cmake:
-
 /usr/include/c++/16/bits/stl_map.h:
 
 /usr/include/qt6/QtCore/qconfig-64.h:
@@ -2568,6 +2598,10 @@ SystemUpdaterPluginplugin_Custom_SystemUpdaterPlugin_in.cpp:
 /usr/lib64/cmake/Qt6/QtPublicSbomFileHelpers.cmake:
 
 /usr/include/qt6/QtCore/qdarwinhelpers.h:
+
+/usr/include/c++/16/utility:
+
+/usr/include/qt6/QtCore/qdeadlinetimer.h:
 
 /usr/lib64/cmake/Qt6Qml/Qt6QQmlPreviewServiceFactoryPluginAdditionalTargetInfo.cmake:
 
@@ -2750,6 +2784,8 @@ SystemUpdaterPluginplugin_Custom_SystemUpdaterPlugin_in.cpp:
 /usr/include/c++/16/numeric:
 
 /usr/include/qt6/QtCore/qtformat_impl.h:
+
+/usr/include/qt6/QtCore/qtimer.h:
 
 /usr/include/c++/16/bits/nested_exception.h:
 
@@ -3020,15 +3056,3 @@ SystemUpdaterPluginplugin_Custom_SystemUpdaterPlugin_in.cpp:
 /usr/lib64/cmake/Qt6DBus/Qt6DBusTargets-relwithdebinfo.cmake:
 
 /usr/lib64/cmake/Qt6DBus/Qt6DBusVersionlessAliasTargets.cmake:
-
-/usr/share/cmake/Modules/Compiler/HP-CXX-DetermineCompiler.cmake:
-
-/usr/include/c++/16/bits/stl_multimap.h:
-
-/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsDependencies.cmake:
-
-/usr/share/cmake/Modules/CheckLibraryExists.cmake:
-
-/usr/include/c++/16/bits/stl_list.h:
-
-/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsTargets-relwithdebinfo.cmake:

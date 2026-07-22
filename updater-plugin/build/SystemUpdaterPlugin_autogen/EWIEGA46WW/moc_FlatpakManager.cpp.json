@@ -8,7 +8,7 @@
                 }
             ],
             "className": "FlatpakManager",
-            "lineNumber": 7,
+            "lineNumber": 8,
             "object": true,
             "properties": [
                 {
@@ -16,7 +16,7 @@
                     "designable": true,
                     "final": false,
                     "index": 0,
-                    "lineNumber": 11,
+                    "lineNumber": 12,
                     "name": "updateProgress",
                     "notify": "progressChanged",
                     "override": false,
@@ -33,7 +33,7 @@
                     "designable": true,
                     "final": false,
                     "index": 1,
-                    "lineNumber": 12,
+                    "lineNumber": 13,
                     "name": "isUpdating",
                     "notify": "updatingChanged",
                     "override": false,
@@ -50,7 +50,7 @@
                     "designable": true,
                     "final": false,
                     "index": 2,
-                    "lineNumber": 13,
+                    "lineNumber": 14,
                     "name": "status",
                     "notify": "statusChanged",
                     "override": false,
@@ -67,7 +67,7 @@
                     "designable": true,
                     "final": false,
                     "index": 3,
-                    "lineNumber": 14,
+                    "lineNumber": 15,
                     "name": "lastError",
                     "notify": "lastErrorChanged",
                     "override": false,
@@ -84,7 +84,7 @@
                     "designable": true,
                     "final": false,
                     "index": 4,
-                    "lineNumber": 15,
+                    "lineNumber": 16,
                     "name": "currentUpdatingRef",
                     "notify": "currentUpdatingRefChanged",
                     "override": false,
@@ -101,7 +101,7 @@
                     "designable": true,
                     "final": false,
                     "index": 5,
-                    "lineNumber": 17,
+                    "lineNumber": 18,
                     "name": "isChecking",
                     "notify": "isCheckingChanged",
                     "override": false,
@@ -118,7 +118,7 @@
                     "designable": true,
                     "final": false,
                     "index": 6,
-                    "lineNumber": 18,
+                    "lineNumber": 19,
                     "name": "updateCount",
                     "notify": "availableUpdatesChanged",
                     "override": false,
@@ -135,7 +135,7 @@
                     "designable": true,
                     "final": false,
                     "index": 7,
-                    "lineNumber": 19,
+                    "lineNumber": 20,
                     "name": "availableUpdates",
                     "notify": "availableUpdatesChanged",
                     "override": false,
@@ -153,35 +153,35 @@
                 {
                     "access": "public",
                     "index": 0,
-                    "lineNumber": 41,
+                    "lineNumber": 42,
                     "name": "progressChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 1,
-                    "lineNumber": 42,
+                    "lineNumber": 43,
                     "name": "updatingChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 2,
-                    "lineNumber": 43,
+                    "lineNumber": 44,
                     "name": "statusChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 3,
-                    "lineNumber": 44,
+                    "lineNumber": 45,
                     "name": "lastErrorChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 4,
-                    "lineNumber": 45,
+                    "lineNumber": 46,
                     "name": "currentUpdatingRefChanged",
                     "returnType": "void"
                 },
@@ -194,7 +194,7 @@
                         }
                     ],
                     "index": 5,
-                    "lineNumber": 46,
+                    "lineNumber": 47,
                     "name": "updateFinished",
                     "returnType": "void"
                 },
@@ -211,7 +211,7 @@
                         }
                     ],
                     "index": 6,
-                    "lineNumber": 47,
+                    "lineNumber": 48,
                     "name": "operationFinished",
                     "returnType": "void"
                 },
@@ -228,7 +228,7 @@
                         }
                     ],
                     "index": 7,
-                    "lineNumber": 48,
+                    "lineNumber": 49,
                     "name": "operationWarning",
                     "returnType": "void"
                 },
@@ -245,21 +245,21 @@
                         }
                     ],
                     "index": 8,
-                    "lineNumber": 49,
+                    "lineNumber": 50,
                     "name": "operationFailed",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 9,
-                    "lineNumber": 51,
+                    "lineNumber": 52,
                     "name": "isCheckingChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 10,
-                    "lineNumber": 52,
+                    "lineNumber": 53,
                     "name": "availableUpdatesChanged",
                     "returnType": "void"
                 }
@@ -268,14 +268,14 @@
                 {
                     "access": "public",
                     "index": 11,
-                    "lineNumber": 36,
+                    "lineNumber": 37,
                     "name": "startUpdate",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
                     "index": 12,
-                    "lineNumber": 37,
+                    "lineNumber": 38,
                     "name": "checkForUpdates",
                     "returnType": "void"
                 },
@@ -292,8 +292,15 @@
                         }
                     ],
                     "index": 13,
-                    "lineNumber": 38,
+                    "lineNumber": 39,
                     "name": "updatePackage",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 14,
+                    "lineNumber": 56,
+                    "name": "handleMonitorChanged",
                     "returnType": "void"
                 }
             ],

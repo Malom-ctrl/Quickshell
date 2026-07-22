@@ -107,6 +107,7 @@ PopupWindow {
                         Repeater {
                             model: themesModel
                             delegate: Item {
+                                id: themeItem
                                 width: flowLayout.itemWidth
                                 height: flowLayout.itemHeight
 
@@ -126,12 +127,58 @@ PopupWindow {
                                 property var themeData: delegateAdapter
                                 property bool isActiveTheme: Globals.activeThemeFile === fileName
 
+                                property string rawWallpaper: (themeData && themeData.wallpaper) ? themeData.wallpaper : ""
+                                property string previewImagePath: ""
+
+                                onRawWallpaperChanged: updatePreview()
+                                Component.onCompleted: updatePreview()
+
+                                function updatePreview() {
+                                    if (!rawWallpaper || rawWallpaper.trim() === "") {
+                                        previewImagePath = "";
+                                        return;
+                                    }
+                                    let wp = rawWallpaper.replace(/^file:\/\//, "");
+                                    let cacheDir = Quickshell.cachePath("wallpaper_lowres");
+                                    let cmd =
+                                        "WP='" + wp.replace(/'/g, "'\\''") + "'\n" +
+                                        "WP_EXP=\"${WP/#\\~/$HOME}\"\n" +
+                                        "if [ -f \"$WP_EXP\" ]; then\n" +
+                                        "  HASH=$(md5sum \"$WP_EXP\" | awk '{print $1}')\n" +
+                                        "  CACHE_DIR='" + cacheDir + "'\n" +
+                                        "  mkdir -p \"$CACHE_DIR\"\n" +
+                                        "  LOWRES=\"$CACHE_DIR/${HASH}.jpg\"\n" +
+                                        "  if [ ! -f \"$LOWRES\" ]; then\n" +
+                                        "    convert \"${WP_EXP}[0]\" -resize 200x200 \"$LOWRES\"\n" +
+                                        "  fi\n" +
+                                        "  echo -n \"$LOWRES\"\n" +
+                                        "fi\n";
+
+                                    lowresProc.command = ["bash", "-c", cmd];
+                                    lowresProc.running = false;
+                                    lowresProc.running = true;
+                                }
+
+                                Process {
+                                    id: lowresProc
+                                    command: []
+                                    stdout: SplitParser {
+                                        splitMarker: "\n"
+                                        onRead: (data) => {
+                                            let path = data.trim();
+                                            if (path !== "") {
+                                                themeItem.previewImagePath = "file://" + path;
+                                            }
+                                        }
+                                    }
+                                }
+
                                 Rectangle {
                                     anchors.fill: parent
                                     radius: Globals.customValue(themeScope + ".popup.listItem", "radius", Globals.themeVars.borderRadiusMedium)
                                     color: isActiveTheme ? Globals.customValue(themeScope + ".popup.listItem", "activeColor", Globals.themeVars.Secondary25) : (themeMouse.containsMouse ? Globals.customValue(themeScope + ".popup.listItem", "hoverColor", Globals.themeVars.Secondary10) : Globals.customValue(themeScope + ".popup.listItem", "color", Globals.themeVars.Black))
                                     border.color: isActiveTheme ? Globals.customValue(themeScope + ".popup.listItem", "activeBorderColor", Globals.themeVars.Secondary) : Globals.customValue(themeScope + ".popup.listItem", "borderColor", "transparent")
-                                    border.width: isActiveTheme ? Globals.customValue(themeScope + ".popup.listItem", "activeBorderWidth", 2) : Globals.customValue(themeScope + ".popup.listItem", "borderWidth", 0)
+                                    border.width: isActiveTheme ? Globals.customValue(themeScope + ".popup.listItem", "activeBorderWidth", Globals.themeVars.borderWidthMedium) : Globals.customValue(themeScope + ".popup.listItem", "borderWidth", 0)
 
                                     MouseArea {
                                         id: themeMouse
@@ -144,8 +191,8 @@ PopupWindow {
 
                                     ColumnLayout {
                                         anchors.fill: parent
-                                        anchors.margins: Globals.customValue(themeScope + ".popup.listItem.layout", "margins", 6)
-                                        spacing: Globals.customValue(themeScope + ".popup.listItem.layout", "spacing", 6)
+                                        anchors.margins: Globals.customValue(themeScope + ".popup.listItem.layout", "margins", Globals.themeVars.spacingMedium)
+                                        spacing: Globals.customValue(themeScope + ".popup.listItem.layout", "spacing", Globals.themeVars.spacingMedium)
 
                                         // Wallpaper preview
                                         Rectangle {
@@ -159,7 +206,7 @@ PopupWindow {
 
                                             Image {
                                                 anchors.fill: parent
-                                                source: (themeData && themeData.wallpaper) ? ("file://" + themeData.wallpaper) : ""
+                                                source: themeItem.previewImagePath
                                                 fillMode: Image.PreserveAspectCrop
                                                 visible: source !== ""
                                             }
@@ -177,11 +224,11 @@ PopupWindow {
 
                                         Row {
                                             Layout.alignment: Qt.AlignHCenter
-                                            spacing: Globals.customValue(themeScope + ".popup.listItem.colors", "spacing", 4)
+                                            spacing: Globals.customValue(themeScope + ".popup.listItem.colors", "spacing", Globals.themeVars.spacingSmall)
                                             Repeater {
                                                 model: ["Main", "Secondary", "Success", "Warning", "Error"]
                                                 delegate: Rectangle {
-                                                    width: Globals.customValue(themeScope + ".popup.listItem.colorDot", "width", 14); height: Globals.customValue(themeScope + ".popup.listItem.colorDot", "height", 4); radius: Globals.customValue(themeScope + ".popup.listItem.colorDot", "radius", 2)
+                                                    width: Globals.customValue(themeScope + ".popup.listItem.colorDot", "width", 14); height: Globals.customValue(themeScope + ".popup.listItem.colorDot", "height", 4); radius: Globals.customValue(themeScope + ".popup.listItem.colorDot", "radius", Globals.themeVars.borderRadiusSmall)
                                                     color: (themeData && themeData.palette && themeData.palette[modelData]) ? themeData.palette[modelData] : "#000"
                                                 }
                                             }

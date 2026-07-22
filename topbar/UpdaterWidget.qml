@@ -8,7 +8,7 @@ import Custom.SystemUpdater 1.0
 Rectangle {
     id: root
     property string themeScope: "topbar.UpdaterWidget"
-    width: layout.implicitWidth + Globals.customValue(themeScope + ".layout", "padding", 24)
+    width: layout.implicitWidth + Globals.customValue(themeScope + ".layout", "padding", Globals.themeVars.spacingHuge)
     height: Globals.customValue(themeScope, "height", 40)
     radius: Globals.customValue(themeScope, "radius", Globals.themeVars.borderRadiusHuge)
     color: (mouseArea.containsMouse || popup.isActive) ? Globals.customValue(themeScope, "hoverColor", Globals.themeVars.Secondary50) : Globals.customValue(themeScope, "color", Globals.themeVars.Secondary25)
@@ -17,6 +17,7 @@ Rectangle {
 
     property var flatpakMgr: flatpakManager
     property var ostreeMgr: ostreeManager
+    property var fwupdMgr: fwupdManager
 
     property var completedUpdates: ({})
     function countCompletedFlatpaks() {
@@ -39,10 +40,11 @@ Rectangle {
 
     property int flatpakUpdates: Math.max(0, flatpakManager.updateCount - completedFlatpakCount)
     property int ostreeUpdates: (ostreeManager.updateCount > 0 || ostreeManager.isRebootRequired) ? 1 : 0
-    property int totalUpdates: flatpakUpdates + ostreeUpdates // count ostree as 1 update chunk
+    property int fwupdUpdates: Math.max(0, fwupdManager.updateCount)
+    property int totalUpdates: flatpakUpdates + ostreeUpdates + fwupdUpdates // count ostree as 1 update chunk
 
     property bool hasCritical: ostreeManager.hasCritical
-    property bool isUpdating: flatpakManager.isUpdating || ostreeManager.isUpdating
+    property bool isUpdating: flatpakManager.isUpdating || ostreeManager.isUpdating || fwupdManager.isUpdating
 
     function checkUpdates() {
         if (!flatpakManager.isChecking && !flatpakManager.isUpdating) {
@@ -51,13 +53,24 @@ Rectangle {
         if (!ostreeManager.isChecking && !ostreeManager.isUpdating) {
             ostreeManager.checkForUpdates();
         }
+        if (!fwupdManager.isChecking && !fwupdManager.isUpdating) {
+            fwupdManager.checkForUpdates();
+        }
     }
 
     Component.onCompleted: {
         flatpakManager.checkForUpdates();
+        fwupdManager.checkForUpdates();
     }
 
     // The native C++ Managers
+    FwupdManager {
+        id: fwupdManager
+        onUpdateFinished: (deviceId, success) => {
+            console.log("Firmware Update Finished: " + success)
+        }
+    }
+
     FlatpakManager {
         id: flatpakManager
         onUpdateFinished: (success) => {
@@ -103,7 +116,8 @@ Rectangle {
         rebootProc.running = true;
     }
 
-    property real perimeter: 2 * (root.width - 40) + 2 * Math.PI * 20
+    property real shapeRadius: Globals.customValue(themeScope, "radius", Globals.themeVars.borderRadiusHuge)
+    property real perimeter: 2 * (root.width - 2 * shapeRadius) + 2 * Math.PI * shapeRadius
     property real currentProgress: flatpakManager.isUpdating ? Math.max(0, flatpakManager.updateProgress) / 100.0 : 0.0
 
     Shape {
@@ -117,7 +131,7 @@ Rectangle {
             id: shapePath
             fillColor: "transparent"
             strokeColor: (mouseArea.containsMouse || popup.isActive) ? Globals.customValue(themeScope + ".indicator", "hoverColor", Globals.themeVars.White) : Globals.customValue(themeScope + ".indicator", "color", Globals.themeVars.Secondary)
-            strokeWidth: Globals.customValue(themeScope + ".indicator", "width", 2)
+            strokeWidth: Globals.customValue(themeScope + ".indicator", "width", Globals.themeVars.borderWidthMedium)
             capStyle: ShapePath.RoundCap
             strokeStyle: ShapePath.DashLine
 
@@ -174,7 +188,7 @@ Rectangle {
         // Flatpak Update Icon & Count
         RowLayout {
             visible: root.flatpakUpdates > 0
-            spacing: Globals.customValue(themeScope + ".flatpakLayout", "spacing", 4)
+            spacing: Globals.customValue(themeScope + ".flatpakLayout", "spacing", Globals.themeVars.spacingSmall)
             Icon {
                 width: Globals.customValue(themeScope + ".flatpakIcon", "width", 16); height: Globals.customValue(themeScope + ".flatpakIcon", "height", 16)
                 path: "M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18-.21 0-.41-.06-.57-.18l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18.21 0 .41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9zM12 4.15L6.04 7.5 12 10.85l5.96-3.35L12 4.15zM5 15.91l6 3.38v-6.71L5 9.21v6.7zm14 0v-6.7l-6 3.38v6.71l6-3.38z"
@@ -182,8 +196,24 @@ Rectangle {
             }
             Text {
                 text: root.flatpakUpdates.toString()
-                color: Globals.customValue(themeScope + ".text", "color", Globals.themeVars.White)
-                font.pixelSize: Globals.customValue(themeScope + ".text", "fontSize", 14); font.bold: true
+                color: Globals.customValue(themeScope + ".flatpakText", "color", Globals.themeVars.White)
+                font.pixelSize: Globals.customValue(themeScope + ".flatpakText", "fontSize", Globals.themeVars.fontSizeMedium); font.bold: true
+            }
+        }
+
+        // Firmware Update Icon & Count
+        RowLayout {
+            visible: root.fwupdUpdates > 0
+            spacing: Globals.customValue(themeScope + ".fwupdLayout", "spacing", Globals.themeVars.spacingSmall)
+            Icon {
+                width: Globals.customValue(themeScope + ".fwupdIcon", "width", 16); height: Globals.customValue(themeScope + ".fwupdIcon", "height", 16)
+                path: "M2 13h2v5H2v-5zm18 0h-2v5h2v-5zM17.5 4.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zM12 2C6.48 2 2 6.48 2 12h20c0-5.52-4.48-10-10-10zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"
+                color: Globals.customValue(themeScope + ".fwupdIcon", "color", Globals.themeVars.White)
+            }
+            Text {
+                text: root.fwupdUpdates.toString()
+                color: Globals.customValue(themeScope + ".fwupdText", "color", Globals.themeVars.White)
+                font.pixelSize: Globals.customValue(themeScope + ".fwupdText", "fontSize", Globals.themeVars.fontSizeMedium); font.bold: true
             }
         }
     }

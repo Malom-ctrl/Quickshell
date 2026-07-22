@@ -273,6 +273,7 @@
   /usr/include/qt6/QtCore/QList \
   /usr/include/qt6/QtCore/QObject \
   /usr/include/qt6/QtCore/QString \
+  /usr/include/qt6/QtCore/QTimer \
   /usr/include/qt6/QtCore/QVariant \
   /usr/include/qt6/QtCore/QVariantList \
   /usr/include/qt6/QtCore/q17memory.h \
@@ -284,6 +285,7 @@
   /usr/include/qt6/QtCore/q20utility.h \
   /usr/include/qt6/QtCore/q23type_traits.h \
   /usr/include/qt6/QtCore/q23utility.h \
+  /usr/include/qt6/QtCore/qabstracteventdispatcher.h \
   /usr/include/qt6/QtCore/qalgorithms.h \
   /usr/include/qt6/QtCore/qalloc.h \
   /usr/include/qt6/QtCore/qanystringview.h \
@@ -294,6 +296,7 @@
   /usr/include/qt6/QtCore/qatomic.h \
   /usr/include/qt6/QtCore/qatomic_cxx11.h \
   /usr/include/qt6/QtCore/qbasicatomic.h \
+  /usr/include/qt6/QtCore/qbasictimer.h \
   /usr/include/qt6/QtCore/qbindingstorage.h \
   /usr/include/qt6/QtCore/qbytearray.h \
   /usr/include/qt6/QtCore/qbytearrayalgorithms.h \
@@ -315,7 +318,9 @@
   /usr/include/qt6/QtCore/qdarwinhelpers.h \
   /usr/include/qt6/QtCore/qdatastream.h \
   /usr/include/qt6/QtCore/qdatetime.h \
+  /usr/include/qt6/QtCore/qdeadlinetimer.h \
   /usr/include/qt6/QtCore/qdebug.h \
+  /usr/include/qt6/QtCore/qeventloop.h \
   /usr/include/qt6/QtCore/qexceptionhandling.h \
   /usr/include/qt6/QtCore/qflags.h \
   /usr/include/qt6/QtCore/qfloat16.h \
@@ -388,6 +393,7 @@
   /usr/include/qt6/QtCore/qtenvironmentvariables.h \
   /usr/include/qt6/QtCore/qtextstream.h \
   /usr/include/qt6/QtCore/qtformat_impl.h \
+  /usr/include/qt6/QtCore/qtimer.h \
   /usr/include/qt6/QtCore/qtmetamacros.h \
   /usr/include/qt6/QtCore/qtnoop.h \
   /usr/include/qt6/QtCore/qtpreprocessorsupport.h \

@@ -14,7 +14,7 @@ QtObject {
     property var activePalette: Theme.activePalette
     property bool themesReady: Theme.themesReady
 
-    property string activeThemePath: Theme.activeThemePath
+    // property string activeThemePath: Theme.activeThemePath
 
     property var currentTheme: Theme.themeData
     property var themeVars: Theme.themeVars

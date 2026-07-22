@@ -136,7 +136,7 @@ PopupWindow {
                                 Text {
                                     text: Math.round(audioPopup.sinkVol * 100) + "%"
                                     color: Globals.customValue(themeScope + ".popup.section.value", "color", Globals.themeVars.SecondaryLight)
-                                    font.pixelSize: Globals.customValue(themeScope + ".popup.section.value", "fontSize", 13)
+                                    font.pixelSize: Globals.customValue(themeScope + ".popup.section.value", "fontSize", Globals.themeVars.fontSizeSmall)
                                 }
                             }
 
@@ -144,11 +144,11 @@ PopupWindow {
                                 Layout.fillWidth: true
                                 height: Globals.customValue(themeScope + ".popup.section.device", "height", 24)
                                 color: "transparent"
-                                radius: Globals.customValue(themeScope + ".popup.section.device", "radius", 4)
+                                radius: Globals.customValue(themeScope + ".popup.section.device", "radius", Globals.themeVars.borderRadiusSmall)
 
                                 RowLayout {
                                     anchors.fill: parent
-                                    spacing: Globals.customValue(themeScope + ".popup.section.device.layout", "spacing", 4)
+                                    spacing: Globals.customValue(themeScope + ".popup.section.device.layout", "spacing", Globals.themeVars.spacingSmall)
                                     Text {
                                         text: audioPopup.sinkName
                                         color: Globals.customValue(themeScope + ".popup.section.device.text", "color", Globals.themeVars.SecondaryLight)
@@ -177,13 +177,13 @@ PopupWindow {
                     Rectangle {
                         Layout.fillWidth: true
                         height: Globals.customValue(themeScope + ".popup.slider", "height", 36)
-                        radius: Globals.customValue(themeScope + ".popup.slider", "radius", 18)
+                        radius: Globals.customValue(themeScope + ".popup.slider", "radius", Globals.themeVars.borderRadiusLarge)
                         color: Globals.customValue(themeScope + ".popup.slider", "color", Globals.themeVars.Secondary25)
 
                         Rectangle {
                             height: parent.height
                             width: parent.width * Math.min(1, Math.max(0, audioPopup.sinkVol))
-                            radius: Globals.customValue(themeScope + ".popup.slider", "radius", 18)
+                            radius: Globals.customValue(themeScope + ".popup.slider", "radius", Globals.themeVars.borderRadiusLarge)
                             color: Globals.customValue(themeScope + ".popup.slider", "fillColor", Globals.themeVars.Secondary)
                         }
 
@@ -241,7 +241,7 @@ PopupWindow {
                                 Text {
                                     text: Math.round(audioPopup.sourceVol * 100) + "%"
                                     color: Globals.customValue(themeScope + ".popup.section.value", "color", Globals.themeVars.SecondaryLight)
-                                    font.pixelSize: Globals.customValue(themeScope + ".popup.section.value", "fontSize", 13)
+                                    font.pixelSize: Globals.customValue(themeScope + ".popup.section.value", "fontSize", Globals.themeVars.fontSizeSmall)
                                 }
                             }
 
@@ -249,11 +249,11 @@ PopupWindow {
                                 Layout.fillWidth: true
                                 height: Globals.customValue(themeScope + ".popup.section.device", "height", 24)
                                 color: "transparent"
-                                radius: Globals.customValue(themeScope + ".popup.section.device", "radius", 4)
+                                radius: Globals.customValue(themeScope + ".popup.section.device", "radius", Globals.themeVars.borderRadiusSmall)
 
                                 RowLayout {
                                     anchors.fill: parent
-                                    spacing: Globals.customValue(themeScope + ".popup.section.device.layout", "spacing", 4)
+                                    spacing: Globals.customValue(themeScope + ".popup.section.device.layout", "spacing", Globals.themeVars.spacingSmall)
                                     Text {
                                         text: audioPopup.sourceName
                                         color: Globals.customValue(themeScope + ".popup.section.device.text", "color", Globals.themeVars.SecondaryLight)
@@ -281,13 +281,13 @@ PopupWindow {
                     Rectangle {
                         Layout.fillWidth: true
                         height: Globals.customValue(themeScope + ".popup.slider", "height", 36)
-                        radius: Globals.customValue(themeScope + ".popup.slider", "radius", 18)
+                        radius: Globals.customValue(themeScope + ".popup.slider", "radius", Globals.themeVars.borderRadiusLarge)
                         color: Globals.customValue(themeScope + ".popup.slider", "color", Globals.themeVars.Secondary25)
 
                         Rectangle {
                             height: parent.height
                             width: parent.width * Math.min(1, Math.max(0, audioPopup.sourceVol))
-                            radius: Globals.customValue(themeScope + ".popup.slider", "radius", 18)
+                            radius: Globals.customValue(themeScope + ".popup.slider", "radius", Globals.themeVars.borderRadiusLarge)
                             color: Globals.customValue(themeScope + ".popup.slider", "fillColor", Globals.themeVars.Secondary)
                         }
 

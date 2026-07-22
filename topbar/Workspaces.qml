@@ -101,7 +101,7 @@ RowLayout {
 
             width: isFocused ? Globals.customValue(themeScope + ".pill", "widthFocused", 48) : (isActive ? Globals.customValue(themeScope + ".pill", "widthActive", 24) : Globals.customValue(themeScope + ".pill", "widthInactive", 12))
             height: Globals.customValue(themeScope + ".pill", "height", 12)
-            radius: Globals.customValue(themeScope + ".pill", "radius", 6)
+            radius: Globals.customValue(themeScope + ".pill", "radius", Globals.themeVars.borderRadiusSmall)
 
             color: isFocused ? Globals.customValue(themeScope + ".pill", "colorFocused", Globals.themeVars.Secondary) : (isActive ? Globals.customValue(themeScope + ".pill", "colorActive", Globals.themeVars.White) : Globals.customValue(themeScope + ".pill", "colorInactive", Globals.themeVars.Secondary25))
 

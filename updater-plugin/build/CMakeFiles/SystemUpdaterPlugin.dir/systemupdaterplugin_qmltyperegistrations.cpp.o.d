@@ -328,8 +328,12 @@ CMakeFiles/SystemUpdaterPlugin.dir/systemupdaterplugin_qmltyperegistrations.cpp.
  /usr/include/qt6/QtCore/QObject /usr/include/qt6/QtCore/QString \
  /usr/include/qt6/QtCore/QVariantList \
  /usr/include/qt6/QtCore/qvariantlist.h /usr/include/qt6/QtCore/QList \
- /usr/include/qt6/QtCore/QVariant \
- /var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.hpp \
+ /usr/include/qt6/QtCore/QVariant /usr/include/qt6/QtCore/QTimer \
+ /usr/include/qt6/QtCore/qtimer.h /usr/include/qt6/QtCore/qbasictimer.h \
+ /usr/include/qt6/QtCore/qabstracteventdispatcher.h \
+ /usr/include/qt6/QtCore/qeventloop.h \
+ /usr/include/qt6/QtCore/qdeadlinetimer.h \
+ /var/home/user/.config/quickshell/updater-plugin/FwupdManager.hpp \
  /usr/include/qt6/QtDBus/QDBusInterface \
  /usr/include/qt6/QtDBus/qdbusinterface.h \
  /usr/include/qt6/QtDBus/qtdbusglobal.h \
@@ -340,6 +344,7 @@ CMakeFiles/SystemUpdaterPlugin.dir/systemupdaterplugin_qmltyperegistrations.cpp.
  /usr/include/qt6/QtDBus/qdbusextratypes.h \
  /usr/include/qt6/QtDBus/qdbusconnection.h \
  /usr/include/qt6/QtDBus/qdbuspendingcall.h \
+ /var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.hpp \
  /usr/include/qt6/QtDBus/QDBusPendingCallWatcher \
  /usr/include/qt6/QtDBus/QDBusMessage \
  /usr/include/qt6/QtDBus/QDBusObjectPath

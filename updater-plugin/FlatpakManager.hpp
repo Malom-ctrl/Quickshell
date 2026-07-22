@@ -3,6 +3,7 @@
 #include <QtQml/qqml.h>
 #include <QString>
 #include <QVariantList>
+#include <QTimer>
 
 class FlatpakManager : public QObject {
     Q_OBJECT
@@ -51,6 +52,9 @@ Q_SIGNALS:
     void isCheckingChanged();
     void availableUpdatesChanged();
 
+private Q_SLOTS:
+    void handleMonitorChanged();
+
 private:
     void setProgress(int progress);
     void setStatus(const QString& status);
@@ -58,11 +62,13 @@ private:
     void setUpdating(bool updating);
     void setChecking(bool checking);
     void setCurrentUpdatingRef(const QString& ref);
+    void setupMonitors();
 
     static void onNewOperation(void* transaction, void* operation, void* progress, void* user_data);
     static void onOperationProgress(void* progress, void* user_data);
     static void onOperationDone(void* transaction, void* operation, const char* commit, int res, void* user_data);
     static int onOperationError(void* transaction, void* operation, void* error, int details, void* user_data);
+    static void onMonitorChanged(void* monitor, void* file, void* other_file, int event_type, void* user_data);
 
     int m_progress = 0;
     bool m_updating = false;
@@ -71,4 +77,8 @@ private:
     QString m_lastError;
     QString m_currentUpdatingRef;
     QVariantList m_availableUpdates;
+    
+    void* m_userMonitor = nullptr;
+    void* m_sysMonitor = nullptr;
+    QTimer m_debounceTimer;
 };

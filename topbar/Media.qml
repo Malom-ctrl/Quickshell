@@ -48,26 +48,52 @@ Rectangle {
 
         // Marquee Text for Title
         Item {
-            Layout.preferredWidth: Math.min(mediaText.implicitWidth, 150)
-            Layout.preferredHeight: 20
+            Layout.preferredWidth: Math.min(titleText.implicitWidth, Globals.customValue(themeScope + ".titleContainer", "maxWidth", 150))
+            Layout.preferredHeight: Globals.customValue(themeScope + ".titleContainer", "height", 20)
             clip: true
-            Text {
-                id: mediaText
-                text: root.title
-                color: Globals.customValue(themeScope + ".title", "color", Globals.themeVars.White) // On Primary Container
-                font.pixelSize: Globals.customValue(themeScope + ".title", "fontSize", Globals.themeVars.fontSizeMedium)
-                font.bold: true
+
+            Row {
+                id: mediaTextRow
+                spacing: Globals.customValue(themeScope + ".titleRow", "spacing", 40)
                 anchors.verticalCenter: parent.verticalCenter
-
+                property bool shouldScroll: root.status === "Playing" && titleText.implicitWidth > Globals.customValue(themeScope + ".titleContainer", "maxWidth", 150)
                 property real animX: 0
-                x: (root.status === "Playing" && mediaText.implicitWidth > 150) ? animX : 0
+                x: shouldScroll ? animX : 0
 
-                NumberAnimation on animX {
-                    from: 150
-                    to: -mediaText.implicitWidth
-                    duration: 5000 + mediaText.implicitWidth * 20
+                Text {
+                    id: titleText
+                    text: root.title
+                    color: Globals.customValue(themeScope + ".title", "color", Globals.themeVars.White) // On Primary Container
+                    font.pixelSize: Globals.customValue(themeScope + ".title", "fontSize", Globals.themeVars.fontSizeMedium)
+                    font.bold: true
+                }
+                Text {
+                    text: root.title
+                    color: titleText.color
+                    font.pixelSize: titleText.font.pixelSize
+                    font.bold: titleText.font.bold
+                    visible: mediaTextRow.shouldScroll
+                }
+
+                onShouldScrollChanged: {
+                    if (shouldScroll) {
+                        animX = 0;
+                        scrollAnim.restart();
+                    } else {
+                        scrollAnim.stop();
+                        animX = 0;
+                    }
+                }
+
+                SequentialAnimation on animX {
+                    id: scrollAnim
                     loops: Animation.Infinite
-                    running: root.status === "Playing" && mediaText.implicitWidth > 150
+                    running: false
+                    NumberAnimation {
+                        from: 0
+                        to: -(titleText.implicitWidth + mediaTextRow.spacing)
+                        duration: (titleText.implicitWidth + mediaTextRow.spacing) * 20
+                    }
                 }
             }
         }
@@ -80,7 +106,13 @@ Rectangle {
                 implicitWidth: Globals.customValue(themeScope + ".controls.prev", "width", 24); implicitHeight: Globals.customValue(themeScope + ".controls.prev", "height", 24)
                 onClicked: if (root.player && root.player.canGoPrevious) root.player.previous()
                 cursorShape: Qt.PointingHandCursor
-                Icon { anchors.centerIn: parent; width: Globals.customValue(themeScope + ".controls.prev.icon", "width", 20); height: Globals.customValue(themeScope + ".controls.prev.icon", "height", 20); path: "M6 6h2v12H6zm3.5 6l8.5 6V6z"; color: Globals.customValue(themeScope + ".controls.prev.icon", "color", Globals.themeVars.White) }
+                Icon {
+                    anchors.centerIn: parent;
+                    width: Globals.customValue(themeScope + ".controls.prev.icon", "width", 20);
+                    height: Globals.customValue(themeScope + ".controls.prev.icon", "height", 20);
+                    path: "M6 6h2v12H6zm3.5 6l8.5 6V6z";
+                    color: Globals.customValue(themeScope + ".controls.prev.icon", "color", Globals.themeVars.White)
+                }
             }
             MouseArea {
                 implicitWidth: Globals.customValue(themeScope + ".controls.play", "width", 32); implicitHeight: Globals.customValue(themeScope + ".controls.play", "height", 32)
@@ -89,7 +121,9 @@ Rectangle {
                 Rectangle {
                     anchors.fill: parent; radius: Globals.customValue(themeScope + ".controls.play.bg", "radius", Globals.themeVars.borderRadiusLarge); color: Globals.customValue(themeScope + ".controls.play.bg", "color", Globals.themeVars.Secondary)
                     Icon {
-                        anchors.centerIn: parent; width: Globals.customValue(themeScope + ".controls.play.icon", "width", 20); height: Globals.customValue(themeScope + ".controls.play.icon", "height", 20);
+                        anchors.centerIn: parent;
+                        width: Globals.customValue(themeScope + ".controls.play.icon", "width", 20);
+                        height: Globals.customValue(themeScope + ".controls.play.icon", "height", 20);
                         path: root.status === "Playing" ? "M6 19h4V5H6v14zm8-14v14h4V5h-4z" : "M8 5v14l11-7z"
                         color: Globals.customValue(themeScope + ".controls.play.icon", "color", Globals.themeVars.Black)
                     }
@@ -99,7 +133,13 @@ Rectangle {
                 implicitWidth: Globals.customValue(themeScope + ".controls.next", "width", 24); implicitHeight: Globals.customValue(themeScope + ".controls.next", "height", 24)
                 onClicked: if (root.player && root.player.canGoNext) root.player.next()
                 cursorShape: Qt.PointingHandCursor
-                Icon { anchors.centerIn: parent; width: Globals.customValue(themeScope + ".controls.next.icon", "width", 20); height: Globals.customValue(themeScope + ".controls.next.icon", "height", 20); path: "M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"; color: Globals.customValue(themeScope + ".controls.next.icon", "color", Globals.themeVars.White) }
+                Icon {
+                    anchors.centerIn: parent;
+                    width: Globals.customValue(themeScope + ".controls.next.icon", "width", 20);
+                    height: Globals.customValue(themeScope + ".controls.next.icon", "height", 20);
+                    path: "M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z";
+                    color: Globals.customValue(themeScope + ".controls.next.icon", "color", Globals.themeVars.White)
+                }
             }
         }
     }

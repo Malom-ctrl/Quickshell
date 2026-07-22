@@ -124,6 +124,7 @@ PanelWindow {
 
                 PowerProfile { }
                 Battery { }
+                AutoresticWidget { }
                 UpdaterWidget { }
                 PowerControls { }
             }

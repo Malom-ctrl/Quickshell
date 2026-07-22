@@ -8,7 +8,7 @@ import QtQuick.tooling 1.2
 Module {
     Component {
         file: "FlatpakManager.hpp"
-        lineNumber: 7
+        lineNumber: 8
         name: "FlatpakManager"
         accessSemantics: "reference"
         prototype: "QObject"
@@ -20,7 +20,7 @@ Module {
             read: "updateProgress"
             notify: "progressChanged"
             index: 0
-            lineNumber: 11
+            lineNumber: 12
             isReadonly: true
         }
         Property {
@@ -29,7 +29,7 @@ Module {
             read: "isUpdating"
             notify: "updatingChanged"
             index: 1
-            lineNumber: 12
+            lineNumber: 13
             isReadonly: true
         }
         Property {
@@ -38,7 +38,7 @@ Module {
             read: "status"
             notify: "statusChanged"
             index: 2
-            lineNumber: 13
+            lineNumber: 14
             isReadonly: true
         }
         Property {
@@ -47,7 +47,7 @@ Module {
             read: "lastError"
             notify: "lastErrorChanged"
             index: 3
-            lineNumber: 14
+            lineNumber: 15
             isReadonly: true
         }
         Property {
@@ -56,7 +56,7 @@ Module {
             read: "currentUpdatingRef"
             notify: "currentUpdatingRefChanged"
             index: 4
-            lineNumber: 15
+            lineNumber: 16
             isReadonly: true
         }
         Property {
@@ -65,7 +65,7 @@ Module {
             read: "isChecking"
             notify: "isCheckingChanged"
             index: 5
-            lineNumber: 17
+            lineNumber: 18
             isReadonly: true
         }
         Property {
@@ -74,7 +74,7 @@ Module {
             read: "updateCount"
             notify: "availableUpdatesChanged"
             index: 6
-            lineNumber: 18
+            lineNumber: 19
             isReadonly: true
         }
         Property {
@@ -83,47 +83,162 @@ Module {
             read: "availableUpdates"
             notify: "availableUpdatesChanged"
             index: 7
-            lineNumber: 19
+            lineNumber: 20
             isReadonly: true
         }
-        Signal { name: "progressChanged"; lineNumber: 41 }
-        Signal { name: "updatingChanged"; lineNumber: 42 }
-        Signal { name: "statusChanged"; lineNumber: 43 }
-        Signal { name: "lastErrorChanged"; lineNumber: 44 }
-        Signal { name: "currentUpdatingRefChanged"; lineNumber: 45 }
+        Signal { name: "progressChanged"; lineNumber: 42 }
+        Signal { name: "updatingChanged"; lineNumber: 43 }
+        Signal { name: "statusChanged"; lineNumber: 44 }
+        Signal { name: "lastErrorChanged"; lineNumber: 45 }
+        Signal { name: "currentUpdatingRefChanged"; lineNumber: 46 }
         Signal {
             name: "updateFinished"
-            lineNumber: 46
+            lineNumber: 47
             Parameter { name: "success"; type: "bool" }
         }
         Signal {
             name: "operationFinished"
-            lineNumber: 47
+            lineNumber: 48
             Parameter { name: "ref"; type: "QString" }
             Parameter { name: "success"; type: "bool" }
         }
         Signal {
             name: "operationWarning"
-            lineNumber: 48
+            lineNumber: 49
             Parameter { name: "ref"; type: "QString" }
             Parameter { name: "message"; type: "QString" }
         }
         Signal {
             name: "operationFailed"
-            lineNumber: 49
+            lineNumber: 50
             Parameter { name: "ref"; type: "QString" }
             Parameter { name: "message"; type: "QString" }
         }
-        Signal { name: "isCheckingChanged"; lineNumber: 51 }
-        Signal { name: "availableUpdatesChanged"; lineNumber: 52 }
-        Method { name: "startUpdate"; lineNumber: 36 }
-        Method { name: "checkForUpdates"; lineNumber: 37 }
+        Signal { name: "isCheckingChanged"; lineNumber: 52 }
+        Signal { name: "availableUpdatesChanged"; lineNumber: 53 }
+        Method { name: "startUpdate"; lineNumber: 37 }
+        Method { name: "checkForUpdates"; lineNumber: 38 }
         Method {
             name: "updatePackage"
-            lineNumber: 38
+            lineNumber: 39
             Parameter { name: "ref"; type: "QString" }
             Parameter { name: "isSystem"; type: "bool" }
         }
+        Method { name: "handleMonitorChanged"; lineNumber: 56 }
+    }
+    Component {
+        file: "FwupdManager.hpp"
+        lineNumber: 8
+        name: "FwupdManager"
+        accessSemantics: "reference"
+        prototype: "QObject"
+        exports: ["Custom.SystemUpdater/FwupdManager 1.0"]
+        exportMetaObjectRevisions: [256]
+        Property {
+            name: "updateProgress"
+            type: "int"
+            read: "updateProgress"
+            notify: "progressChanged"
+            index: 0
+            lineNumber: 12
+            isReadonly: true
+        }
+        Property {
+            name: "isUpdating"
+            type: "bool"
+            read: "isUpdating"
+            notify: "updatingChanged"
+            index: 1
+            lineNumber: 13
+            isReadonly: true
+        }
+        Property {
+            name: "status"
+            type: "QString"
+            read: "status"
+            notify: "statusChanged"
+            index: 2
+            lineNumber: 14
+            isReadonly: true
+        }
+        Property {
+            name: "lastError"
+            type: "QString"
+            read: "lastError"
+            notify: "lastErrorChanged"
+            index: 3
+            lineNumber: 15
+            isReadonly: true
+        }
+        Property {
+            name: "isChecking"
+            type: "bool"
+            read: "isChecking"
+            notify: "isCheckingChanged"
+            index: 4
+            lineNumber: 17
+            isReadonly: true
+        }
+        Property {
+            name: "updateCount"
+            type: "int"
+            read: "updateCount"
+            notify: "availableUpdatesChanged"
+            index: 5
+            lineNumber: 18
+            isReadonly: true
+        }
+        Property {
+            name: "availableUpdates"
+            type: "QVariantList"
+            read: "availableUpdates"
+            notify: "availableUpdatesChanged"
+            index: 6
+            lineNumber: 19
+            isReadonly: true
+        }
+        Signal { name: "progressChanged"; lineNumber: 38 }
+        Signal { name: "updatingChanged"; lineNumber: 39 }
+        Signal { name: "statusChanged"; lineNumber: 40 }
+        Signal { name: "lastErrorChanged"; lineNumber: 41 }
+        Signal { name: "isCheckingChanged"; lineNumber: 43 }
+        Signal { name: "availableUpdatesChanged"; lineNumber: 44 }
+        Signal {
+            name: "updateFinished"
+            lineNumber: 46
+            Parameter { name: "deviceId"; type: "QString" }
+            Parameter { name: "success"; type: "bool" }
+        }
+        Method { name: "checkForUpdates"; lineNumber: 33 }
+        Method {
+            name: "startUpdate"
+            lineNumber: 34
+            Parameter { name: "deviceId"; type: "QString" }
+        }
+        Method { name: "startAllUpdates"; lineNumber: 35 }
+        Method {
+            name: "onPropertiesChanged"
+            lineNumber: 49
+            Parameter { name: "interface"; type: "QString" }
+            Parameter { name: "changedProperties"; type: "QVariantMap" }
+            Parameter { name: "invalidatedProperties"; type: "QStringList" }
+        }
+        Method {
+            name: "onDeviceAdded"
+            lineNumber: 50
+            Parameter { name: "device"; type: "QVariantMap" }
+        }
+        Method {
+            name: "onDeviceChanged"
+            lineNumber: 51
+            Parameter { name: "device"; type: "QVariantMap" }
+        }
+        Method {
+            name: "onDeviceRemoved"
+            lineNumber: 52
+            Parameter { name: "device"; type: "QVariantMap" }
+        }
+        Method { name: "onChanged"; lineNumber: 53 }
     }
     Component {
         file: "OstreeUpdater.hpp"

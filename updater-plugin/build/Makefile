@@ -413,6 +413,30 @@ FlatpakManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SystemUpdaterPlugin.dir/build.make CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.s
 .PHONY : FlatpakManager.cpp.s
 
+FwupdManager.o: FwupdManager.cpp.o
+.PHONY : FwupdManager.o
+
+# target to build an object file
+FwupdManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SystemUpdaterPlugin.dir/build.make CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o
+.PHONY : FwupdManager.cpp.o
+
+FwupdManager.i: FwupdManager.cpp.i
+.PHONY : FwupdManager.i
+
+# target to preprocess a source file
+FwupdManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SystemUpdaterPlugin.dir/build.make CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.i
+.PHONY : FwupdManager.cpp.i
+
+FwupdManager.s: FwupdManager.cpp.s
+.PHONY : FwupdManager.s
+
+# target to generate assembly for a file
+FwupdManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SystemUpdaterPlugin.dir/build.make CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.s
+.PHONY : FwupdManager.cpp.s
+
 OstreeUpdater.o: OstreeUpdater.cpp.o
 .PHONY : OstreeUpdater.o
 
@@ -589,6 +613,9 @@ help:
 	@echo "... FlatpakManager.o"
 	@echo "... FlatpakManager.i"
 	@echo "... FlatpakManager.s"
+	@echo "... FwupdManager.o"
+	@echo "... FwupdManager.i"
+	@echo "... FwupdManager.s"
 	@echo "... OstreeUpdater.o"
 	@echo "... OstreeUpdater.i"
 	@echo "... OstreeUpdater.s"

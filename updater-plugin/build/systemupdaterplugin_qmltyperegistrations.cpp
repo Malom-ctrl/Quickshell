@@ -10,6 +10,9 @@
 #if __has_include(<FlatpakManager.hpp>)
 #  include <FlatpakManager.hpp>
 #endif
+#if __has_include(<FwupdManager.hpp>)
+#  include <FwupdManager.hpp>
+#endif
 #if __has_include(<OstreeUpdater.hpp>)
 #  include <OstreeUpdater.hpp>
 #endif
@@ -24,6 +27,7 @@ Q_QMLTYPE_EXPORT void qml_register_types_Custom_SystemUpdater()
 {
     QT_WARNING_PUSH QT_WARNING_DISABLE_DEPRECATED
     qmlRegisterTypesAndRevisions<FlatpakManager>("Custom.SystemUpdater", 1);
+    qmlRegisterTypesAndRevisions<FwupdManager>("Custom.SystemUpdater", 1);
     qmlRegisterTypesAndRevisions<OstreeUpdater>("Custom.SystemUpdater", 1);
     QT_WARNING_POP
     qmlRegisterModule("Custom.SystemUpdater", 1, 0);

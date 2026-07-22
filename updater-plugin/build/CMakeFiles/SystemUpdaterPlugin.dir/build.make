@@ -156,10 +156,24 @@ CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /var/home/user/.config/quickshell/updater-plugin/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp -o CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp.s
 
+CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o: CMakeFiles/SystemUpdaterPlugin.dir/flags.make
+CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o: /var/home/user/.config/quickshell/updater-plugin/FwupdManager.cpp
+CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o: CMakeFiles/SystemUpdaterPlugin.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/var/home/user/.config/quickshell/updater-plugin/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o -MF CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o.d -o CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o -c /var/home/user/.config/quickshell/updater-plugin/FwupdManager.cpp
+
+CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /var/home/user/.config/quickshell/updater-plugin/FwupdManager.cpp > CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.i
+
+CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /var/home/user/.config/quickshell/updater-plugin/FwupdManager.cpp -o CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.s
+
 CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o: CMakeFiles/SystemUpdaterPlugin.dir/flags.make
 CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o: /var/home/user/.config/quickshell/updater-plugin/FlatpakManager.cpp
 CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o: CMakeFiles/SystemUpdaterPlugin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/var/home/user/.config/quickshell/updater-plugin/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/var/home/user/.config/quickshell/updater-plugin/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o -MF CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o.d -o CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o -c /var/home/user/.config/quickshell/updater-plugin/FlatpakManager.cpp
 
 CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.i: cmake_force
@@ -173,7 +187,7 @@ CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.s: cmake_force
 CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o: CMakeFiles/SystemUpdaterPlugin.dir/flags.make
 CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o: /var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.cpp
 CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o: CMakeFiles/SystemUpdaterPlugin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/var/home/user/.config/quickshell/updater-plugin/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/var/home/user/.config/quickshell/updater-plugin/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o -MF CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o.d -o CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o -c /var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.cpp
 
 CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.i: cmake_force
@@ -189,6 +203,7 @@ SystemUpdaterPlugin_OBJECTS = \
 "CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/SystemUpdaterPlugin.dir/systemupdaterplugin_qmltyperegistrations.cpp.o" \
 "CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp.o" \
+"CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o" \
 "CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o" \
 "CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o"
 
@@ -198,6 +213,7 @@ SystemUpdaterPlugin_EXTERNAL_OBJECTS =
 libSystemUpdaterPlugin.so: CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.cpp.o
 libSystemUpdaterPlugin.so: CMakeFiles/SystemUpdaterPlugin.dir/systemupdaterplugin_qmltyperegistrations.cpp.o
 libSystemUpdaterPlugin.so: CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp.o
+libSystemUpdaterPlugin.so: CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o
 libSystemUpdaterPlugin.so: CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o
 libSystemUpdaterPlugin.so: CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o
 libSystemUpdaterPlugin.so: CMakeFiles/SystemUpdaterPlugin.dir/build.make
@@ -207,7 +223,7 @@ libSystemUpdaterPlugin.so: /usr/lib64/libQt6DBus.so.6.11.1
 libSystemUpdaterPlugin.so: /usr/lib64/libQt6Network.so.6.11.1
 libSystemUpdaterPlugin.so: /usr/lib64/libQt6Core.so.6.11.1
 libSystemUpdaterPlugin.so: CMakeFiles/SystemUpdaterPlugin.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/var/home/user/.config/quickshell/updater-plugin/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX shared library libSystemUpdaterPlugin.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/var/home/user/.config/quickshell/updater-plugin/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX shared library libSystemUpdaterPlugin.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SystemUpdaterPlugin.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

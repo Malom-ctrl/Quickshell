@@ -64,14 +64,14 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.margins: Globals.customValue(themeScope + ".badge", "margins", -4)
                 width: Globals.customValue(themeScope + ".badge", "width", 14); height: Globals.customValue(themeScope + ".badge", "height", 14)
-                radius: Globals.customValue(themeScope + ".badge", "radius", 7)
+                radius: Globals.customValue(themeScope + ".badge", "radius", Globals.themeVars.borderRadiusSmall)
                 color: Globals.customValue(themeScope + ".badge", "color", Globals.themeVars.Secondary)
                 visible: server.trackedNotifications.values.length > 0
                 Text {
                     anchors.centerIn: parent
                     text: server.trackedNotifications.values.length
                     color: Globals.customValue(themeScope + ".badge.text", "color", Globals.themeVars.Black)
-                    font.pixelSize: Globals.customValue(themeScope + ".badge.text", "fontSize", 10)
+                    font.pixelSize: Globals.customValue(themeScope + ".badge.text", "fontSize", Globals.themeVars.fontSizeSmall)
                     font.bold: true
                 }
             }
@@ -99,7 +99,7 @@ Rectangle {
 
                 // App initial
                 Rectangle {
-                    width: Globals.customValue(themeScope + ".expandedIcon", "width", 28); height: Globals.customValue(themeScope + ".expandedIcon", "height", 28); radius: Globals.customValue(themeScope + ".expandedIcon", "radius", 14)
+                    width: Globals.customValue(themeScope + ".expandedIcon", "width", 28); height: Globals.customValue(themeScope + ".expandedIcon", "height", 28); radius: Globals.customValue(themeScope + ".expandedIcon", "radius", Globals.themeVars.borderRadiusMedium)
                     color: Globals.customValue(themeScope + ".expandedIcon", "color", Globals.themeVars.Black)
                     Layout.alignment: Qt.AlignVCenter
                     Text {
@@ -113,14 +113,14 @@ Rectangle {
 
                 // Title and Body
                 ColumnLayout {
-                    spacing: Globals.customValue(themeScope + ".expandedText", "spacing", 2)
+                    spacing: Globals.customValue(themeScope + ".expandedText", "spacing", Globals.themeVars.spacingSmall)
                     Layout.alignment: Qt.AlignVCenter
                     Layout.maximumWidth: Globals.customValue(themeScope + ".expandedText", "maximumWidth", 180)
 
                     Text {
                         text: root.activeNotification ? root.activeNotification.summary : ""
                         color: Globals.customValue(themeScope + ".expandedText.title", "color", Globals.themeVars.White)
-                        font.pixelSize: Globals.customValue(themeScope + ".expandedText.title", "fontSize", 13)
+                        font.pixelSize: Globals.customValue(themeScope + ".expandedText.title", "fontSize", Globals.themeVars.fontSizeMedium)
                         font.bold: true
                         Layout.fillWidth: true
                         elide: Text.ElideRight
@@ -138,7 +138,7 @@ Rectangle {
 
                 // Actions
                 RowLayout {
-                    spacing: Globals.customValue(themeScope + ".expandedActions", "spacing", 6)
+                    spacing: Globals.customValue(themeScope + ".expandedActions", "spacing", Globals.themeVars.spacingMedium)
                     Repeater {
                         model: root.activeNotification ? root.activeNotification.actions : []
                         Rectangle {

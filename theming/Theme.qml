@@ -85,6 +85,28 @@ QtObject {
 
     property int _themeTrigger: 0
 
+    function resolveThemeValue(val, depth) {
+        depth = depth || 0;
+        if (depth >= 6) {
+            console.error("Theme value resolution exceeded max recursion depth (6). Possible circular reference at value:", val);
+            return val;
+        }
+        if (typeof val !== "string") {
+            return val;
+        }
+
+        if (val in root.themeVars) {
+            return resolveThemeValue(root.themeVars[val], depth + 1);
+        }
+
+        let t = themeAdapter;
+        if (t && t.palette && val in t.palette) {
+            return resolveThemeValue(t.palette[val], depth + 1);
+        }
+
+        return val;
+    }
+
     function customValue(scope, key, fallback) {
         let dummy = root._themeTrigger;
         let t = themeAdapter;
@@ -93,11 +115,11 @@ QtObject {
             if (scope && scope !== "") {
                 let scopedKey = scope + "." + key;
                 if (scopedKey in p) {
-                    return p[scopedKey];
+                    return resolveThemeValue(p[scopedKey]);
                 }
             }
             if (key in p) {
-                return p[key];
+                return resolveThemeValue(p[key]);
             }
         }
         return fallback;

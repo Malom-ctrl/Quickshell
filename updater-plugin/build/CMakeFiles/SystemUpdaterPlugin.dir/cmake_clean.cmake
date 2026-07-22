@@ -6,6 +6,8 @@ file(REMOVE_RECURSE
   "SystemUpdaterPlugin_autogen"
   "CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o"
   "CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o.d"
+  "CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o"
+  "CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o.d"
   "CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o"
   "CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o.d"
   "CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.cpp.o"

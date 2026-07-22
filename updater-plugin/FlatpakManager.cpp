@@ -3,12 +3,61 @@
 #include <QThread>
 #include <QDebug>
 #include <QMetaObject>
+#include <QTimer>
+#include <QPointer>
 #include <thread>
+#include <gio/gio.h>
 
 FlatpakManager::FlatpakManager(QObject* parent) : QObject(parent) {
+    m_debounceTimer.setSingleShot(true);
+    m_debounceTimer.setInterval(1500);
+    connect(&m_debounceTimer, &QTimer::timeout, this, &FlatpakManager::checkForUpdates);
+    setupMonitors();
 }
 
 FlatpakManager::~FlatpakManager() {
+    m_debounceTimer.stop();
+    if (m_userMonitor) {
+        g_object_unref(m_userMonitor);
+        m_userMonitor = nullptr;
+    }
+    if (m_sysMonitor) {
+        g_object_unref(m_sysMonitor);
+        m_sysMonitor = nullptr;
+    }
+}
+
+void FlatpakManager::setupMonitors() {
+    g_autoptr(GError) userError = nullptr;
+    g_autoptr(FlatpakInstallation) userInst = flatpak_installation_new_user(nullptr, &userError);
+    if (userInst) {
+        GFileMonitor* userMonitor = flatpak_installation_create_monitor(userInst, nullptr, nullptr);
+        if (userMonitor) {
+            g_signal_connect(userMonitor, "changed", G_CALLBACK(onMonitorChanged), this);
+            m_userMonitor = userMonitor;
+        }
+    }
+
+    g_autoptr(GError) sysError = nullptr;
+    g_autoptr(FlatpakInstallation) sysInst = flatpak_installation_new_system(nullptr, &sysError);
+    if (sysInst) {
+        GFileMonitor* sysMonitor = flatpak_installation_create_monitor(sysInst, nullptr, nullptr);
+        if (sysMonitor) {
+            g_signal_connect(sysMonitor, "changed", G_CALLBACK(onMonitorChanged), this);
+            m_sysMonitor = sysMonitor;
+        }
+    }
+}
+
+void FlatpakManager::onMonitorChanged(void* monitor, void* file, void* other_file, int event_type, void* user_data) {
+    auto* self = static_cast<FlatpakManager*>(user_data);
+    QMetaObject::invokeMethod(self, "handleMonitorChanged", Qt::QueuedConnection);
+}
+
+void FlatpakManager::handleMonitorChanged() {
+    if (!m_updating) {
+        m_debounceTimer.start();
+    }
 }
 
 void FlatpakManager::setProgress(int progress) {
@@ -137,7 +186,9 @@ void FlatpakManager::checkForUpdates() {
     if (m_checking || m_updating) return;
     setChecking(true);
     
-    std::thread([this]() {
+    QPointer<FlatpakManager> safeThis(this);
+    
+    std::thread([safeThis]() {
         QVariantList list;
         
         auto checkInstallation = [&list](FlatpakInstallation* installation, bool isSystem) {
@@ -188,11 +239,15 @@ void FlatpakManager::checkForUpdates() {
         g_autoptr(FlatpakInstallation) sysInst = flatpak_installation_new_system(nullptr, &sysError);
         if (sysInst) checkInstallation(sysInst, true);
         
-        QMetaObject::invokeMethod(this, [this, list]() {
-            m_availableUpdates = list;
-            Q_EMIT availableUpdatesChanged();
-            setChecking(false);
-        });
+        if (safeThis) {
+            QMetaObject::invokeMethod(safeThis, [safeThis, list]() {
+                if (safeThis) {
+                    safeThis->m_availableUpdates = list;
+                    Q_EMIT safeThis->availableUpdatesChanged();
+                    safeThis->setChecking(false);
+                }
+            });
+        }
     }).detach();
 }
 
@@ -203,11 +258,15 @@ void FlatpakManager::startUpdate() {
     setLastError("");
     setStatus("Preparing Flatpak update...");
 
-    std::thread([this]() {
+    QPointer<FlatpakManager> safeThis(this);
+
+    std::thread([safeThis]() {
         bool overallSuccess = true;
         QString lastErrorStr;
 
-        auto runUpdateForInstallation = [this](bool isSystem, bool& successOut, QString& errorOut) {
+        auto runUpdateForInstallation = [safeThis](bool isSystem, bool& successOut, QString& errorOut) {
+            if (!safeThis) return;
+            
             g_autoptr(GError) error = nullptr;
             g_autoptr(FlatpakInstallation) installation = nullptr;
             
@@ -225,12 +284,12 @@ void FlatpakManager::startUpdate() {
 
             g_autoptr(FlatpakTransaction) transaction = flatpak_transaction_new_for_installation(installation, nullptr, &error);
             
-            g_signal_connect(transaction, "new-operation", G_CALLBACK(onNewOperation), this);
-            g_signal_connect(transaction, "operation-done", G_CALLBACK(onOperationDone), this);
-            g_signal_connect(transaction, "operation-error", G_CALLBACK(onOperationError), this);
+            g_signal_connect(transaction, "new-operation", G_CALLBACK(onNewOperation), safeThis.data());
+            g_signal_connect(transaction, "operation-done", G_CALLBACK(onOperationDone), safeThis.data());
+            g_signal_connect(transaction, "operation-error", G_CALLBACK(onOperationError), safeThis.data());
 
             bool hasAny = false;
-            for (const QVariant& item : m_availableUpdates) {
+            for (const QVariant& item : safeThis->m_availableUpdates) {
                 QVariantMap map = item.toMap();
                 if (map["isSystem"].toBool() == isSystem) {
                     QString refStr = map["ref"].toString();
@@ -272,18 +331,21 @@ void FlatpakManager::startUpdate() {
         if (!userSuccess) lastErrorStr = userError;
         else if (!sysSuccess) lastErrorStr = sysError;
 
-        QMetaObject::invokeMethod(this, [this, overallSuccess, lastErrorStr]() {
-            this->setUpdating(false);
-            
-            if (overallSuccess) {
-                this->setStatus("Flatpak update complete.");
-                Q_EMIT this->updateFinished(true);
-            } else {
-                this->setStatus("Flatpak update failed.");
-                if (!lastErrorStr.isEmpty()) this->setLastError(lastErrorStr);
-                Q_EMIT this->updateFinished(false);
-            }
-        });
+        if (safeThis) {
+            QMetaObject::invokeMethod(safeThis, [safeThis, overallSuccess, lastErrorStr]() {
+                if (!safeThis) return;
+                safeThis->setUpdating(false);
+                
+                if (overallSuccess) {
+                    safeThis->setStatus("Flatpak update complete.");
+                    Q_EMIT safeThis->updateFinished(true);
+                } else {
+                    safeThis->setStatus("Flatpak update failed.");
+                    if (!lastErrorStr.isEmpty()) safeThis->setLastError(lastErrorStr);
+                    Q_EMIT safeThis->updateFinished(false);
+                }
+            });
+        }
     }).detach();
 }
 
@@ -294,7 +356,9 @@ void FlatpakManager::updatePackage(const QString& ref, bool isSystem) {
     setLastError("");
     setStatus("Preparing Flatpak update for " + ref + "...");
 
-    std::thread([this, ref, isSystem]() {
+    QPointer<FlatpakManager> safeThis(this);
+
+    std::thread([safeThis, ref, isSystem]() {
         g_autoptr(GError) error = nullptr;
         g_autoptr(FlatpakInstallation) installation = nullptr;
         
@@ -305,45 +369,54 @@ void FlatpakManager::updatePackage(const QString& ref, bool isSystem) {
         }
         
         if (!installation) {
-            QMetaObject::invokeMethod(this, [this, errStr = QString::fromUtf8(error->message)]() {
-                this->setStatus("Error: " + errStr);
-                this->setLastError(errStr);
-                this->setUpdating(false);
-                Q_EMIT this->updateFinished(false);
-            });
+            if (safeThis) {
+                QMetaObject::invokeMethod(safeThis, [safeThis, errStr = QString::fromUtf8(error->message)]() {
+                    if (!safeThis) return;
+                    safeThis->setStatus("Error: " + errStr);
+                    safeThis->setLastError(errStr);
+                    safeThis->setUpdating(false);
+                    Q_EMIT safeThis->updateFinished(false);
+                });
+            }
             return;
         }
 
         g_autoptr(FlatpakTransaction) transaction = flatpak_transaction_new_for_installation(installation, nullptr, &error);
         
-        g_signal_connect(transaction, "new-operation", G_CALLBACK(onNewOperation), this);
-        g_signal_connect(transaction, "operation-done", G_CALLBACK(onOperationDone), this);
-        g_signal_connect(transaction, "operation-error", G_CALLBACK(onOperationError), this);
+        g_signal_connect(transaction, "new-operation", G_CALLBACK(onNewOperation), safeThis.data());
+        g_signal_connect(transaction, "operation-done", G_CALLBACK(onOperationDone), safeThis.data());
+        g_signal_connect(transaction, "operation-error", G_CALLBACK(onOperationError), safeThis.data());
 
         QByteArray refBytes = ref.toUtf8();
         if (!flatpak_transaction_add_update(transaction, refBytes.constData(), nullptr, nullptr, &error)) {
-            QMetaObject::invokeMethod(this, [this, errStr = QString::fromUtf8(error->message)]() {
-                this->setStatus("Update Error: " + errStr);
-                this->setLastError(errStr);
-                this->setUpdating(false);
-                Q_EMIT this->updateFinished(false);
-            });
+            if (safeThis) {
+                QMetaObject::invokeMethod(safeThis, [safeThis, errStr = QString::fromUtf8(error->message)]() {
+                    if (!safeThis) return;
+                    safeThis->setStatus("Update Error: " + errStr);
+                    safeThis->setLastError(errStr);
+                    safeThis->setUpdating(false);
+                    Q_EMIT safeThis->updateFinished(false);
+                });
+            }
             return;
         }
 
         bool success = flatpak_transaction_run(transaction, nullptr, &error);
 
-        QMetaObject::invokeMethod(this, [this, success, errorStr = error ? QString::fromUtf8(error->message) : QString()]() {
-            this->setUpdating(false);
-            
-            if (success) {
-                this->setStatus("Flatpak update complete.");
-                Q_EMIT this->updateFinished(true);
-            } else {
-                this->setStatus("Flatpak update failed.");
-                if (!errorStr.isEmpty()) this->setLastError(errorStr);
-                Q_EMIT this->updateFinished(false);
-            }
-        });
+        if (safeThis) {
+            QMetaObject::invokeMethod(safeThis, [safeThis, success, errorStr = error ? QString::fromUtf8(error->message) : QString()]() {
+                if (!safeThis) return;
+                safeThis->setUpdating(false);
+                
+                if (success) {
+                    safeThis->setStatus("Flatpak update complete.");
+                    Q_EMIT safeThis->updateFinished(true);
+                } else {
+                    safeThis->setStatus("Flatpak update failed.");
+                    if (!errorStr.isEmpty()) safeThis->setLastError(errorStr);
+                    Q_EMIT safeThis->updateFinished(false);
+                }
+            });
+        }
     }).detach();
 }

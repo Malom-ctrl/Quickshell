@@ -9,6 +9,8 @@ PopupWindow {
     property var server: null
     property Item anchorItem: null
 
+    property string themeScope: "topbar.NotificationPopup"
+
     visible: isActive || openProgress > 0.0
 
     property real openProgress: isActive ? 1.0 : 0.0
@@ -65,7 +67,7 @@ PopupWindow {
                     }
 
                     Rectangle {
-                        width: Globals.customValue(root.themeScope + ".popup.clearBtn", "width", 32); height: Globals.customValue(root.themeScope + ".popup.clearBtn", "height", 32); radius: Globals.customValue(root.themeScope + ".popup.clearBtn", "radius", 16)
+                        width: Globals.customValue(root.themeScope + ".popup.clearBtn", "width", 32); height: Globals.customValue(root.themeScope + ".popup.clearBtn", "height", 32); radius: Globals.customValue(root.themeScope + ".popup.clearBtn", "radius", Globals.themeVars.borderRadiusLarge)
                         color: clearMouse.containsMouse ? Globals.customValue(root.themeScope + ".popup.clearBtn", "hoverColor", Globals.themeVars.Secondary25) : "transparent"
                         visible: popup.server && popup.server.trackedNotifications.values.length > 0
                         Icon { anchors.centerIn: parent; width: Globals.customValue(root.themeScope + ".popup.clearBtn.icon", "width", 16); height: Globals.customValue(root.themeScope + ".popup.clearBtn.icon", "height", 16); path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.customValue(root.themeScope + ".popup.clearBtn.icon", "color", Globals.themeVars.White) }
@@ -93,7 +95,7 @@ PopupWindow {
 
                     delegate: Rectangle {
                         width: ListView.view.width
-                        height: notifCol.implicitHeight + Globals.customValue(root.themeScope + ".popup.listItem", "padding", 24)
+                        height: notifCol.implicitHeight + Globals.customValue(root.themeScope + ".popup.listItem", "padding", Globals.themeVars.spacingHuge)
                         radius: Globals.customValue(root.themeScope + ".popup.listItem", "radius", Globals.themeVars.borderRadiusLarge)
                         color: Globals.customValue(root.themeScope + ".popup.listItem", "color", Globals.themeVars.Secondary10)
                         border.color: Globals.customValue(root.themeScope + ".popup.listItem", "borderColor", "transparent")
@@ -110,7 +112,7 @@ PopupWindow {
 
                                 // App initial
                                 Rectangle {
-                                    width: Globals.customValue(root.themeScope + ".popup.listItem.icon", "width", 28); height: Globals.customValue(root.themeScope + ".popup.listItem.icon", "height", 28); radius: Globals.customValue(root.themeScope + ".popup.listItem.icon", "radius", 14)
+                                    width: Globals.customValue(root.themeScope + ".popup.listItem.icon", "width", 28); height: Globals.customValue(root.themeScope + ".popup.listItem.icon", "height", 28); radius: Globals.customValue(root.themeScope + ".popup.listItem.icon", "radius", Globals.themeVars.borderRadiusMedium)
                                     color: Globals.customValue(root.themeScope + ".popup.listItem.icon", "color", Globals.themeVars.Black)
                                     Layout.alignment: Qt.AlignVCenter
                                     Text {
@@ -124,7 +126,7 @@ PopupWindow {
 
                                 ColumnLayout {
                                     Layout.fillWidth: true
-                                    spacing: Globals.customValue(root.themeScope + ".popup.listItem.text", "spacing", 2)
+                                    spacing: Globals.customValue(root.themeScope + ".popup.listItem.text", "spacing", Globals.themeVars.spacingSmall)
                                     Layout.alignment: Qt.AlignVCenter
 
                                     RowLayout {
@@ -132,21 +134,21 @@ PopupWindow {
                                         Text {
                                             text: modelData.appName || "Notification"
                                             color: Globals.customValue(root.themeScope + ".popup.listItem.appName", "color", Globals.themeVars.SecondaryLight)
-                                            font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.appName", "fontSize", 11)
+                                            font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.appName", "fontSize", Globals.themeVars.fontSizeSmall)
                                             Layout.fillWidth: true
                                             elide: Text.ElideRight
                                         }
                                         Text {
                                             text: "now" // Placeholder for time
                                             color: Globals.customValue(root.themeScope + ".popup.listItem.time", "color", Globals.themeVars.SecondaryLight)
-                                            font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.time", "fontSize", 11)
+                                            font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.time", "fontSize", Globals.themeVars.fontSizeSmall)
                                         }
                                     }
 
                                     Text {
                                         text: modelData.summary || ""
                                         color: Globals.customValue(root.themeScope + ".popup.listItem.summary", "color", Globals.themeVars.White)
-                                        font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.summary", "fontSize", 13)
+                                        font.pixelSize: Globals.customValue(root.themeScope + ".popup.listItem.summary", "fontSize", Globals.themeVars.fontSizeMedium)
                                         font.bold: true
                                         Layout.fillWidth: true
                                         wrapMode: Text.Wrap
@@ -163,7 +165,7 @@ PopupWindow {
                                 }
 
                                 Rectangle {
-                                    width: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "width", 28); height: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "height", 28); radius: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "radius", 14)
+                                    width: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "width", 28); height: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "height", 28); radius: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "radius", Globals.themeVars.borderRadiusMedium)
                                     color: closeMouse.containsMouse ? Globals.customValue(root.themeScope + ".popup.listItem.closeBtn", "hoverColor", Globals.themeVars.Secondary25) : "transparent"
                                     Layout.alignment: Qt.AlignTop
                                     Icon { anchors.centerIn: parent; width: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn.icon", "width", 14); height: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn.icon", "height", 14); path: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"; color: Globals.customValue(root.themeScope + ".popup.listItem.closeBtn.icon", "color", Globals.themeVars.SecondaryLight) }
@@ -176,7 +178,7 @@ PopupWindow {
 
                             RowLayout {
                                 Layout.fillWidth: true
-                                spacing: Globals.customValue(root.themeScope + ".popup.listItem.actions", "spacing", 6)
+                                spacing: Globals.customValue(root.themeScope + ".popup.listItem.actions", "spacing", Globals.themeVars.spacingMedium)
                                 visible: modelData.actions && modelData.actions.length > 0
                                 Repeater {
                                     model: modelData.actions

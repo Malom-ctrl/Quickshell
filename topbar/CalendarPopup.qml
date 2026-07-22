@@ -20,8 +20,9 @@ PopupWindow {
 
     property string themeScope: "topbar.CalendarPopup"
 
-    implicitWidth: Globals.customValue(themeScope, "width", 320) + (2 * Globals.popupScreenPadding)
-    implicitHeight: Globals.customValue(themeScope, "height", 370)
+    // Size the window from the actual content, not hardcoded numbers
+    implicitWidth: mainColumn.implicitWidth + (2 * mainColumn.anchors.margins) + (2 * Globals.popupScreenPadding)
+    implicitHeight: mainColumn.implicitHeight + (2 * mainColumn.anchors.margins) + (2 * Globals.popupScreenPadding)
     color: "transparent"
 
     property int currentMonth: new Date().getMonth()
@@ -31,60 +32,32 @@ PopupWindow {
     function updateCalendar() {
         let firstDay = new Date(currentYear, currentMonth, 1).getDay();
         let firstDayIndex = firstDay === 0 ? 6 : firstDay - 1;
-
         let daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
         let daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
-
         let days = [];
 
-        // Previous month days
         for (let i = firstDayIndex - 1; i >= 0; i--) {
-            days.push({
-                day: daysInPrevMonth - i,
-                month: currentMonth - 1,
-                year: currentYear
-            });
+            days.push({ day: daysInPrevMonth - i, month: currentMonth - 1, year: currentYear });
         }
-
-        // Current month days
         for (let i = 1; i <= daysInMonth; i++) {
-            days.push({
-                day: i,
-                month: currentMonth,
-                year: currentYear
-            });
+            days.push({ day: i, month: currentMonth, year: currentYear });
         }
-
-        // Next month days to fill 42 slots (6 weeks)
         let remaining = 42 - days.length;
         for (let i = 1; i <= remaining; i++) {
-            days.push({
-                day: i,
-                month: currentMonth + 1,
-                year: currentYear
-            });
+            days.push({ day: i, month: currentMonth + 1, year: currentYear });
         }
-
         calendarModel = days;
     }
 
     function nextMonth() {
-        if (currentMonth === 11) {
-            currentMonth = 0;
-            currentYear++;
-        } else {
-            currentMonth++;
-        }
+        if (currentMonth === 11) { currentMonth = 0; currentYear++; }
+        else currentMonth++;
         updateCalendar();
     }
 
     function prevMonth() {
-        if (currentMonth === 0) {
-            currentMonth = 11;
-            currentYear--;
-        } else {
-            currentMonth--;
-        }
+        if (currentMonth === 0) { currentMonth = 11; currentYear--; }
+        else currentMonth--;
         updateCalendar();
     }
 
@@ -92,8 +65,8 @@ PopupWindow {
 
     Item {
         width: parent.width - (2 * Globals.popupScreenPadding)
-        height: parent.height
-        anchors.horizontalCenter: parent.horizontalCenter
+        height: parent.height - (2 * Globals.popupScreenPadding)
+        anchors.centerIn: parent
         scale: 0.9 + (0.1 * calendarPopup.openProgress)
         opacity: calendarPopup.openProgress
         transformOrigin: Item.Top
@@ -106,11 +79,11 @@ PopupWindow {
             border.width: Globals.customValue(themeScope + ".popup", "borderWidth", Globals.themeVars.borderWidthSmall)
 
             ColumnLayout {
+                id: mainColumn
                 anchors.fill: parent
                 anchors.margins: Globals.customValue(themeScope + ".popup.layout", "margins", Globals.themeVars.spacingHuge)
                 spacing: Globals.customValue(themeScope + ".popup.layout", "spacing", Globals.themeVars.spacingHuge)
 
-                // Header
                 RowLayout {
                     Layout.fillWidth: true
                     Text {
@@ -123,13 +96,17 @@ PopupWindow {
                     RowLayout {
                         spacing: Globals.customValue(themeScope + ".popup.headerButtons", "spacing", Globals.themeVars.spacingMedium)
                         Rectangle {
-                            width: Globals.customValue(themeScope + ".popup.headerBtn", "width", 32); height: Globals.customValue(themeScope + ".popup.headerBtn", "height", 32); radius: Globals.customValue(themeScope + ".popup.headerBtn", "radius", 16)
+                            width: Globals.customValue(themeScope + ".popup.headerBtn", "width", 32)
+                            height: Globals.customValue(themeScope + ".popup.headerBtn", "height", 32)
+                            radius: Globals.customValue(themeScope + ".popup.headerBtn", "radius", Globals.themeVars.borderRadiusLarge)
                             color: prevMouse.containsMouse ? Globals.customValue(themeScope + ".popup.headerBtn", "hoverColor", Globals.themeVars.Secondary25) : "transparent"
                             Icon { anchors.centerIn: parent; width: Globals.customValue(themeScope + ".popup.headerBtn.icon", "width", 16); height: Globals.customValue(themeScope + ".popup.headerBtn.icon", "height", 16); path: "M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"; color: Globals.customValue(themeScope + ".popup.headerBtn.icon", "color", Globals.themeVars.White) }
                             MouseArea { id: prevMouse; anchors.fill: parent; hoverEnabled: true; onClicked: prevMonth() }
                         }
                         Rectangle {
-                            width: Globals.customValue(themeScope + ".popup.headerBtn", "width", 32); height: Globals.customValue(themeScope + ".popup.headerBtn", "height", 32); radius: Globals.customValue(themeScope + ".popup.headerBtn", "radius", 16)
+                            width: Globals.customValue(themeScope + ".popup.headerBtn", "width", 32)
+                            height: Globals.customValue(themeScope + ".popup.headerBtn", "height", 32)
+                            radius: Globals.customValue(themeScope + ".popup.headerBtn", "radius", Globals.themeVars.borderRadiusLarge)
                             color: nextMouse.containsMouse ? Globals.customValue(themeScope + ".popup.headerBtn", "hoverColor", Globals.themeVars.Secondary25) : "transparent"
                             Icon { anchors.centerIn: parent; width: Globals.customValue(themeScope + ".popup.headerBtn.icon", "width", 16); height: Globals.customValue(themeScope + ".popup.headerBtn.icon", "height", 16); path: "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"; color: Globals.customValue(themeScope + ".popup.headerBtn.icon", "color", Globals.themeVars.White) }
                             MouseArea { id: nextMouse; anchors.fill: parent; hoverEnabled: true; onClicked: nextMonth() }
@@ -137,26 +114,24 @@ PopupWindow {
                     }
                 }
 
-                // Calendar Grid
+                // Calendar Grid — no longer stretched, so it stays perfectly centered
                 GridLayout {
                     id: calendarGrid
                     columns: 7
                     rowSpacing: Globals.customValue(themeScope + ".popup.grid", "rowSpacing", Globals.themeVars.spacingMedium)
                     columnSpacing: Globals.customValue(themeScope + ".popup.grid", "columnSpacing", Globals.themeVars.spacingMedium)
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignHCenter
 
-                    // Days of week
                     Repeater {
                         model: ["M", "T", "W", "T", "F", "S", "S"]
                         Item {
-                            width: Globals.customValue(themeScope + ".popup.grid.dayLabel", "width", 32); height: Globals.customValue(themeScope + ".popup.grid.dayLabel", "height", 32)
-                            Layout.alignment: Qt.AlignCenter
+                            width: Globals.customValue(themeScope + ".popup.grid.dayLabel", "width", 32)
+                            height: Globals.customValue(themeScope + ".popup.grid.dayLabel", "height", 32)
                             Text {
                                 anchors.centerIn: parent
                                 text: modelData
                                 color: Globals.customValue(themeScope + ".popup.grid.dayLabel", "color", Globals.themeVars.SecondaryLight)
-                                font.pixelSize: Globals.customValue(themeScope + ".popup.grid.dayLabel", "fontSize", 13)
+                                font.pixelSize: Globals.customValue(themeScope + ".popup.grid.dayLabel", "fontSize", Globals.themeVars.fontSizeSmall)
                                 font.bold: true
                             }
                         }
@@ -165,9 +140,9 @@ PopupWindow {
                     Repeater {
                         model: calendarModel
                         Rectangle {
-                            width: Globals.customValue(themeScope + ".popup.grid.dayCell", "width", 32); height: Globals.customValue(themeScope + ".popup.grid.dayCell", "height", 32)
-                            radius: Globals.customValue(themeScope + ".popup.grid.dayCell", "radius", 16)
-                            Layout.alignment: Qt.AlignCenter
+                            width: Globals.customValue(themeScope + ".popup.grid.dayCell", "width", 32)
+                            height: Globals.customValue(themeScope + ".popup.grid.dayCell", "height", 32)
+                            radius: Globals.customValue(themeScope + ".popup.grid.dayCell", "radius", Globals.themeVars.borderRadiusLarge)
                             color: isToday ? Globals.customValue(themeScope + ".popup.grid.dayCell", "todayColor", Globals.themeVars.Secondary) : (dayMouse.containsMouse && isCurrentMonth ? Globals.customValue(themeScope + ".popup.grid.dayCell", "hoverColor", Globals.themeVars.Secondary25) : "transparent")
 
                             property bool isToday: {
@@ -192,8 +167,6 @@ PopupWindow {
                         }
                     }
                 }
-
-                Item { Layout.fillHeight: true } // Spacer
             }
         }
     }

@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "" "SystemUpdaterPlugin_autogen/timestamp" "custom" "SystemUpdaterPlugin_autogen/deps"
   "/var/home/user/.config/quickshell/updater-plugin/FlatpakManager.cpp" "CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o" "gcc" "CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o.d"
+  "/var/home/user/.config/quickshell/updater-plugin/FwupdManager.cpp" "CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o" "gcc" "CMakeFiles/SystemUpdaterPlugin.dir/FwupdManager.cpp.o.d"
   "/var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.cpp" "CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o" "gcc" "CMakeFiles/SystemUpdaterPlugin.dir/OstreeUpdater.cpp.o.d"
   "/var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/mocs_compilation.cpp" "CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.cpp.o.d"
   "/var/home/user/.config/quickshell/updater-plugin/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp" "CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp.o" "gcc" "CMakeFiles/SystemUpdaterPlugin.dir/build/.qt/rcc/qrc_qmake_Custom_SystemUpdater.cpp.o.d"

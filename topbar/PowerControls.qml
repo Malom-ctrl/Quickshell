@@ -134,13 +134,19 @@ Rectangle {
                     PowerButton {
                         text: "Lock"
                         iconPath: "M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
-                        actionCmd: "swaylock -f -c 000000"
+                        actionCmd: "systemctl --user restart swaylock.service"
                     }
 
                     PowerButton {
                         text: "Suspend"
                         iconPath: "M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zm1-17.93c3.94.49 7 3.85 7 7.93s-3.05 7.44-7 7.93V4.07z"
                         actionCmd: "systemctl suspend"
+                    }
+
+                    PowerButton {
+                        text: "Logout"
+                        iconPath: "M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"
+                        actionCmd: "loginctl terminate-user $USER"
                     }
 
                     PowerButton {

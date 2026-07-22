@@ -328,7 +328,11 @@ CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o: \
  /usr/include/qt6/QtQmlIntegration/qqmlintegration.h \
  /usr/include/qt6/QtCore/QString /usr/include/qt6/QtCore/QVariantList \
  /usr/include/qt6/QtCore/qvariantlist.h /usr/include/qt6/QtCore/QList \
- /usr/include/qt6/QtCore/QVariant /usr/include/flatpak/flatpak.h \
+ /usr/include/qt6/QtCore/QVariant /usr/include/qt6/QtCore/QTimer \
+ /usr/include/qt6/QtCore/qtimer.h /usr/include/qt6/QtCore/qbasictimer.h \
+ /usr/include/qt6/QtCore/qabstracteventdispatcher.h \
+ /usr/include/qt6/QtCore/qeventloop.h \
+ /usr/include/qt6/QtCore/qdeadlinetimer.h /usr/include/flatpak/flatpak.h \
  /usr/include/glib-2.0/gio/gio.h /usr/include/glib-2.0/gio/giotypes.h \
  /usr/include/glib-2.0/gio/gioenums.h /usr/include/glib-2.0/glib-object.h \
  /usr/include/glib-2.0/gobject/gbinding.h /usr/include/glib-2.0/glib.h \
@@ -612,11 +616,11 @@ CMakeFiles/SystemUpdaterPlugin.dir/FlatpakManager.cpp.o: \
  /usr/include/flatpak/flatpak-instance.h \
  /usr/include/flatpak/flatpak-transaction.h \
  /usr/include/qt6/QtCore/QThread /usr/include/qt6/QtCore/qthread.h \
- /usr/include/qt6/QtCore/qdeadlinetimer.h /usr/include/c++/16/future \
- /usr/include/c++/16/mutex /usr/include/c++/16/bits/std_mutex.h \
+ /usr/include/c++/16/future /usr/include/c++/16/mutex \
+ /usr/include/c++/16/bits/std_mutex.h \
  /usr/include/c++/16/bits/unique_lock.h \
  /usr/include/c++/16/condition_variable \
  /usr/include/c++/16/bits/atomic_futex.h \
  /usr/include/c++/16/bits/std_thread.h /usr/include/qt6/QtCore/QDebug \
- /usr/include/qt6/QtCore/QMetaObject /usr/include/c++/16/thread \
- /usr/include/c++/16/bits/this_thread_sleep.h
+ /usr/include/qt6/QtCore/QMetaObject /usr/include/qt6/QtCore/QPointer \
+ /usr/include/c++/16/thread /usr/include/c++/16/bits/this_thread_sleep.h

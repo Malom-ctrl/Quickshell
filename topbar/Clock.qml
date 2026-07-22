@@ -6,8 +6,8 @@ Rectangle {
     id: root
     property string themeScope: "topbar.Clock"
 
-    implicitWidth: clockLayout.implicitWidth + 32
-    implicitHeight: 40
+    implicitWidth: clockLayout.implicitWidth + Globals.customValue(themeScope, "padding", Globals.themeVars.spacingLarge * 2)
+    implicitHeight: Globals.customValue(themeScope, "height", 40)
     radius: Globals.customValue(themeScope, "radius", Globals.themeVars.borderRadiusHuge)
     color: (clockMouseArea.containsMouse || popupVisible) ? Globals.customValue(themeScope, "hoverColor", Globals.themeVars.Secondary50) : Globals.customValue(themeScope, "color", Globals.themeVars.Secondary25)
     Behavior on color { ColorAnimation { duration: 150 } }

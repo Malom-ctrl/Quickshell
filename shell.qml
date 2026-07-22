@@ -4,6 +4,10 @@ import qs.topbar
 import qs.launcher
 import qs.wallpaper
 import qs.niri
+import qs.swaylock
+import qs.gtk
+import qs.ptyxis
+import qs.zed
 
 ShellRoot {
     Component.onCompleted: {
@@ -18,4 +22,8 @@ ShellRoot {
     LauncherWindow {}
 
     NiriThemeSync {}
+    SwaylockThemeSync {}
+    GtkThemeSync {}
+    PtyxisThemeSync {}
+    ZedThemeSync {}
 }

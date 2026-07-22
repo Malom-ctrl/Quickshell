@@ -60,6 +60,7 @@ template <> constexpr inline auto FlatpakManager::qt_create_metaobjectdata<qt_me
         "checkForUpdates",
         "updatePackage",
         "isSystem",
+        "handleMonitorChanged",
         "updateProgress",
         "isUpdating",
         "status",
@@ -110,24 +111,26 @@ template <> constexpr inline auto FlatpakManager::qt_create_metaobjectdata<qt_me
         QtMocHelpers::SlotData<void(const QString &, bool)>(20, 4, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::QString, 12 }, { QMetaType::Bool, 21 },
         }}),
+        // Slot 'handleMonitorChanged'
+        QtMocHelpers::SlotData<void()>(22, 4, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
         // property 'updateProgress'
-        QtMocHelpers::PropertyData<int>(22, QMetaType::Int, QMC::DefaultPropertyFlags, 0),
+        QtMocHelpers::PropertyData<int>(23, QMetaType::Int, QMC::DefaultPropertyFlags, 0),
         // property 'isUpdating'
-        QtMocHelpers::PropertyData<bool>(23, QMetaType::Bool, QMC::DefaultPropertyFlags, 1),
+        QtMocHelpers::PropertyData<bool>(24, QMetaType::Bool, QMC::DefaultPropertyFlags, 1),
         // property 'status'
-        QtMocHelpers::PropertyData<QString>(24, QMetaType::QString, QMC::DefaultPropertyFlags, 2),
+        QtMocHelpers::PropertyData<QString>(25, QMetaType::QString, QMC::DefaultPropertyFlags, 2),
         // property 'lastError'
-        QtMocHelpers::PropertyData<QString>(25, QMetaType::QString, QMC::DefaultPropertyFlags, 3),
+        QtMocHelpers::PropertyData<QString>(26, QMetaType::QString, QMC::DefaultPropertyFlags, 3),
         // property 'currentUpdatingRef'
-        QtMocHelpers::PropertyData<QString>(26, QMetaType::QString, QMC::DefaultPropertyFlags, 4),
+        QtMocHelpers::PropertyData<QString>(27, QMetaType::QString, QMC::DefaultPropertyFlags, 4),
         // property 'isChecking'
-        QtMocHelpers::PropertyData<bool>(27, QMetaType::Bool, QMC::DefaultPropertyFlags, 9),
+        QtMocHelpers::PropertyData<bool>(28, QMetaType::Bool, QMC::DefaultPropertyFlags, 9),
         // property 'updateCount'
-        QtMocHelpers::PropertyData<int>(28, QMetaType::Int, QMC::DefaultPropertyFlags, 10),
+        QtMocHelpers::PropertyData<int>(29, QMetaType::Int, QMC::DefaultPropertyFlags, 10),
         // property 'availableUpdates'
-        QtMocHelpers::PropertyData<QVariantList>(29, 0x80000000 | 30, QMC::DefaultPropertyFlags | QMC::EnumOrFlag, 10),
+        QtMocHelpers::PropertyData<QVariantList>(30, 0x80000000 | 31, QMC::DefaultPropertyFlags | QMC::EnumOrFlag, 10),
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -167,6 +170,7 @@ void FlatpakManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 11: _t->startUpdate(); break;
         case 12: _t->checkForUpdates(); break;
         case 13: _t->updatePackage((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<bool>>(_a[2]))); break;
+        case 14: _t->handleMonitorChanged(); break;
         default: ;
         }
     }
@@ -229,14 +233,14 @@ int FlatpakManager::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 15;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 15)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 14;
+        _id -= 15;
     }
     if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty

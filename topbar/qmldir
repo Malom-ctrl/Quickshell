@@ -18,3 +18,5 @@ ThemeWidget 1.0 ThemeWidget.qml
 UpdaterPopup 1.0 UpdaterPopup.qml
 UpdaterWidget 1.0 UpdaterWidget.qml
 Workspaces 1.0 Workspaces.qml
+AutoresticPopup 1.0 AutoresticPopup.qml
+AutoresticWidget 1.0 AutoresticWidget.qml

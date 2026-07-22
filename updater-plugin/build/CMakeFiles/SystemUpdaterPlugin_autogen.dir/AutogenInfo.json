@@ -803,6 +803,12 @@
 			null
 		],
 		[
+			"/var/home/user/.config/quickshell/updater-plugin/FwupdManager.hpp",
+			"Mu",
+			"EWIEGA46WW/moc_FwupdManager.cpp",
+			null
+		],
+		[
 			"/var/home/user/.config/quickshell/updater-plugin/OstreeUpdater.hpp",
 			"Mu",
 			"EWIEGA46WW/moc_OstreeUpdater.cpp",
@@ -901,6 +907,11 @@
 	[
 		[
 			"/var/home/user/.config/quickshell/updater-plugin/FlatpakManager.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/var/home/user/.config/quickshell/updater-plugin/FwupdManager.cpp",
 			"Mu",
 			null
 		],

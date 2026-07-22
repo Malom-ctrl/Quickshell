@@ -21,6 +21,7 @@ qt_add_qml_module(SystemUpdaterPlugin
     VERSION 1.0
     OUTPUT_DIRECTORY Custom/SystemUpdater
     SOURCES
+        FwupdManager.hpp FwupdManager.cpp
         FlatpakManager.hpp FlatpakManager.cpp
         OstreeUpdater.hpp OstreeUpdater.cpp
 )

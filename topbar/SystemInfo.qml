@@ -246,7 +246,7 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
     component SystemInfoItem: Item {
         id: infoItem
-        implicitWidth: itemLayout.implicitWidth + Globals.customValue(root.themeScope + ".item", "padding", 24)
+        implicitWidth: itemLayout.implicitWidth + Globals.customValue(root.themeScope + ".item", "padding", Globals.themeVars.spacingHuge)
         implicitHeight: Globals.customValue(root.themeScope + ".item", "height", 40)
 
         property string iconPath: ""
@@ -269,7 +269,7 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
         RowLayout {
             id: itemLayout
             anchors.centerIn: parent
-            spacing: Globals.customValue(root.themeScope + ".item.layout", "spacing", 6)
+            spacing: Globals.customValue(root.themeScope + ".item.layout", "spacing", Globals.themeVars.spacingMedium)
 
             Icon {
                 width: Globals.customValue(root.themeScope + ".item.icon", "width", 20); height: Globals.customValue(root.themeScope + ".item.icon", "height", 20)
@@ -383,23 +383,23 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
             tooltipContent: Component {
                 ColumnLayout {
-                    spacing: 8
+                    spacing: Globals.customValue(root.themeScope + ".popup.network", "spacing", Globals.themeVars.spacingMedium)
                     RowLayout {
-                        spacing: 16
-                        Text { text: "Total RX"; color: Globals.themeVars.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true }
-                        Text { text: root.formatBytes(root.netTotalRx); color: Globals.themeVars.White; font.pixelSize: 12; font.family: "monospace" }
+                        spacing: Globals.customValue(root.themeScope + ".popup.network.rxRow", "spacing", Globals.themeVars.spacingHuge)
+                        Text { text: "Total RX"; color: Globals.customValue(root.themeScope + ".popup.network.rxLabel", "color", Globals.themeVars.SecondaryLight); font.pixelSize: Globals.customValue(root.themeScope + ".popup.network.rxLabel", "fontSize", Globals.themeVars.fontSizeSmall); Layout.fillWidth: true }
+                        Text { text: root.formatBytes(root.netTotalRx); color: Globals.customValue(root.themeScope + ".popup.network.rxValue", "color", Globals.themeVars.White); font.pixelSize: Globals.customValue(root.themeScope + ".popup.network.rxValue", "fontSize", Globals.themeVars.fontSizeSmall); font.family: "monospace" }
                     }
                     RowLayout {
-                        spacing: 16
-                        Text { text: "Total TX"; color: Globals.themeVars.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true }
-                        Text { text: root.formatBytes(root.netTotalTx); color: Globals.themeVars.White; font.pixelSize: 12; font.family: "monospace" }
+                        spacing: Globals.customValue(root.themeScope + ".popup.network.txRow", "spacing", Globals.themeVars.spacingHuge)
+                        Text { text: "Total TX"; color: Globals.customValue(root.themeScope + ".popup.network.txLabel", "color", Globals.themeVars.SecondaryLight); font.pixelSize: Globals.customValue(root.themeScope + ".popup.network.txLabel", "fontSize", Globals.themeVars.fontSizeSmall); Layout.fillWidth: true }
+                        Text { text: root.formatBytes(root.netTotalTx); color: Globals.customValue(root.themeScope + ".popup.network.txValue", "color", Globals.themeVars.White); font.pixelSize: Globals.customValue(root.themeScope + ".popup.network.txValue", "fontSize", Globals.themeVars.fontSizeSmall); font.family: "monospace" }
                     }
                 }
             }
         }
 
         SystemInfoItem {
-            iconPath: "M6,4V6H4V8H6V10H4V12H6V14H4V16H6V18H8V20H10V18H12V20H14V18H16V20H18V18H20V16H22V14H20V12H22V10H20V8H22V6H20V4H18V2H16V4H14V2H12V4H10V2H8V4H6ZM8,6H16V18H8V6ZM10,8V16H14V8H10Z"
+            iconPath: "M7 5h2V2h2v3h2V2h2v3h2c1.1 0 2 .9 2 2v2h3v2h-3v2h3v2h-3v2c0 1.1-.9 2-2 2h-2v3h-2v-3h-2v3h-2v-3h-2c-1.1 0-2-.9-2-2v-2h-3v-2h3v-2h-3v-2h3v-2c0-1.1.9-2 2-2zM7 7v10h10V7H7zM10 9h4c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1h-4c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1z"
             text: Math.round(root.cpuUsage) + "%"
             tooltipTitle: "CPU Usage (" + Math.round(root.cpuUsage) + "%)"
 
@@ -408,59 +408,59 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
             tooltipContent: Component {
                 ColumnLayout {
-                    spacing: 12
+                    spacing: Globals.customValue(root.themeScope + ".popup.cpu", "spacing", Globals.themeVars.spacingLarge)
                     // Per-core grid
                     GridLayout {
                         columns: 2
-                        columnSpacing: 16
-                        rowSpacing: 8
+                        columnSpacing: Globals.customValue(root.themeScope + ".popup.cpu.coreGrid", "columnSpacing", Globals.themeVars.spacingHuge)
+                        rowSpacing: Globals.customValue(root.themeScope + ".popup.cpu.coreGrid", "rowSpacing", Globals.themeVars.spacingMedium)
                         Repeater {
                             model: root.perCoreUsage
                             RowLayout {
-                                spacing: 8
-                                Text { text: modelData.name; color: Globals.themeVars.SecondaryLight; font.pixelSize: 12; Layout.preferredWidth: 40; font.family: "monospace" }
+                                spacing: Globals.customValue(root.themeScope + ".popup.cpu.coreRow", "spacing", Globals.themeVars.spacingMedium)
+                                Text { text: modelData.name; color: Globals.customValue(root.themeScope + ".popup.cpu.coreName", "color", Globals.themeVars.SecondaryLight); font.pixelSize: Globals.customValue(root.themeScope + ".popup.cpu.coreName", "fontSize", Globals.themeVars.fontSizeSmall); Layout.preferredWidth: 40; font.family: "monospace" }
                                 Rectangle {
                                     Layout.preferredWidth: 60
                                     Layout.preferredHeight: 6
-                                    radius: 3
-                                    color: Globals.themeVars.Secondary25
+                                    radius: Globals.customValue(root.themeScope + ".popup.cpu.coreBarBg", "radius", Globals.themeVars.borderRadiusSmall)
+                                    color: Globals.customValue(root.themeScope + ".popup.cpu.coreBarBg", "color", Globals.themeVars.Secondary25)
                                     Rectangle {
                                         width: parent.width * Math.max(0, Math.min(1, modelData.usage / 100))
                                         height: parent.height
-                                        radius: 3
-                                        color: Globals.themeVars.Secondary
+                                        radius: Globals.customValue(root.themeScope + ".popup.cpu.coreBarFill", "radius", Globals.themeVars.borderRadiusSmall)
+                                        color: Globals.customValue(root.themeScope + ".popup.cpu.coreBarFill", "color", Globals.themeVars.Secondary)
                                         Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                                     }
                                 }
-                                Text { text: Math.round(modelData.usage) + "%"; color: Globals.themeVars.White; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 32; horizontalAlignment: Text.AlignRight }
+                                Text { text: Math.round(modelData.usage) + "%"; color: Globals.customValue(root.themeScope + ".popup.cpu.coreValue", "color", Globals.themeVars.White); font.pixelSize: Globals.customValue(root.themeScope + ".popup.cpu.coreValue", "fontSize", Globals.themeVars.fontSizeSmall); font.family: "monospace"; Layout.preferredWidth: 32; horizontalAlignment: Text.AlignRight }
                             }
                         }
                     }
 
                     // Top procs
                     ColumnLayout {
-                        spacing: 8
+                        spacing: Globals.customValue(root.themeScope + ".popup.cpu.topProcs", "spacing", Globals.themeVars.spacingMedium)
                         visible: !root.cpuDetailsLoading
-                        Text { text: "Top Processes"; color: Globals.themeVars.White; font.pixelSize: 13; font.bold: true; Layout.topMargin: 4 }
+                        Text { text: "Top Processes"; color: Globals.customValue(root.themeScope + ".popup.cpu.topProcsTitle", "color", Globals.themeVars.White); font.pixelSize: Globals.customValue(root.themeScope + ".popup.cpu.topProcsTitle", "fontSize", Globals.themeVars.fontSizeMedium); font.bold: true; Layout.topMargin: 4 }
                         Repeater {
                             model: root.cpuTopProcs
                             RowLayout {
-                                spacing: 8
-                                Text { text: modelData.name; color: Globals.themeVars.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true; elide: Text.ElideRight; Layout.preferredWidth: 100 }
+                                spacing: Globals.customValue(root.themeScope + ".popup.cpu.procRow", "spacing", Globals.themeVars.spacingMedium)
+                                Text { text: modelData.name; color: Globals.customValue(root.themeScope + ".popup.cpu.procName", "color", Globals.themeVars.SecondaryLight); font.pixelSize: Globals.customValue(root.themeScope + ".popup.cpu.procName", "fontSize", Globals.themeVars.fontSizeSmall); Layout.fillWidth: true; elide: Text.ElideRight; Layout.preferredWidth: 100 }
                                 Rectangle {
                                     Layout.preferredWidth: 60
                                     Layout.preferredHeight: 6
-                                    radius: 3
-                                    color: Globals.themeVars.Secondary25
+                                    radius: Globals.customValue(root.themeScope + ".popup.cpu.procBarBg", "radius", Globals.themeVars.borderRadiusSmall)
+                                    color: Globals.customValue(root.themeScope + ".popup.cpu.procBarBg", "color", Globals.themeVars.Secondary25)
                                     Rectangle {
                                         width: parent.width * Math.min(1, modelData.usage / 100)
                                         height: parent.height
-                                        radius: 3
-                                        color: Globals.themeVars.Warning
+                                        radius: Globals.customValue(root.themeScope + ".popup.cpu.procBarFill", "radius", Globals.themeVars.borderRadiusSmall)
+                                        color: Globals.customValue(root.themeScope + ".popup.cpu.procBarFill", "color", Globals.themeVars.Warning)
                                         Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                                     }
                                 }
-                                Text { text: modelData.usage.toFixed(1) + "%"; color: Globals.themeVars.White; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 40; horizontalAlignment: Text.AlignRight }
+                                Text { text: modelData.usage.toFixed(1) + "%"; color: Globals.customValue(root.themeScope + ".popup.cpu.procValue", "color", Globals.themeVars.White); font.pixelSize: Globals.customValue(root.themeScope + ".popup.cpu.procValue", "fontSize", Globals.themeVars.fontSizeSmall); font.family: "monospace"; Layout.preferredWidth: 40; horizontalAlignment: Text.AlignRight }
                             }
                         }
                     }
@@ -472,12 +472,12 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                         visible: root.cpuDetailsLoading
                         Rectangle {
                             width: 100; height: 4
-                            radius: 2; color: Globals.themeVars.Secondary25
+                            radius: 2; color: Globals.customValue(root.themeScope + ".popup.cpu.barBg", "color", Globals.themeVars.Secondary25)
                             clip: true
                             anchors.centerIn: parent
                             Rectangle {
                                 id: indBar1
-                                width: 30; height: 4; radius: 2; color: Globals.themeVars.Secondary
+                                width: 30; height: 4; radius: 2; color: Globals.customValue(root.themeScope + ".popup.cpu.barFill", "color", Globals.themeVars.Secondary)
                                 SequentialAnimation {
                                     running: root.cpuDetailsLoading; loops: Animation.Infinite
                                     NumberAnimation { target: indBar1; property: "x"; from: -30; to: 100; duration: 800; easing.type: Easing.InOutQuad }
@@ -490,7 +490,7 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
         }
 
         SystemInfoItem {
-            iconPath: "M2,5V19H22V5H2ZM4,7H20V17H4V7ZM6,9V15H8V9H6ZM10,9V15H12V9H10ZM14,9V15H16V9H14ZM18,9V15H20V9H18Z"
+            iconPath: "M4 6h16c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-7v-2h-2v2H4c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2Zm0 2v5h4V8H4Zm6 0v5h4V8h-4Zm6 0v5h4V8h-4Z"
             text: root.ramText
             tooltipTitle: "Memory Usage"
 
@@ -499,19 +499,19 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
             tooltipContent: Component {
                 ColumnLayout {
-                    spacing: 12
+                    spacing: Globals.customValue(root.themeScope + ".popup.memory", "spacing", Globals.themeVars.spacingLarge)
 
                     // Overall bar
                     ColumnLayout {
-                        spacing: 8
+                        spacing: Globals.customValue(root.themeScope + ".popup.memory.usageRow", "spacing", Globals.themeVars.spacingMedium)
                         RowLayout {
                             Layout.fillWidth: true
-                            Text { text: "Usage"; color: Globals.themeVars.SecondaryLight; font.pixelSize: 12 }
+                            Text { text: "Usage"; color: Globals.customValue(root.themeScope + ".popup.memory.usageLabel", "color", Globals.themeVars.SecondaryLight); font.pixelSize: Globals.customValue(root.themeScope + ".popup.memory.usageLabel", "fontSize", Globals.themeVars.fontSizeSmall) }
                             Item { Layout.fillWidth: true; Layout.minimumWidth: 16 }
                             Text {
                                 text: root.memUsedGB.toFixed(1) + " GB / " + root.memTotalGB.toFixed(1) + " GB"
-                                color: Globals.themeVars.White
-                                font.pixelSize: 12
+                                color: Globals.customValue(root.themeScope + ".popup.memory.usageValue", "color", Globals.themeVars.White)
+                                font.pixelSize: Globals.customValue(root.themeScope + ".popup.memory.usageValue", "fontSize", Globals.themeVars.fontSizeSmall)
                                 font.bold: true
                                 font.family: "monospace"
                             }
@@ -519,13 +519,13 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                         Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 6
-                            radius: 3
-                            color: Globals.themeVars.Secondary25
+                            radius: Globals.customValue(root.themeScope + ".popup.memory.barBg", "radius", Globals.themeVars.borderRadiusSmall)
+                            color: Globals.customValue(root.themeScope + ".popup.memory.barBg", "color", Globals.themeVars.Secondary25)
                             Rectangle {
                                 width: parent.width * (root.memTotalGB > 0 ? (root.memUsedGB / root.memTotalGB) : 0)
                                 height: parent.height
-                                radius: 3
-                                color: Globals.themeVars.Secondary
+                                radius: Globals.customValue(root.themeScope + ".popup.memory.barFill", "radius", Globals.themeVars.borderRadiusSmall)
+                                color: Globals.customValue(root.themeScope + ".popup.memory.barFill", "color", Globals.themeVars.Secondary)
                                 Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                             }
                         }
@@ -533,30 +533,30 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
                     // Top procs
                     ColumnLayout {
-                        spacing: 8
+                        spacing: Globals.customValue(root.themeScope + ".popup.memory.topProcs", "spacing", Globals.themeVars.spacingMedium)
                         visible: !root.ramDetailsLoading
-                        Text { text: "Top Processes"; color: Globals.themeVars.White; font.pixelSize: 13; font.bold: true; Layout.topMargin: 4 }
+                        Text { text: "Top Processes"; color: Globals.customValue(root.themeScope + ".popup.memory.topProcsTitle", "color", Globals.themeVars.White); font.pixelSize: Globals.customValue(root.themeScope + ".popup.memory.topProcsTitle", "fontSize", Globals.themeVars.fontSizeMedium); font.bold: true; Layout.topMargin: 4 }
                         Repeater {
                             model: root.ramTopProcs
                             RowLayout {
-                                spacing: 8
-                                Text { text: modelData.name; color: Globals.themeVars.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true; elide: Text.ElideRight; Layout.preferredWidth: 100 }
+                                spacing: Globals.customValue(root.themeScope + ".popup.memory.procRow", "spacing", Globals.themeVars.spacingMedium)
+                                Text { text: modelData.name; color: Globals.customValue(root.themeScope + ".popup.memory.procName", "color", Globals.themeVars.SecondaryLight); font.pixelSize: Globals.customValue(root.themeScope + ".popup.memory.procName", "fontSize", Globals.themeVars.fontSizeSmall); Layout.fillWidth: true; elide: Text.ElideRight; Layout.preferredWidth: 100 }
                                 Rectangle {
                                     Layout.preferredWidth: 60
                                     Layout.preferredHeight: 6
-                                    radius: 3
-                                    color: Globals.themeVars.Secondary25
+                                    radius: Globals.customValue(root.themeScope + ".popup.memory.procBarBg", "radius", Globals.themeVars.borderRadiusSmall)
+                                    color: Globals.customValue(root.themeScope + ".popup.memory.procBarBg", "color", Globals.themeVars.Secondary25)
                                     Rectangle {
                                         width: parent.width * (root.memTotalGB > 0 ? (modelData.usageGB / root.memTotalGB) : 0)
                                         height: parent.height
-                                        radius: 3
-                                        color: Globals.themeVars.Secondary
+                                        radius: Globals.customValue(root.themeScope + ".popup.memory.procBarFill", "radius", Globals.themeVars.borderRadiusSmall)
+                                        color: Globals.customValue(root.themeScope + ".popup.memory.procBarFill", "color", Globals.themeVars.Secondary)
                                         Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                                     }
                                 }
                                 Text {
                                     text: modelData.usageGB >= 1.0 ? modelData.usageGB.toFixed(1) + " GB" : (modelData.usageGB * 1024).toFixed(0) + " MB"
-                                    color: Globals.themeVars.White; font.pixelSize: 12; font.family: "monospace"; Layout.preferredWidth: 50; horizontalAlignment: Text.AlignRight
+                                    color: Globals.customValue(root.themeScope + ".popup.memory.procValue", "color", Globals.themeVars.White); font.pixelSize: Globals.customValue(root.themeScope + ".popup.memory.procValue", "fontSize", Globals.themeVars.fontSizeSmall); font.family: "monospace"; Layout.preferredWidth: 50; horizontalAlignment: Text.AlignRight
                                 }
                             }
                         }
@@ -569,12 +569,12 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
                         visible: root.ramDetailsLoading
                         Rectangle {
                             width: 100; height: 4
-                            radius: 2; color: Globals.themeVars.Secondary25
+                            radius: 2; color: Globals.customValue(root.themeScope + ".popup.memory.smBarBg", "color", Globals.themeVars.Secondary25)
                             clip: true
                             anchors.centerIn: parent
                             Rectangle {
                                 id: indBar2
-                                width: 30; height: 4; radius: 2; color: Globals.themeVars.Secondary
+                                width: 30; height: 4; radius: 2; color: Globals.customValue(root.themeScope + ".popup.memory.smBarFill", "color", Globals.themeVars.Secondary)
                                 SequentialAnimation {
                                     running: root.ramDetailsLoading; loops: Animation.Infinite
                                     NumberAnimation { target: indBar2; property: "x"; from: -30; to: 100; duration: 800; easing.type: Easing.InOutQuad }
@@ -596,11 +596,11 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
 
             tooltipContent: Component {
                 ColumnLayout {
-                    spacing: 12
+                    spacing: Globals.customValue(root.themeScope + ".popup.temp", "spacing", Globals.themeVars.spacingLarge)
                     RowLayout {
-                        spacing: 8
-                        Text { text: "Current"; color: Globals.themeVars.SecondaryLight; font.pixelSize: 12; Layout.fillWidth: true }
-                        Text { text: root.tempC > 0 ? root.tempC.toFixed(1) + " °C" : "N/A"; color: Globals.themeVars.White; font.pixelSize: 12; font.family: "monospace"; font.bold: true }
+                        spacing: Globals.customValue(root.themeScope + ".popup.temp.row", "spacing", Globals.themeVars.spacingMedium)
+                        Text { text: "Current"; color: Globals.customValue(root.themeScope + ".popup.temp.label", "color", Globals.themeVars.SecondaryLight); font.pixelSize: Globals.customValue(root.themeScope + ".popup.temp.label", "fontSize", Globals.themeVars.fontSizeSmall); Layout.fillWidth: true }
+                        Text { text: root.tempC > 0 ? root.tempC.toFixed(1) + " °C" : "N/A"; color: Globals.customValue(root.themeScope + ".popup.temp.value", "color", Globals.themeVars.White); font.pixelSize: Globals.customValue(root.themeScope + ".popup.temp.value", "fontSize", Globals.themeVars.fontSizeSmall); font.family: "monospace"; font.bold: true }
                     }
                 }
             }

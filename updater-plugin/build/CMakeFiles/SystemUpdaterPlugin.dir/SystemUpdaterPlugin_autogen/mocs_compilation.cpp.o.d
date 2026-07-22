@@ -329,11 +329,16 @@ CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.
  /usr/include/qt6/QtQmlIntegration/qqmlintegration.h \
  /usr/include/qt6/QtCore/QString /usr/include/qt6/QtCore/QVariantList \
  /usr/include/qt6/QtCore/qvariantlist.h /usr/include/qt6/QtCore/QList \
- /usr/include/qt6/QtCore/QVariant /usr/include/qt6/QtCore/qtmochelpers.h \
+ /usr/include/qt6/QtCore/QVariant /usr/include/qt6/QtCore/QTimer \
+ /usr/include/qt6/QtCore/qtimer.h /usr/include/qt6/QtCore/qbasictimer.h \
+ /usr/include/qt6/QtCore/qabstracteventdispatcher.h \
+ /usr/include/qt6/QtCore/qeventloop.h \
+ /usr/include/qt6/QtCore/qdeadlinetimer.h \
+ /usr/include/qt6/QtCore/qtmochelpers.h \
  /usr/include/qt6/QtCore/qtmocconstants.h \
  /usr/include/qt6/QtCore/q20algorithm.h \
- /var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/EWIEGA46WW/moc_OstreeUpdater.cpp \
- /var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/EWIEGA46WW/../../../OstreeUpdater.hpp \
+ /var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/EWIEGA46WW/moc_FwupdManager.cpp \
+ /var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/EWIEGA46WW/../../../FwupdManager.hpp \
  /usr/include/qt6/QtDBus/QDBusInterface \
  /usr/include/qt6/QtDBus/qdbusinterface.h \
  /usr/include/qt6/QtDBus/qtdbusglobal.h \
@@ -344,6 +349,8 @@ CMakeFiles/SystemUpdaterPlugin.dir/SystemUpdaterPlugin_autogen/mocs_compilation.
  /usr/include/qt6/QtDBus/qdbusextratypes.h \
  /usr/include/qt6/QtDBus/qdbusconnection.h \
  /usr/include/qt6/QtDBus/qdbuspendingcall.h \
+ /var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/EWIEGA46WW/moc_OstreeUpdater.cpp \
+ /var/home/user/.config/quickshell/updater-plugin/build/SystemUpdaterPlugin_autogen/EWIEGA46WW/../../../OstreeUpdater.hpp \
  /usr/include/qt6/QtDBus/QDBusPendingCallWatcher \
  /usr/include/qt6/QtDBus/QDBusMessage \
  /usr/include/qt6/QtDBus/QDBusObjectPath

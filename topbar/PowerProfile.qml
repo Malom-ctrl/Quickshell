@@ -52,7 +52,7 @@ Rectangle {
             ShapePath {
                 fillColor: "transparent"
                 strokeColor: Qt.rgba(root.dialColor.r, root.dialColor.g, root.dialColor.b, Globals.customValue(themeScope + ".gauge", "opacity", 0.6))
-                strokeWidth: Globals.customValue(themeScope + ".gauge", "width", 2)
+                strokeWidth: Globals.customValue(themeScope + ".gauge", "width", Globals.themeVars.borderWidthMedium)
                 capStyle: ShapePath.RoundCap
                 PathAngleArc {
                     centerX: 12; centerY: 12
@@ -65,7 +65,7 @@ Rectangle {
 
         // Needle
         Rectangle {
-            width: Globals.customValue(themeScope + ".needle", "width", 2); height: Globals.customValue(themeScope + ".needle", "height", 10)
+            width: Globals.customValue(themeScope + ".needle", "width", Globals.themeVars.borderWidthMedium); height: Globals.customValue(themeScope + ".needle", "height", 10)
             color: root.dialColor
             x: 11; y: 12 - height
             transformOrigin: Item.Bottom
@@ -76,7 +76,7 @@ Rectangle {
         // Needle center dot
         Rectangle {
             width: Globals.customValue(themeScope + ".needleDot", "width", 6); height: Globals.customValue(themeScope + ".needleDot", "height", 6)
-            radius: Globals.customValue(themeScope + ".needleDot", "radius", 3)
+            radius: Globals.customValue(themeScope + ".needleDot", "radius", Globals.themeVars.borderRadiusSmall)
             color: root.dialColor
             x: 9; y: 9
             antialiasing: true
@@ -86,9 +86,9 @@ Rectangle {
     Rectangle {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.margins: -Globals.customValue(themeScope + ".warning", "margins", 2)
+        anchors.margins: -Globals.customValue(themeScope + ".warning", "margins", Globals.themeVars.spacingSmall)
         width: Globals.customValue(themeScope + ".warning", "width", 14); height: Globals.customValue(themeScope + ".warning", "height", 14)
-        radius: Globals.customValue(themeScope + ".warning", "radius", 7)
+        radius: Globals.customValue(themeScope + ".warning", "radius", Globals.themeVars.borderRadiusSmall)
         color: Globals.customValue(themeScope + ".warning", "color", Globals.themeVars.Warning) // Error color
         visible: PowerProfiles.degradationReason !== PerformanceDegradationReason.None
 
