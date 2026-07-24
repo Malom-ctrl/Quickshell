@@ -23,7 +23,14 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: popup.isActive = !popup.isActive
+        onClicked: {
+            if (!popup.isActive) {
+                Globals.closePopups();
+                popup.isActive = true;
+            } else {
+                popup.isActive = false;
+            }
+        }
     }
 
     ThemePopup {

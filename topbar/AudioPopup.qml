@@ -7,17 +7,6 @@ PopupWindow {
     id: audioPopup
 
     property bool isActive: false
-    visible: active
-
-    // Animate open/close
-    property bool active: isActive
-    Behavior on active {
-        // Just rely on Window's built-in window management,
-        // or we can use custom animation by overriding MaskWindow/etc.
-        // For simplicity, PanelWindow usually doesn't animate unless told to.
-        // Let's manually animate window opacity
-    }
-
     property Item anchorItem: null
 
     anchor {
@@ -65,19 +54,32 @@ PopupWindow {
         Pipewire.preferredDefaultAudioSource = sources[idx];
     }
 
-    // Animation
+    grabFocus: true
+
+    
+    Connections {
+        target: Globals
+        function onClosePopups() {
+            if (audioPopup.isActive) { audioPopup.isActive = false; audioPopup.visible = false; }
+        }
+    }
+    onIsActiveChanged: {
+        if (isActive) visible = true;
+    }
+
+    onVisibleChanged: {
+        if (!visible && isActive) {
+            isActive = false;
+        }
+    }
+
     property real openProgress: isActive ? 1.0 : 0.0
     Behavior on openProgress {
         NumberAnimation { duration: 250; easing.type: Easing.OutCubic }
     }
 
-    // Defer hide until animation finishes
     onOpenProgressChanged: {
-        if (openProgress === 0.0 && !isActive) {
-            audioPopup.visible = false;
-        } else if (isActive && !audioPopup.visible) {
-            audioPopup.visible = true;
-        }
+        if (openProgress === 0.0 && !isActive) visible = false;
     }
 
     Item {

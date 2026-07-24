@@ -431,7 +431,8 @@ PanelWindow {
                             subtitle: subStr,
                             action: "file",
                             target: pathStr,
-                            iconPath: icon
+                            iconPath: icon,
+                            completion: isDir ? pathStr : undefined
                         });
                     }
                 }
@@ -501,12 +502,14 @@ PanelWindow {
                 } catch(e) {
                     res = "Error";
                 }
+                let isValidResult = res !== "" && res !== "Error";
                 launcherLogic.resultsModel = [{
                     title: res !== "" ? res : "Type an expression",
                     subtitle: "Calculator",
                     action: "copy",
                     target: res,
-                    iconPath: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 16h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2zm-4 8H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V9h2v2zm8 8h-2v-4h2v4zm0-6h-2V9h2v2z"
+                    iconPath: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 16h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2zm-4 8H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V9h2v2zm8 8h-2v-4h2v4zm0-6h-2V9h2v2z",
+                    completion: isValidResult ? "=" + res : undefined
                 }];
             } else if (text.startsWith("?")) {
                 let query = text.substring(1).trim();
@@ -625,10 +628,10 @@ PanelWindow {
             if (resultsModel.length === 0) return;
             let current = resultsModel[resultsList.currentIndex];
             if (!current) return;
+            if (current.completion === undefined || current.completion === null || current.completion === "") return;
 
-            if (current.action === "file" && current.target.endsWith("/")) {
-                searchInput.text = current.target;
-            }
+            searchInput.text = current.completion;
+            searchInput.cursorPosition = searchInput.text.length;
         }
 
         function hideLauncher() {

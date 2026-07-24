@@ -10,6 +10,7 @@ RowLayout {
 
     property var workspacesList: []
     property string outputName: ""
+    height: Globals.customValue(themeScope, "height", 40)
 
     Component.onCompleted: {
         niriProc.running = true;
@@ -22,9 +23,6 @@ RowLayout {
         stdout: SplitParser {
             splitMarker: "\n"
             onRead: (data) => {
-                // On any event from niri, refresh workspaces.
-                // You can also parse specific events to be more efficient,
-                // but re-running the fetch on any event stream output works well.
                 try {
                     let ev = JSON.parse(data);
                     if (ev.WorkspacesChanged && ev.WorkspacesChanged.workspaces) {

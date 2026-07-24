@@ -308,7 +308,14 @@ echo "SYSINFO@@$cpu_stat@@$mem@@$temp@@$net"
             property bool isActive: false
             visible: isActive || openProgress > 0.0
 
-            onIsActiveChanged: {
+            
+    Connections {
+        target: Globals
+        function onClosePopups() {
+            if (infoPopup.isActive) { infoPopup.isActive = false; infoPopup.visible = false; }
+        }
+    }
+    onIsActiveChanged: {
                 if (isActive) infoItem.popupOpened();
                 else infoItem.popupClosed();
             }

@@ -11,10 +11,23 @@ PopupWindow {
     property var cveSeverityCache: ({})
     property bool updatingAllFlatpaks: false
 
+    grabFocus: true
 
-    visible: isActive || openProgress > 0.0
 
+    Connections {
+        target: Globals
+        function onClosePopups() {
+            if (root.isActive) { root.isActive = false; root.visible = false; }
+        }
+    }
     onIsActiveChanged: {
+        if (isActive) visible = true;
+    }
+
+    onVisibleChanged: {
+        if (!visible && isActive) {
+            isActive = false;
+        }
     }
 
     property real openProgress: isActive ? 1.0 : 0.0
@@ -22,8 +35,8 @@ PopupWindow {
         NumberAnimation { duration: 250; easing.type: Easing.OutCubic }
     }
 
-    Component.onCompleted: {
-        dumpUpdates("completed")
+    onOpenProgressChanged: {
+        if (openProgress === 0.0 && !isActive) visible = false;
     }
 
     Connections {
@@ -83,11 +96,6 @@ PopupWindow {
         for (let i = 0; i < updates.length; ++i) {
             const u = updates[i]
         }
-    }
-
-    onOpenProgressChanged: {
-        if (openProgress === 0.0 && !isActive) visible = false;
-        else if (isActive && !visible) visible = true;
     }
 
     anchor {
@@ -522,7 +530,6 @@ PopupWindow {
                                 }
                             }
 
-                            // Fallback if there are updates but list is empty (e.g. parsing failed)
                             Rectangle {
                                 visible: widgetRoot && widgetRoot.ostreeUpdates > 0 && widgetRoot.ostreeMgr && widgetRoot.ostreeMgr.updateCount === 0
                                 Layout.fillWidth: true

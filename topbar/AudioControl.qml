@@ -10,7 +10,7 @@ Item {
     id: root
     property string themeScope: "topbar.AudioControl"
     width: Globals.customValue(themeScope, "width", 40); height: Globals.customValue(themeScope, "height", 40)
-    property bool popupVisible: false
+    property alias popupVisible: audioPopup.isActive
 
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property bool sinkMuted: sink?.audio?.muted ?? false
@@ -62,7 +62,14 @@ Item {
             hoverEnabled: true
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
-            onClicked: root.popupVisible = !root.popupVisible
+            onClicked: {
+            if (!root.popupVisible) {
+                Globals.closePopups();
+                root.popupVisible = true;
+            } else {
+                root.popupVisible = false;
+            }
+        }
             onWheel: (wheel) => {
                 if (!root.sink || !root.sink.audio) return
                 let v = root.sink.audio.volume
@@ -74,5 +81,9 @@ Item {
                 }
             }
         }
+    }
+    AudioPopup {
+        id: audioPopup
+        anchorItem: root
     }
 }

@@ -49,7 +49,6 @@ QtObject {
     property string themesDir: Quickshell.env("HOME") + "/.config/qs-themes"
     property string activeThemeFile: ""
 
-    // Small text file in Quickshell's own state dir, survives restarts
     property FileView activeStateFile: FileView {
         path: root.themesReady ? Quickshell.cachePath("activeTheme.txt") : ""
         watchChanges: true

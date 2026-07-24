@@ -3,6 +3,8 @@ import QtQuick
 import qs.theming
 
 QtObject {
+    signal closePopups()
+
     property string shellName: Theme.shellName
     property string themePrefix: Theme.themePrefix
 

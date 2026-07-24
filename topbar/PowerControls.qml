@@ -12,7 +12,7 @@ Rectangle {
     color: mouseArea.containsMouse ? Globals.customValue(themeScope, "hoverColor", Globals.themeVars.Secondary25) : Globals.customValue(themeScope, "color", Globals.themeVars.Secondary10)
     Behavior on color { ColorAnimation { duration: 150 } }
 
-    property bool popupVisible: false
+    property alias popupVisible: powerPopup.isActive
 
     Icon {
         anchors.centerIn: parent
@@ -26,14 +26,38 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: root.popupVisible = !root.popupVisible
+        onClicked: {
+            if (!root.popupVisible) {
+                Globals.closePopups();
+                root.popupVisible = true;
+            } else {
+                root.popupVisible = false;
+            }
+        }
     }
 
     PopupWindow {
         id: powerPopup
 
-        property bool isActive: root.popupVisible
-        visible: isActive || openProgress > 0.0
+        property bool isActive: false
+        grabFocus: true
+
+        
+    Connections {
+        target: Globals
+        function onClosePopups() {
+            if (powerPopup.isActive) { powerPopup.isActive = false; powerPopup.visible = false; }
+        }
+    }
+    onIsActiveChanged: {
+            if (isActive) visible = true;
+        }
+
+        onVisibleChanged: {
+        if (!visible && isActive) {
+            root.popupVisible = false;
+        }
+    }
 
         property real openProgress: isActive ? 1.0 : 0.0
         Behavior on openProgress {
@@ -42,7 +66,6 @@ Rectangle {
 
         onOpenProgressChanged: {
             if (openProgress === 0.0 && !isActive) visible = false;
-            else if (isActive && !visible) visible = true;
         }
 
         anchor {

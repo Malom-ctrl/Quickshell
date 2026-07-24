@@ -10,6 +10,8 @@ Icon 1.0 Icon.qml
 Media 1.0 Media.qml
 NotificationPopup 1.0 NotificationPopup.qml
 NotificationWidget 1.0 NotificationWidget.qml
+BluetoothPopup 1.0 BluetoothPopup.qml
+BluetoothWidget 1.0 BluetoothWidget.qml
 PowerControls 1.0 PowerControls.qml
 PowerProfile 1.0 PowerProfile.qml
 SystemInfo 1.0 SystemInfo.qml

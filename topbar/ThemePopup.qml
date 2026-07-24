@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Io
 import Qt.labs.folderlistmodel
@@ -9,7 +10,23 @@ PopupWindow {
     property bool isActive: false
     property Item anchorItem: null
 
-    visible: isActive || openProgress > 0.0
+    grabFocus: true
+
+    Connections {
+        target: Globals
+        function onClosePopups() {
+            if (popup.isActive) { popup.isActive = false; popup.visible = false; }
+        }
+    }
+    onIsActiveChanged: {
+        if (isActive) visible = true;
+    }
+
+    onVisibleChanged: {
+        if (!visible && isActive) {
+            isActive = false;
+        }
+    }
 
     property real openProgress: isActive ? 1.0 : 0.0
     Behavior on openProgress {
@@ -17,10 +34,7 @@ PopupWindow {
     }
 
     onOpenProgressChanged: {
-        if (openProgress === 0.0 && !isActive) {
-            visible = false;
-        }
-        else if (isActive && !visible) visible = true;
+        if (openProgress === 0.0 && !isActive) visible = false;
     }
 
     anchor {
@@ -33,7 +47,7 @@ PopupWindow {
     property string themeScope: "topbar.ThemePopup"
 
     // 4 columns * ~120 width + 3 * spacing + margins
-    implicitWidth: Globals.customValue(themeScope, "width", (120 * 4) + (8 * 3) + 32)
+    implicitWidth: Globals.customValue(themeScope, "width", (120 * 4) + (8 * 3) + 32) + (2 * Globals.popupScreenPadding)
     implicitHeight: Globals.customValue(themeScope, "height", Math.min(600, contentLayout.implicitHeight + 32))
     color: "transparent"
 
@@ -63,8 +77,9 @@ PopupWindow {
 
     Item {
         id: bgItem
-        width: parent.width
+        width: parent.width - (2 * Globals.popupScreenPadding)
         height: parent.height
+        anchors.horizontalCenter: parent.horizontalCenter
         scale: 0.9 + (0.1 * popup.openProgress)
         opacity: popup.openProgress
         transformOrigin: Item.Top
@@ -196,6 +211,7 @@ PopupWindow {
 
                                         // Wallpaper preview
                                         Rectangle {
+                                            id: previewContainer
                                             Layout.fillWidth: true
                                             Layout.fillHeight: true
                                             radius: Globals.customValue(themeScope + ".popup.listItem.preview", "radius", Globals.customValue("", "borderRadiusMedium", 8))
@@ -205,10 +221,26 @@ PopupWindow {
                                             border.width: Globals.customValue(themeScope + ".popup.listItem.preview", "borderWidth", Globals.themeVars.borderWidthSmall)
 
                                             Image {
+                                                id: wallpaperImage
                                                 anchors.fill: parent
                                                 source: themeItem.previewImagePath
                                                 fillMode: Image.PreserveAspectCrop
                                                 visible: source !== ""
+
+                                                layer.enabled: true
+                                                layer.effect: MultiEffect {
+                                                    maskEnabled: true
+                                                    maskSource: maskRect
+                                                }
+                                            }
+
+                                            Rectangle {
+                                                id: maskRect
+                                                anchors.fill: parent
+                                                radius: previewContainer.radius
+                                                color: "white"
+                                                visible: false
+                                                layer.enabled: true
                                             }
                                         }
 

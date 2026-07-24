@@ -13,7 +13,7 @@ Rectangle {
     color: (mouseArea.containsMouse || popupVisible) ? Globals.customValue(themeScope, "hoverColor", Globals.themeVars.Secondary50) : Globals.customValue(themeScope, "color", Globals.themeVars.Secondary25)
     Behavior on color { ColorAnimation { duration: 150 } }
 
-    property bool popupVisible: false
+    property alias popupVisible: popup.isActive
     property var activeNotification: null
 
     NotificationServer {
@@ -40,7 +40,12 @@ Rectangle {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         onClicked: {
-            root.popupVisible = !root.popupVisible;
+            if (!root.popupVisible) {
+                Globals.closePopups();
+                root.popupVisible = true;
+            } else {
+                root.popupVisible = false;
+            }
         }
     }
 
@@ -175,7 +180,6 @@ Rectangle {
 
     NotificationPopup {
         id: popup
-        isActive: root.popupVisible
         server: server
         anchorItem: root
     }

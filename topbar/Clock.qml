@@ -12,7 +12,7 @@ Rectangle {
     color: (clockMouseArea.containsMouse || popupVisible) ? Globals.customValue(themeScope, "hoverColor", Globals.themeVars.Secondary50) : Globals.customValue(themeScope, "color", Globals.themeVars.Secondary25)
     Behavior on color { ColorAnimation { duration: 150 } }
 
-    property bool popupVisible: false
+    property alias popupVisible: calendarPopup.isActive
 
     Timer {
         interval: 1000
@@ -54,12 +54,19 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: root.popupVisible = !root.popupVisible
+        onClicked: {
+            if (!root.popupVisible) {
+                Globals.closePopups();
+                root.popupVisible = true;
+            } else {
+                root.popupVisible = false;
+            }
+        }
     }
 
     CalendarPopup {
         id: calendarPopup
-        isActive: root.popupVisible
+        
 
         anchor {
             item: root

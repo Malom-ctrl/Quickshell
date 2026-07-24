@@ -11,7 +11,24 @@ PopupWindow {
 
     property string themeScope: "topbar.NotificationPopup"
 
-    visible: isActive || openProgress > 0.0
+    grabFocus: true
+
+    
+    Connections {
+        target: Globals
+        function onClosePopups() {
+            if (popup.isActive) { popup.isActive = false; popup.visible = false; }
+        }
+    }
+    onIsActiveChanged: {
+        if (isActive) visible = true;
+    }
+
+    onVisibleChanged: {
+        if (!visible && isActive) {
+            isActive = false;
+        }
+    }
 
     property real openProgress: isActive ? 1.0 : 0.0
     Behavior on openProgress {
@@ -20,7 +37,6 @@ PopupWindow {
 
     onOpenProgressChanged: {
         if (openProgress === 0.0 && !isActive) visible = false;
-        else if (isActive && !visible) visible = true;
     }
 
     anchor {

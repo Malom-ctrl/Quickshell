@@ -47,6 +47,8 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: Globals.customValue(themeScope + ".leftGroup", "spacing", Globals.themeVars.spacingLarge)
 
+                ThemeWidget { }
+
                 Workspaces {
                     outputName: root.screen ? root.screen.name : ""
                 }
@@ -101,6 +103,10 @@ PanelWindow {
                     }
                 }
 
+                AudioControl {
+                    id: audioControl
+                }
+
                 Media { }
 
                 Clock { }
@@ -116,11 +122,10 @@ PanelWindow {
 
                 SystemInfo { }
 
-                ThemeWidget { }
+                // NetworkWidget { }
+                BluetoothWidget { }
 
-                AudioControl {
-                    id: audioControl
-                }
+
 
                 PowerProfile { }
                 Battery { }
@@ -131,10 +136,4 @@ PanelWindow {
         }
     }
 
-    AudioPopup {
-        id: audioPopup
-        screen: root.screen
-        isActive: audioControl.popupVisible
-        anchorItem: audioControl
-    }
 }

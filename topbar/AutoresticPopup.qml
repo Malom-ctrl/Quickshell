@@ -8,7 +8,24 @@ PopupWindow {
     id: root
     property bool isActive: false
     property var widgetRoot: null
-    visible: isActive || openProgress > 0.0
+    grabFocus: true
+
+    
+    Connections {
+        target: Globals
+        function onClosePopups() {
+            if (root.isActive) { root.isActive = false; root.visible = false; }
+        }
+    }
+    onIsActiveChanged: {
+        if (isActive) visible = true;
+    }
+
+    onVisibleChanged: {
+        if (!visible && isActive) {
+            isActive = false;
+        }
+    }
 
     property real openProgress: isActive ? 1.0 : 0.0
     Behavior on openProgress {
@@ -17,7 +34,6 @@ PopupWindow {
 
     onOpenProgressChanged: {
         if (openProgress === 0.0 && !isActive) visible = false;
-        else if (isActive && !visible) visible = true;
     }
 
     anchor {

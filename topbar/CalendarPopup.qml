@@ -6,7 +6,24 @@ PopupWindow {
     id: calendarPopup
 
     property bool isActive: false
-    visible: isActive || openProgress > 0.0
+    grabFocus: true
+
+
+    Connections {
+        target: Globals
+        function onClosePopups() {
+            if (calendarPopup.isActive) { calendarPopup.isActive = false; calendarPopup.visible = false; }
+        }
+    }
+    onIsActiveChanged: {
+        if (isActive) visible = true;
+    }
+
+    onVisibleChanged: {
+        if (!visible && isActive) {
+            isActive = false;
+        }
+    }
 
     property real openProgress: isActive ? 1.0 : 0.0
     Behavior on openProgress {
@@ -15,14 +32,12 @@ PopupWindow {
 
     onOpenProgressChanged: {
         if (openProgress === 0.0 && !isActive) visible = false;
-        else if (isActive && !visible) visible = true;
     }
 
     property string themeScope: "topbar.CalendarPopup"
 
-    // Size the window from the actual content, not hardcoded numbers
-    implicitWidth: mainColumn.implicitWidth + (2 * mainColumn.anchors.margins) + (2 * Globals.popupScreenPadding)
-    implicitHeight: mainColumn.implicitHeight + (2 * mainColumn.anchors.margins) + (2 * Globals.popupScreenPadding)
+    implicitWidth: mainColumn.implicitWidth + (2 * Globals.customValue(themeScope + ".popup.layout", "margins", Globals.themeVars.spacingHuge)) + (2 * Globals.popupScreenPadding)
+    implicitHeight: mainColumn.implicitHeight + (2 * Globals.customValue(themeScope + ".popup.layout", "margins", Globals.themeVars.spacingHuge))
     color: "transparent"
 
     property int currentMonth: new Date().getMonth()
@@ -65,8 +80,8 @@ PopupWindow {
 
     Item {
         width: parent.width - (2 * Globals.popupScreenPadding)
-        height: parent.height - (2 * Globals.popupScreenPadding)
-        anchors.centerIn: parent
+        height: parent.height
+        anchors.horizontalCenter: parent.horizontalCenter
         scale: 0.9 + (0.1 * calendarPopup.openProgress)
         opacity: calendarPopup.openProgress
         transformOrigin: Item.Top
@@ -114,7 +129,6 @@ PopupWindow {
                     }
                 }
 
-                // Calendar Grid — no longer stretched, so it stays perfectly centered
                 GridLayout {
                     id: calendarGrid
                     columns: 7

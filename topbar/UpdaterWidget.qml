@@ -8,7 +8,7 @@ import Custom.SystemUpdater 1.0
 Rectangle {
     id: root
     property string themeScope: "topbar.UpdaterWidget"
-    width: layout.implicitWidth + Globals.customValue(themeScope + ".layout", "padding", Globals.themeVars.spacingHuge)
+    width: Math.max(layout.implicitWidth + Globals.customValue(themeScope + ".layout", "padding", Globals.themeVars.spacingHuge), Globals.customValue(themeScope, "minWidth", 40))
     height: Globals.customValue(themeScope, "height", 40)
     radius: Globals.customValue(themeScope, "radius", Globals.themeVars.borderRadiusHuge)
     color: (mouseArea.containsMouse || popup.isActive) ? Globals.customValue(themeScope, "hoverColor", Globals.themeVars.Secondary50) : Globals.customValue(themeScope, "color", Globals.themeVars.Secondary25)
@@ -223,7 +223,14 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: popup.isActive = !popup.isActive
+        onClicked: {
+            if (!popup.isActive) {
+                Globals.closePopups();
+                popup.isActive = true;
+            } else {
+                popup.isActive = false;
+            }
+        }
     }
 
     UpdaterPopup {

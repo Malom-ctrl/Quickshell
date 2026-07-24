@@ -166,6 +166,7 @@ Item {
             id: batteryPopup
 
             property bool isActive: root.showTooltip
+            Connections { target: Globals; function onClosePopups() { if(batteryPopup.isActive) { root.showTooltip = false; batteryPopup.visible = false; } } }
             visible: isActive || openProgress > 0.0
 
             property real openProgress: isActive ? 1.0 : 0.0
